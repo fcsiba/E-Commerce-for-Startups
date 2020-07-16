@@ -1,0 +1,424 @@
+﻿
+@{
+    ViewBag.Title = "Others return Stock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section ControlsSection{
+
+    <div class="card">
+        <div class="card-body">
+            <button id="btnAdd" type="button" class="btn waves-effect waves-light btn-block btn-info col-lg-2" data-toggle="modal" data-target="#add-contact">Submit New Return</button>
+            <form class="floating-labels m-t-40">
+
+                <div class="form-group m-b-40">
+                    @Html.DropDownList("cmbtype", (IEnumerable<SelectListItem>)ViewBag.type, String.Empty, new { @class = "form-control p-0" })
+                    <label for="cmbtype">Select Type</label>
+                </div>
+
+
+                <div class="form-group m-b-20">
+
+                    <select class="form-control p-1" id="local"></select>
+                </div>
+
+            </form>
+            <div id="add-contact" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="margin-top: 12%;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Return</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+
+                            <form class="floating-labels m-t-20">
+                                <div class="form-group m-b-20 focused">
+                                    <input type="text" class="form-control" id="txtreason" >
+                                    <span class="bar"></span>
+                                    <label for="txtreason">Reason</label>
+                                </div>
+                                <div class="checkbox checkbox-primary p-t-0">
+                                    <input id="checkboxS" type="checkbox" value="true">
+                                    <label for="checkboxS"> Save to Main </label>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnReturnStock" type="button" class="btn btn-info waves-effect" data-dismiss="modal" disabled="false">Return Stock</button>
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="table-responsive m-t-40">
+                <table id="myTable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Item Name</th>
+                            <th>Small</th>
+                            <th>Medium</th>
+                            <th>Large</th>
+                            <th>X Large</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            </div>
+        </div>
+    
+
+
+    }
+
+
+    <script>
+
+        var table;
+        var proID = 0;
+     
+        $(document).ready(function () {
+
+            @*@{
+                TempData["local"] = 0;
+                TempData["type"] = 0;
+                TempData.Keep("local");
+                TempData.Keep("type");
+                }*@
+
+            //$('#btnUpdateStock').click(function () {
+            //    var s = $('#txtSmall').val();
+            //    var m = $('#txtMedium').val();
+            //    var l = $('#txtLarge').val();
+            //    var xl = $('#txtxLarge').val();
+            //
+            //    if (s === "")
+            //        s = 0;
+            //    if (m === "")
+            //        m = 0;
+            //    if (l === "")
+            //        l = 0;
+            //    if (xl === "")
+            //        xl = 0;
+            //
+            //
+            //
+            //    console.log('Pro ID: ', proID, s, m, l, xl);
+            //
+            //    $.ajax({
+            //        type: "POST",
+            //        url: '/ManageProducts/UpdateStock',
+            //        contentType: "application/json",
+            //        traditional: true,
+            //        data: JSON.stringify({ id: proID, small: s, medium: m, large: l, xLarge: xl }),
+            //        dataType: "json",
+            //        success: function (recData) {
+            //            if (recData.status == "Success") {
+            //                table.ajax.reload(null, false); // user paging is not reset on reload
+            //                //Reset value = 0
+            //                $('#txtSmall').val(0);
+            //                $('#txtMedium').val(0);
+            //                $('#txtLarge').val(0);
+            //                $('#txtxLarge').val(0);
+            //                $('.form-group').addClass('focused');
+            //                swal("Stock Updated!", {
+            //                    icon: "success",
+            //                });
+            //            }
+            //            else {
+            //                swal({
+            //                    title: "Opps!",
+            //                    text: recData.Data,
+            //                    icon: "error",
+            //                });
+            //            }
+            //
+            //        },
+            //        error: function () {
+            //            swal({
+            //
+            //                title: "Opps!",
+            //                text: "Something went wrong",
+            //                icon: "error",
+            //            });
+            //        }
+            //    });
+            //
+            //
+            //});
+
+
+            @*var x= $('#cmbtype').val()
+  @ViewBag.rettype=x;
+
+        var y= $('#cmblocal').val()
+        @ViewBag.retailer=y;
+
+        @{TempData["type"] = ViewBag.rettype; }
+        @{TempData["local"] = ViewBag.retailer;}*@
+
+            table = $('#myTable').DataTable({
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "bLengthChange": false,
+                buttons: [
+                  'copyHtml5',
+                  'excelHtml5',
+                  'csvHtml5',
+                  'pdfHtml5'
+                ],
+                "ajax": {
+                    "url": "/returnStockOthers/LoadData/",
+                    "type": "POST",
+                    "datatype": "json",
+                    error: function (xhr, error, thrown) {
+                        console.log(xhr);
+                        console.log(error);
+                    }
+                },
+                "columnDefs":
+                   [{
+                       "targets": [0],
+                       "visible": false,
+                       "searchable": false
+                   },
+
+                   {
+                       "targets": [6],
+                       "searchable": false,
+                       "orderable": false
+                   }],
+                "columns": [
+                        { "data": "id", "name": "id", "autoWidth": true },
+                        { "data": "itemName", "name": "category", "autoWidth": true },
+                        { "data": "small", "name": "Code", "autoWidth": true },
+                        { "data": "medium", "name": "itemName", "autoWidth": true },
+                        { "data": "large", "name": "Fabric", "autoWidth": true },
+                        { "data": "xlarge", "name": "Price", "autoWidth": true },
+
+                        {
+                            "render": function (data, type, full, meta)
+                            { return '<a href="/returnstockothers/Edit/' + full.id + '"><i class="fas fa-edit"></i></a><span> | </span> <a href="javascript:void(myFunction())" onclick=DeleteData(' + full.id + ');> <i class="fas fa-trash-alt" style="color:#d9534f;"></i>'; }
+
+                        },
+                ]
+            });
+        });
+
+
+        $('#btnReturnStock').click(function () {
+
+            type = '@Session["uType"]';
+            if (type === "") {
+                window.location = '../Login';
+            }
+
+            //get all data from table
+            var reason = $('#txtreason').val();
+            
+            var bit = $("#checkboxS").is(":checked");
+
+      
+          
+                
+               console.log(bit);
+            //send data
+                $.ajax({
+                    type: "POST",
+                    url: '/returnstockOthers/add',
+                    contentType: "application/json",
+                    traditional: true,
+                    data: JSON.stringify({ reason: reason ,bit:bit}),
+                    dataType: "json",
+                    success: function (recData) {
+                        if (recData.Data == "Success") {
+                            table.ajax.reload(null, false); // user paging is not reset on reload
+                            swal({
+                                title: "Done",
+                                text: "Returned Successfully",
+                                icon: "Success",
+                            });
+                        }
+                        else {
+                            swal({
+                                title: "Opps!",
+                                text: recData.Data,
+                                icon: "error",
+                            });
+                        }
+
+                    },
+                    error: function () {
+                        swal({
+
+                            title: "Opps!",
+                            text: "Something went wrong",
+                            icon: "error",
+                        });
+                    }
+                });
+           
+          
+        });
+
+
+
+        function DeleteData(productID) {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this data!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+          .then((willDelete) => {
+              if (willDelete) {
+
+                  $.ajax({
+                      type: "POST",
+                      url: '/returnstockOthers/Delete',
+                      contentType: "application/json",
+                      traditional: true,
+                      data: JSON.stringify({ id: productID }),
+                      dataType: "json",
+                      success: function (recData) {
+                          if (recData.Data == "Success") {
+                              table.ajax.reload(null, false); // user paging is not reset on reload
+                              swal("Product has been deleted!", {
+                                  icon: "success",
+                              });
+                          }
+                          else {
+                              swal({
+                                  title: "Opps!",
+                                  text: "Product has been ordered by customer.",
+                                  icon: "error",
+                              });
+                          }
+
+                      },
+                      error: function () {
+                          swal({
+
+                              title: "Opps!",
+                              text: "Something went wrong",
+                              icon: "error",
+                          });
+                      }
+                  });
+
+              }
+          });
+        }
+
+        //dropdown population
+        $(function () {
+            $('#cmbtype').change(function () {
+                $.getJSON('/ReturnStockOthers/itemList/' + $('#cmbtype').val(), function (data) {
+                    $('#local').empty();
+                    console.log(data);
+
+                    var items = '<option value="-1">Please Select Type</option>';
+                    $.each(data, function (i, type) {
+                        items += "<option value='" + type.Value + "'>" + type.Text + "</option>";
+                    });
+                    $('#local').html(items);
+
+                });
+            });
+        });
+
+
+        //on cmbretail value change
+        $(function () {
+
+            $('#local').change(function () {
+                var typeid_ = $('#cmbtype').val();
+                var retailid_ = $('#local').val();
+                $.ajax({
+                    type: "POST",
+                    url: '/returnstockOthers/asignIds',
+                    contentType: "application/json",
+                    traditional: true,
+                    data: JSON.stringify({ typeid: typeid_, retailid: retailid_ }),
+                    dataType: "json",
+                    success: function (recData) {
+                        console.log(recData.Data)
+                        if (recData.Data == "success") {
+                            table.ajax.reload(null, false); // user paging is not reset on reload
+
+
+
+                        }
+                        else if(recData.Data=="nodata") {
+                            swal({
+                                title: "Opps!",
+                                text: "No item Available",
+                                icon: "error",
+                            });
+                        }
+                        else {
+                            swal({
+                                title: "Opps!",
+                                text: "Failed",
+                                icon: "error",
+                            });
+
+                        }
+
+                    },
+                    error: function () {
+                        swal({
+
+                            title: "Opps!",
+                            text: "Something went wrong",
+                            icon: "error",
+                        });
+                    }
+                });
+
+
+
+
+
+            });
+        });
+        $(function () {
+
+            $('#btnAdd').click(function () {
+                // window.location = "/subInventoryView/index";
+                var rowCount = $("#myTable > tbody tr ").children().length;
+                console.log(rowCount);
+                if (rowCount <= 1) {
+                    swal({
+                        title: "Opps!",
+                        text: "No Product Available to return.",
+                        icon: "error",
+                    });
+                    $('#btnReturnStock').attr('disabled', true);
+                }
+                else {
+                    console.log(rowCount);
+                    $('#btnReturnStock').attr('disabled', false);
+
+                }
+
+
+
+
+
+            });
+
+        });
+
+
+
+    </script>

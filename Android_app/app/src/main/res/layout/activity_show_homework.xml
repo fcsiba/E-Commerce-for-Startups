@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            android:background="@color/blue_600">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/spacing_large"
+                    android:layout_height="0dp"/>
+
+                <RelativeLayout
+                    android:id="@+id/open_dialog_change_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:id="@+id/course_first_letter_image_tint"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/shape_circle"
+                        android:backgroundTint="@color/mdtp_white"
+                        android:tint="@color/grey_40" />
+
+                    <TextView
+                        android:id="@+id/course_first_letter_image"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:gravity="center"
+                        android:text="T"
+                        style="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/blue_700"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/transparent"
+                    app:title="Homework"
+                    app:contentInsetStartWithNavigation="0dp"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyt_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="40dp"
+                android:orientation="horizontal"/>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.material.components.widget.ViewLoadingDotsBounce
+                android:id="@+id/progress_bar_homework"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                android:background="@color/blue_600" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewShowHomework"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                android:scrollingCache="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_anchor="@id/lyt_title"
+        app:layout_anchorGravity="end|right|bottom">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_date_post_homework"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:clickable="true"
+            android:tint="@android:color/white"
+            app:backgroundTint="@color/red_400"
+            app:fabSize="mini"
+            app:rippleColor="@android:color/white"
+            app:srcCompat="@drawable/ic_calendar" />
+
+        <View
+            android:layout_width="@dimen/spacing_middle"
+            android:layout_height="0dp"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_goto_post_homework"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:clickable="true"
+            android:tint="@android:color/white"
+            app:backgroundTint="@color/orange_400"
+            app:fabSize="mini"
+            app:rippleColor="@android:color/white"
+            app:srcCompat="@drawable/ic_add" />
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
+
+
+
+

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<!-- Mirrored from nephos.cssninja.io/home.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jul 2018 05:15:50 GMT -->
+<head>
+        <!-- Required meta tags always come first -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Fastech</title>
+        <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+
+        <!--Core CSS -->
+        <link rel="stylesheet" href="assets/css/bulma.css">
+        <link rel="stylesheet" href="assets/css/core.css">
+        
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:100,400" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500" rel="stylesheet">
+        
+        <!-- plugins -->
+        <link rel="stylesheet" href="assets/js/slick/slick.css">
+        <link rel="stylesheet" href="assets/js/slick/slick-theme.css">
+        <link rel="stylesheet" href="assets/js/webuipopover/jquery.webui-popover.min.css">
+        <link rel="stylesheet" href="assets/js/izitoast/css/iziToast.min.css">
+        <link rel="stylesheet" href="assets/js/zoom/zoom.css">
+        <link rel="stylesheet" href="assets/js/jpcard/card.css">
+        <link rel="stylesheet" href="assets/css/chosen/chosen.css">
+        <link rel="stylesheet" href="assets/css/icons.min.css">
+
+    </head>
+    <body>
+        
+        <!-- Pageloader -->
+        <div class="pageloader"></div>
+        <div class="infraloader is-active"></div>
+        <!-- Content Wrapper -->
+        <div class="shop-wrapper has-background-image">
+        
+            <!-- Search overlay -->
+            <div class="search-overlay"></div>
+            
+            <div id="btnRemove" >
+                <a class="removeBtn">
+                    <i class="fa fa-trash-o" style="font-size:20px;color:red"></i>
+                </a>
+            </div>
+          
+            <div id="btnBrowse">
+                <a class="browseBtn" onclick="openAttachment()">
+                    <i class="fa fa-folder-o" style="font-size:20px;"></i>
+                </a>
+            </div>
+
+            <input type="file" class="file" id="attachment"  onchange="fileSelected(this)"/>
+            <input type="button" class="file" id="btnAttachment" onclick="openAttachment()" value="File" />
+            
+            <!-- Background Caption -->
+            <div class="background-caption">
+                <h1>E-COMMERCE</h1>
+            </div>
+        
+            <!-- Hero Caption -->
+            <div class="hero-caption">
+                <h1>FASTECH</h1>
+                <h2>E-COMMERCE TEMPLATE</h2>
+                <a href="site/home-03.html" class="button big-button primary-button upper-button rounded raised">Start shopping</a>
+            </div>
+        
+            <!-- Fullscreen Slick SLider -->
+            <div class="slider-wrapper">
+                <div class="fullscreen-slick">
+                    <div class="full-slide has-background-image" data-background="assets/images/bg/main-bg.jpg"></div>
+                    <div class="full-slide has-background-image" data-background="assets/images/bg/main-bg.jpg"></div>
+                    <div class="full-slide has-background-image" data-background="assets/images/bg/main-bg.jpg"></div>
+                    <div class="full-slide has-background-image" data-background="assets/images/bg/main-bg.jpg"></div>
+                </div>
+            </div>
+        </div>
+        <!-- /Content Wrapper -->
+        <!-- Concatenated plugins -->
+        <script src="assets/js/app.js"></script>
+        <!-- Helios js -->
+        <script src="assets/js/nephos.js"></script>   
+    
+<script>
+    function openAttachment() {
+  document.getElementById('attachment').click();
+}
+
+function fileSelected(input){
+  document.getElementById('btnAttachment').value = "File: " + input.files[0].name
+}
+</script>
+
+    </body> 
+</html>

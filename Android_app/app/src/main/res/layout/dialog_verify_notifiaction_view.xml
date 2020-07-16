@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@color/white_transparency"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/spacing_large"
+    android:paddingTop="@dimen/spacing_xmlarge"
+    android:paddingRight="@dimen/spacing_large"
+    android:paddingBottom="@dimen/spacing_xmlarge">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/badge_verified"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/spacing_large"/>
+
+    <TextView
+        android:id="@+id/recipient_name_to_authenticate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Authenticate?"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/spacing_large"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/bt_verify"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_rounded_red"
+        android:backgroundTint="@color/blue_600"
+        android:drawableStart="@drawable/ic_done"
+        android:drawableLeft="@drawable/ic_done"
+        android:drawablePadding="-35dp"
+        android:paddingStart="@dimen/spacing_large"
+        android:paddingLeft="@dimen/spacing_large"
+        android:text="Verify"
+        android:textStyle="bold"
+        android:textColor="@android:color/white" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/spacing_middle"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="2">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/spacing_middle"
+            android:background="@color/grey_40"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OR"
+            android:layout_marginLeft="@dimen/spacing_middle"
+            android:layout_marginRight="@dimen/spacing_middle"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/spacing_middle"
+            android:background="@color/grey_40"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/spacing_middle"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/bt_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_bg_outline_custom"
+        android:drawableStart="@drawable/ic_delete"
+        android:drawableLeft="@drawable/ic_delete"
+        android:drawableTint="@color/blue_600"
+        android:drawablePadding="-10dp"
+        android:paddingStart="@dimen/spacing_large"
+        android:paddingLeft="@dimen/spacing_large"
+        android:text="Delete"
+        android:textStyle="bold"
+        android:textColor="@color/blue_600" />
+
+</LinearLayout>

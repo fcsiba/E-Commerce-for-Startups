@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/btnCamera"
+        android:icon="@drawable/ic_photo_camera"
+        android:orderInCategory="100"
+        android:title="Order"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/btnReport"
+        android:icon="@drawable/ic_print"
+        android:orderInCategory="101"
+        android:title="Report"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/btnSave"
+        android:icon="@drawable/ic_done"
+        android:orderInCategory="101"
+        android:title="Report"
+        app:showAsAction="always" />
+
+
+
+</menu>

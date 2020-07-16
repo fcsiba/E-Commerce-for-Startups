@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewBag.Title = "Inventory Details";
+}
+
+@section ControlsSection{
+
+
+
+
+
+
+
+<div class="card">
+    <div class="card-body">
+        <h3 class="text-blue">MAIN INVENTORY</h3>
+        @*main inventory*@
+        <div class="table-responsive m-t-40">
+            <table id="myTable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Category</th>
+                        <th> A</th>
+                        <th> b</th>
+                        <th>S</th>
+                        <th>M</th>
+                        <th>L</th>
+                        <th>xL</th>
+
+
+
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+        <hr />
+        @*return inventory*@
+        <h3 class="text-blue">RETURN INVENTORY</h3>
+
+        <div class="table-responsive m-t-40">
+            <table id="myTableRI" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Category</th>
+                        <th> A</th>
+                        <th> b</th>
+                        <th>S</th>
+                        <th>M</th>
+                        <th>L</th>
+                        <th>xL</th>
+
+
+
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+
+
+    </div>
+</div>
+
+}
+
+<script>
+    var table;
+
+
+    //table script
+    $(document).ready(function () {
+
+        type = '@Session["uType"]';
+        if (type === "") {
+            window.location = '../Login';
+        }
+
+        //main inventory
+        table = $('#myTable').DataTable({
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "bLengthChange": false,
+            buttons: [
+              'copyHtml5',
+              'excelHtml5',
+              'csvHtml5',
+              'pdfHtml5'
+            ],
+            "ajax": {
+                "url": "/ManageInventory/LoadData",
+                "type": "POST",
+                "datatype": "json",
+                error: function (xhr, error, thrown) {
+                    console.log(xhr);
+                    console.log(error);
+                }
+            },
+            "columnDefs":
+               [{
+                   "targets": [0],
+                   "visible": false,
+                   "searchable": true
+               }],
+            "columns": [
+                    { "data": "id", "name": "id", "autoWidth": true },
+                    { "data": "category", "name": "typeId", "autoWidth": true },
+                    { "data": "pacA", "name": "itemName", "autoWidth": true },
+                    { "data": "pacB", "name": "Fabric", "autoWidth": true },
+                    { "data": "small", "name": "small", "autoWidth": true },
+                     { "data": "med", "name": "medium", "autoWidth": true },
+                      { "data": "large", "name": "large", "autoWidth": true },
+                       { "data": "xlarge", "name": "xlarge", "autoWidth": true },
+
+
+
+            ]
+        });
+
+
+
+
+        
+        //return inventory
+        table = $('#myTableRI').DataTable({
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "bLengthChange": false,
+            buttons: [
+              'copyHtml5',
+              'excelHtml5',
+              'csvHtml5',
+              'pdfHtml5'
+            ],
+            "ajax": {
+                "url": "/ManageInventory/LoadDataRI",
+                "type": "POST",
+                "datatype": "json",
+                error: function (xhr, error, thrown) {
+                    console.log(xhr);
+                    console.log(error);
+                }
+            },
+            "columnDefs":
+               [{
+                   "targets": [0],
+                   "visible": false,
+                   "searchable": true
+               }],
+            "columns": [
+                    { "data": "id", "name": "id", "autoWidth": true },
+                    { "data": "category", "name": "typeId", "autoWidth": true },
+                    { "data": "pacA", "name": "itemName", "autoWidth": true },
+                    { "data": "pacB", "name": "Fabric", "autoWidth": true },
+                    { "data": "small", "name": "small", "autoWidth": true },
+                     { "data": "med", "name": "medium", "autoWidth": true },
+                      { "data": "large", "name": "large", "autoWidth": true },
+                       { "data": "xlarge", "name": "xlarge", "autoWidth": true },
+
+
+
+            ]
+        });
+
+
+    });
+
+
+
+
+</script>

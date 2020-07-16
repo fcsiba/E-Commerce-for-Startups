@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.balysv.materialripple.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/RippleStyleBlack"
+    android:layout_width="match_parent"
+    android:background="@color/mdtp_white"
+    android:layout_marginBottom="@dimen/spacing_medium"
+    android:layout_height="130dp">
+
+    <LinearLayout
+        android:id="@+id/lyt_parent_notification_side_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/spacing_large"
+        android:paddingRight="@dimen/spacing_mxlarge"
+        android:paddingLeft="@dimen/spacing_mxlarge"
+        android:paddingBottom="@dimen/spacing_large"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title_notification_side_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Class Test Tomorrow"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/grey_80" />
+
+        <TextView
+            android:id="@+id/description_notification_side_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lorem_ipsum"
+            android:ellipsize="end"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginBottom="@dimen/spacing_small"
+            android:maxLines="2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/grey_60" />
+
+        <TextView
+            android:id="@+id/time_notification_side_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textColor="@color/grey_40"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:text="4 Feb, 11:00 PM" />
+
+    </LinearLayout>
+
+</com.balysv.materialripple.MaterialRippleLayout>

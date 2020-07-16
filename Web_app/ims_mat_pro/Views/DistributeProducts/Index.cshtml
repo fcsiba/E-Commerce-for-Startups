@@ -1,0 +1,410 @@
+﻿
+@{
+    ViewBag.Title = "Manage Inventory (New)";
+}
+
+
+@section ControlsSection{
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="row col-md-6 m-t-20">
+                   
+                    <div class="col-md-4 m-t-90">
+                        <form class="floating-labels">
+
+                            <div class="form-group m-b-40 focused">
+                                <input type="text" class="form-control" id="txtp">
+                                <span class="bar"></span>
+                                <label for="txtp">Item Code</label>
+                            </div>
+
+                            <div class="form-group m-t-40">
+                                <input type="number" class="form-control" id="txtA" required value="0">
+                                <span class="bar"></span>
+                                <label for="txtnp">A</label>
+                            </div>
+
+                            <div class="form-group m-t-40">
+                                <input type="number" class="form-control" id="txtB" required value="0">
+                                <span class="bar"></span>
+                                <label for="txtcp">B</label>
+                            </div>
+
+                            <div id="divLoose" class="m-t-40">
+
+                            </div>
+
+
+                        </form>
+                    </div>
+
+                  
+                    <div class="col-md-2" style="margin-top:10px; margin-left:60px">
+                      
+                        <div class="row">
+                            <img id="myimage" src="~/assets/images/images.jpg" alt="homepage" class="dark-logo" style="width:100%;" />                            
+                            <h2 id="txtDet">Product details</h2>
+                        </div>
+
+                       
+                      
+
+                       
+                    </div>
+
+                 
+
+                </div>
+                <div class="col-md-6">
+                    <div class="table-responsive m-t-40">
+                        <table id="myTable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>Item Code</th>
+                                    <th>Pac A</th>
+                                    <th>Pac B</th>
+                                    <th>S</th>
+                                    <th>M</th>
+                                    <th>L</th>
+                                    <th>XL</th>
+                                    <th>XXL</th>
+                                    <th>XXXL</th>
+                                    <th>K-14</th>
+                                    <th>K-16</th>
+                                    <th>K-18</th>
+                                    <th>K-20</th>
+                                    <th>K-22</th>
+                                    <th>K-24</th>
+                                    <th>K-26</th>
+                                    <th>K-28</th>
+                                    <th>28</th>
+                                    <th>30</th>
+                                    <th>32</th>
+                                    <th>34</th>
+                                    <th>36</th>
+                                    <th>38</th>
+                                    <th>40</th>
+                                    <th>42</th>
+                                    <th>44</th>                                  
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                   
+
+                </div>
+
+                   <button id="btnSave" type="button" class="btn btn-block btn-primary m-t-30">
+                        Save
+                    </button>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script>
+
+    var table;
+    var editID = 0;
+    var itmCode = 0;
+    var originalItmCode="";
+    $(document).ready(function () {
+
+        type = '@Session["lotID"]';
+       
+        if (type === "") {
+            window.location = '../Login';
+        }
+
+        $.getJSON('/NewLot/PopulateLoose/' + type, function (recData) {
+            console.log(recData);
+            $('.form-group').addClass('focused');
+            $('#divLoose').empty();
+            var packs = "<div class='form-group m-t-40 m-b-40 focused' style='WIDTH: 100%;'> <input type='number' class='form-control' id='txtA' value='0'> <span class='bar'></span> <label for='txtA'>Packet A</label> </div> <div class='form-group m-t-40 m-b-40 focused' style='WIDTH: 50%; margin-left: 315px; margin-top: -84px;'> <input type='number' class='form-control' id='txtB' value='0'> <span class='bar'></span> <label for='txtB'>Packet B</label> </div>";
+            //$('#divLoose').append(packs);
+
+            console.log(recData.status);
+            if (recData.status == 1) { //Populate
+                $.each(recData.Data, function (i, l) {
+                    //console.log("Index #" + i + ": " + l.size + " - " + l.qty);
+                    if ((i % 2) == 0) {
+                        var data = "<div class='form-group m-t-20 m-b-40 focused' style='WIDTH: 100%;'> <input type='number' class='form-control' id='txt_#id' value='#value'> <span class='bar'></span> <label for='txtA'>#label</label> </div>";
+                        data = data.replace(/#id/g, l.id);
+                        data = data.replace(/#label/g, l.size);
+                        data = data.replace(/#value/g, '0');
+
+                        $('#divLoose').append(data);
+                    }
+                    else {
+                        var data = "<div class='form-group m-t-20 m-b-40 focused' style='WIDTH: 100%; margin-left: 315px; margin-top: -84px;'> <input type='number' class='form-control' id='txt_#id' value='#value'> <span class='bar'></span> <label for='txtB'>#label</label> </div>";
+                        data = data.replace(/#id/g, l.id);
+                        data = data.replace(/#label/g, l.size);
+                        data = data.replace(/#value/g, '0');
+
+                        $('#divLoose').append(data);
+                    }
+
+
+                });
+            }
+        });
+
+         table =  $('#myTable').DataTable({
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "bLengthChange": false,
+                buttons: [
+                  'copyHtml5',
+                  'excelHtml5',
+                  'csvHtml5',
+                  'pdfHtml5'
+                ],
+                "ajax": {
+                    "url": "/DistributeProducts/LoadData",
+                    "type": "POST",
+                    "datatype": "json",
+                    error: function (xhr, error, thrown) {
+                        console.log(xhr);
+                        console.log(error);
+                    }
+                },
+                "columnDefs":
+                   [{
+                       "targets": [0],
+                       "visible": false,
+                       "searchable": false
+                   }                    
+                   ],
+                "columns": [
+                            { "data": "id", "name": "id", "autoWidth": true },
+                            { "data": "Code", "name": "itemCode", "autoWidth": true },
+                            { "data": "PacA", "name": "pacA", "autoWidth": true },
+                            { "data": "PacB", "name": "pacB", "autoWidth": true },
+                             { "data": "S", "name": "S", "autoWidth": true },
+                        { "data": "M", "name": "M", "autoWidth": true },
+                        { "data": "L", "name": "L", "autoWidth": true },
+                        { "data": "XL", "name": "XL", "autoWidth": true },
+                         { "data": "XXL", "name": "XL", "autoWidth": true },
+                          { "data": "XXXL", "name": "XL", "autoWidth": true },
+                            { "data": "K_14", "name": "XL", "autoWidth": true },
+                              { "data": "K_16", "name": "XL", "autoWidth": true },
+                                { "data": "K_18", "name": "XL", "autoWidth": true },
+                                  { "data": "K_20", "name": "XL", "autoWidth": true },
+                                    { "data": "K_22", "name": "XL", "autoWidth": true },
+                                      { "data": "K_24", "name": "XL", "autoWidth": true },
+                                        { "data": "K_26", "name": "XL", "autoWidth": true },
+                                         { "data": "K_28", "name": "XL", "autoWidth": true },
+                                          { "data": "_28", "name": "XL", "autoWidth": true },
+                                           { "data": "_30", "name": "XL", "autoWidth": true },
+                                           { "data": "_32", "name": "XL", "autoWidth": true },
+                                           { "data": "_34", "name": "XL", "autoWidth": true },
+                                           { "data": "_36", "name": "XL", "autoWidth": true },
+                                           { "data": "_38", "name": "XL", "autoWidth": true },
+                                           { "data": "_40", "name": "XL", "autoWidth": true },
+                                           { "data": "_42", "name": "XL", "autoWidth": true },
+                                           { "data": "_44", "name": "XL", "autoWidth": true },
+                ]
+         });
+
+       
+         $('#btnSave').click(function (e) {
+             e.preventDefault();
+            
+
+             type = '@Session["lid"]';
+             if (type === "") {
+                 swal({
+                     title: "Oops!",
+                     text: "Session has expired!",
+                     icon: "error",
+                 });
+
+                 window.location = '../Login';
+             }
+
+             var vals = [];
+             var sizes = [];
+             var count = 0;
+
+             var pacA = $('#txtA').val();
+             var pacB = $('#txtB').val();
+             var code = $('#txtp').val();
+
+             if (code.length === 0) {
+                 swal({
+                     title: "Oops!",
+                     text: "Please enter product code.",
+                     icon: "error",
+                 });
+             }
+             if (pacA.length === 0) {
+                 pacA = 0;
+             }
+             if (pacB.length === 0) {
+                 pacB = 0;
+             }
+
+
+             //Validate others
+             ////Validation
+             $.each($('[id^=txt_]'), function (i, item) {
+
+                 var _id = $(this).attr('id');                
+                 var _size = _id.split('_')[1];
+                 sizes.push(parseInt(_size));
+                 var _value = $(this).val();
+                 if (_value.length === 0) {
+                     _value = 0;
+                 }
+                 vals.push(_value);
+                 count++;
+             });
+
+             $('#btnSave').attr("disabled", true);
+             $.getJSON('/DistributeProducts/GetItem/' + code, function (recData) {
+                 console.log(recData);
+                 if (recData.status == "success") {
+                     $.ajax({
+                         type: "POST",
+                         url: '/DistributeProducts/Distribute',
+                         contentType: "application/json",
+                         traditional: true,
+                         data: JSON.stringify({ itemCode: code, pacA: pacA, pacB: pacB, szArr: sizes, vals: vals, count: count }),
+                         dataType: "json",
+                         success: function (recData) {
+                             if (recData.Data == "success") {
+                                 $('#btnSave').attr("disabled", false);
+                                 table.ajax.reload(null, false); // user paging is not reset on reload
+
+                                 swal({
+                                     title: "Done!",
+                                     text: "Saved successfully.",
+                                     icon: "success",
+                                 });
+
+                                 //Clear
+                                 $('#txtDet').text('Product details');
+                                 $('#txtA').val('0');
+                                 $('#txtB').val('0');
+                                 $.each($('[id^=txt_]'), function (i, item) {
+                                     var _id = $(this).attr('id');
+                                     $('#' + _id).val('0');                                     
+                                 });
+
+                             }
+                             else {
+                                 $('#btnSave').attr("disabled", false);
+                                 swal({
+                                     title: "Opps!",
+                                     text: recData.Data,
+                                     icon: "error",
+                                 });
+                             }
+
+                         },
+                         error: function () {
+                             $('#btnSave').attr("disabled", false);
+                             swal({
+                                 title: "Opps!",
+                                 text: "Something went wrong",
+                                 icon: "error",
+                             });
+                         }
+                     });
+                 }
+                 else {
+                     $('#btnSave').attr("disabled", false);
+                     $('#txtDet').text('Product details');
+                     swal({
+                         title: "Opps!",
+                         text: recData.Data,
+                         icon: "error",
+                     });
+                 }
+
+             });            
+
+         });
+    });
+
+    $("#txtp").keypress(function (e) {
+        if (e.which == 13) {
+            var id = $('#txtp').val();
+            $.getJSON('/DistributeProducts/GetItem/' + $('#txtp').val(), function (recData) {
+                console.log(recData);
+                if (recData.status == "success") {                  
+                    $('#txtDet').text(recData.Data.itemCode + '\n' + recData.Data.itemName);
+                }
+                else {
+                    $('#txtDet').text('Product details');
+                    swal({
+                        title: "Opps!",
+                        text: recData.Data,
+                        icon: "error",
+                    });
+                }
+               
+            });
+        }
+    });
+
+    function DeleteData(ExpenseTypeID) {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+      .then((willDelete) => {
+          if (willDelete) {
+
+              $.ajax({
+                  type: "POST",
+                  url: '/subInventoryView/Delete',
+                  contentType: "application/json",
+                  traditional: true,
+                  data: JSON.stringify({ id: ExpenseTypeID }),
+                  dataType: "json",
+                  success: function (recData) {
+                      if (recData.status == "success") {
+                          table.ajax.reload(null, false); // user paging is not reset on reload
+                          swal("Data has been removed!", {
+                              icon: "success",
+                          });
+                      }
+                      else {
+                          swal({
+                              title: "Opps!",
+                              text: recData.Data,
+                              icon: "error",
+                          });
+                      }
+
+                  },
+                  error: function () {
+                      swal({
+
+                          title: "Opps!",
+                          text: "Something went wrong",
+                          icon: "error",
+                      });
+                  }
+              });
+
+          }
+      });
+    }
+
+    function EditData(id) {
+
+    }
+
+</script>
+

@@ -1,0 +1,1441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Headline"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="false">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                android:backgroundTint="@color/blue_500"
+                app:layout_collapseMode="parallax" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/overlay_dark_10" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:tint="@android:color/white"
+                    app:srcCompat="@drawable/img_wizard_1" />
+
+                <View
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/lblUsername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/lblDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="200 Students    |    98% Attendance"
+                    android:textSize="14dp"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <!--Inside Expandables -->
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:clipToPadding="false"
+        android:scrollbars="none"
+        android:id="@+id/nested_scroll_view"
+        android:backgroundTint="@color/grey_200"
+        android:scrollingCache="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:paddingTop="@dimen/spacing_medium">
+
+
+            <!--Personal Tab-->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:visibility="visible"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:gravity="center_vertical"
+                        android:minHeight="?attr/actionBarSize"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="@android:color/transparent"
+                            android:tint="@color/colorPrimaryLight"
+                            app:srcCompat="@drawable/ic_person" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Personal Info"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textColor="@color/grey_90"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="@dimen/spacing_large"
+                            android:layout_height="wrap_content" />
+
+                        <ImageButton
+                            android:id="@+id/bt_toggle_info"
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:tint="@color/grey_60"
+                            app:srcCompat="@drawable/ic_expand_arrow" />
+
+                    </LinearLayout>
+
+                    <!--Personal Inside-->
+                    <LinearLayout
+                        android:id="@+id/lyt_expand_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <!--Name-->
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/grey_40">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/txtName"
+                                android:maxLines="1"
+                                android:textSize="15dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Name" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <!-- Short Name / Gender -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="0dip"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.7"
+                                >
+
+                                <!--Short Name-->
+                                <android.support.design.widget.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColorHint="@color/grey_40">
+
+                                    <android.support.v7.widget.AppCompatEditText
+                                        android:layout_width="match_parent"
+                                        android:id="@+id/txtShortName"
+                                        android:maxLines="1"
+                                        android:textSize="15dp"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Short Name" />
+
+                                </android.support.design.widget.TextInputLayout>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dip"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_weight="0.3"
+                                >
+
+                                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+
+                                    android:orientation="horizontal">
+                                    <RadioButton android:id="@+id/rbMale"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="M"
+                                        android:textSize="15dp"
+                                        android:checked="true"
+                                        />
+                                    <!--android:onClick="onRadioButtonClicked"-->
+
+                                    <RadioButton android:id="@+id/rbFemale"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="15dp"
+                                        android:text="F"
+                                        />
+                                    <!--android:onClick="onRadioButtonClicked"-->
+
+                                </RadioGroup>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <!--Marital Status-->
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/grey_40">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/txtMaritalStatus"
+                                android:maxLines="1"
+                                android:textSize="15dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Marital Status" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <!--F.Name-->
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/grey_40">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/txtFatherName"
+                                android:maxLines="1"
+                                android:textSize="15dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Father's Name" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <!--DOB-->
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/grey_40">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/txtDOB"
+                                android:maxLines="1"
+                                android:textSize="15dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Date of Birth" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <!--Contact -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="0dip"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                >
+
+                                <!--Mobile No.-->
+                                <android.support.design.widget.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColorHint="@color/grey_40">
+
+                                    <android.support.v7.widget.AppCompatEditText
+                                        android:layout_width="match_parent"
+                                        android:id="@+id/txtMobile"
+                                        android:inputType="number"
+                                        android:textSize="15dp"
+                                        android:maxLines="1"
+                                        android:maxLength="11"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Mobile No." />
+
+                                </android.support.design.widget.TextInputLayout>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dip"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_weight="0.5"
+                                >
+
+                                <!--Phone No.-->
+                                <android.support.design.widget.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColorHint="@color/grey_40">
+
+                                    <android.support.v7.widget.AppCompatEditText
+                                        android:layout_width="match_parent"
+                                        android:id="@+id/txtWhatsapp"
+                                        android:textSize="15dp"
+                                        android:maxLines="1"
+                                        android:inputType="number"
+                                        android:maxLength="11"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Whatsapp No." />
+
+                                </android.support.design.widget.TextInputLayout>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <!--Contact 2 -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="0dip"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                >
+
+                                <!--Mobile No.-->
+                                <android.support.design.widget.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColorHint="@color/grey_40">
+
+                                    <android.support.v7.widget.AppCompatEditText
+                                        android:layout_width="match_parent"
+                                        android:id="@+id/txtEmergency"
+                                        android:textSize="15dp"
+                                        android:inputType="number"
+                                        android:maxLines="1"
+                                        android:maxLength="11"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Emergency No." />
+
+                                </android.support.design.widget.TextInputLayout>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dip"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_weight="0.5"
+                                >
+
+                                <!--Phone No.-->
+                                <android.support.design.widget.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColorHint="@color/grey_40">
+
+                                    <android.support.v7.widget.AppCompatEditText
+                                        android:layout_width="match_parent"
+                                        android:id="@+id/txtLandline"
+                                        android:textSize="15dp"
+                                        android:maxLines="1"
+                                        android:maxLength="11"
+                                        android:inputType="number"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Landline No." />
+
+                                </android.support.design.widget.TextInputLayout>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <!--Email-->
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/grey_40">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/txtEmail"
+                                android:textSize="15dp"
+                                android:maxLines="1"
+                                android:inputType="textEmailAddress"
+                                android:layout_height="wrap_content"
+                                android:hint="Email" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <!--NIC -->
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/grey_40">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/txtNIC"
+                                android:maxLines="1"
+                                android:textSize="15dp"
+                                android:inputType="text"
+                                android:layout_height="wrap_content"
+                                android:hint="NIC No." />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <!--Address-->
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/grey_40">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/txtAddress"
+                                android:textSize="15dp"
+                                android:maxLines="2"
+                                android:layout_height="wrap_content"
+                                android:hint="Address" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!--Appointment Tab-->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:visibility="visible"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:gravity="center_vertical"
+                        android:minHeight="?attr/actionBarSize"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="@android:color/transparent"
+                            android:tint="@color/colorPrimaryLight"
+                            app:srcCompat="@drawable/ic_peoples" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Appointment Info"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textColor="@color/grey_90"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="@dimen/spacing_large"
+                            android:layout_height="wrap_content" />
+
+                        <ImageButton
+                            android:id="@+id/bt_toggle_appointment"
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:tint="@color/grey_60"
+                            app:srcCompat="@drawable/ic_expand_arrow" />
+
+                    </LinearLayout>
+
+                    <!--Appointment Inside-->
+                    <LinearLayout
+                        android:id="@+id/lyt_expand_appointment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+
+                        <!-- DOA / Teach -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="0dip"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.6"
+                                >
+
+                                <!--  DOA  -->
+                                <android.support.design.widget.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColorHint="@color/grey_40">
+
+                                    <android.support.v7.widget.AppCompatEditText
+                                        android:layout_width="match_parent"
+                                        android:id="@+id/txtDOA"
+                                        android:textSize="15dp"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Date of  Appointment" />
+
+                                </android.support.design.widget.TextInputLayout>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dip"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_weight="0.4"
+                                >
+
+                                <CheckBox
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/chkTeach"
+                                    android:text="Will teach?"
+                                   />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+
+
+
+                        <!-- Designation  -->
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/grey_40">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/txtDesignation"
+                                android:textSize="15dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Designation" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <!--Qualification-->
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/grey_40">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/txtQualification"
+                                android:textSize="15dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Qualification" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <!--Pro Edu -->
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/grey_40">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/txtProEduDetails"
+                                android:textSize="15dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Professional Educational Details" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <!-- Pro Exp Details  -->
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/grey_40">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/txtProExpDetails"
+                                android:textSize="15dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Professional Experience Details" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+
+                        <!-- Department  -->
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/grey_40">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/txtDepartment"
+                                android:textSize="15dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Department" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <!-- Good at  -->
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/grey_40">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/txtGoodAt"
+                                android:textSize="15dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Good at" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <!-- Status  -->
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/grey_40">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/txtStatus"
+                                android:textSize="15dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Status" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+
+
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!-- Salary Tab-->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:visibility="visible"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:gravity="center_vertical"
+                        android:minHeight="?attr/actionBarSize"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="@android:color/transparent"
+                            android:tint="@color/colorPrimaryLight"
+                            app:srcCompat="@drawable/ic_peoples" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Salary Details"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textColor="@color/grey_90"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="@dimen/spacing_large"
+                            android:layout_height="wrap_content" />
+
+                        <ImageButton
+                            android:id="@+id/bt_toggle_salary"
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:tint="@color/grey_60"
+                            app:srcCompat="@drawable/ic_expand_arrow" />
+
+                    </LinearLayout>
+
+                    <!-- Salary Inside-->
+                    <LinearLayout
+                        android:id="@+id/lyt_expand_salary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+
+                        <!--  Basic Salary  -->
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/grey_40">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/txtBasicSalary"
+                                android:inputType="number"
+                                android:textSize="15dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Basic Salary" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <!-- Leaves / Attd Allowance -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="0dip"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                >
+
+                                <!--  Leaves  -->
+                                <android.support.design.widget.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColorHint="@color/grey_40">
+
+                                    <android.support.v7.widget.AppCompatEditText
+                                        android:layout_width="match_parent"
+                                        android:id="@+id/txtLeaves"
+                                        android:inputType="number"
+                                        android:text="0"
+                                        android:textSize="15dp"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Allowed Leaves" />
+
+                                </android.support.design.widget.TextInputLayout>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dip"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_weight="0.5"
+                                >
+
+                                <!--  Attd Allowance  -->
+                                <android.support.design.widget.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColorHint="@color/grey_40">
+
+                                    <android.support.v7.widget.AppCompatEditText
+                                        android:layout_width="match_parent"
+                                        android:id="@+id/txtAttdAllowance"
+                                        android:inputType="number"
+                                        android:textSize="15dp"
+                                        android:text="0"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Attd Allowance" />
+
+                                </android.support.design.widget.TextInputLayout>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+
+                        <!-- Next Increment -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="0dip"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                >
+
+                                <!--  Leaves  -->
+                                <android.support.design.widget.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColorHint="@color/grey_40">
+
+                                    <android.support.v7.widget.AppCompatEditText
+                                        android:layout_width="match_parent"
+                                        android:id="@+id/txtIncrementDate"
+                                        android:textSize="15dp"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Next increment" />
+
+                                </android.support.design.widget.TextInputLayout>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dip"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_weight="0.5"
+                                >
+
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColorHint="@color/grey_40">
+
+                                    <android.support.v7.widget.AppCompatEditText
+                                        android:layout_width="match_parent"
+                                        android:id="@+id/txtIncrementAmount"
+                                        android:inputType="number"
+                                        android:textSize="15dp"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Increment Amount" />
+
+                                </android.support.design.widget.TextInputLayout>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <!-- Deposit -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="0dip"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                >
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColorHint="@color/grey_40">
+
+                                    <android.support.v7.widget.AppCompatEditText
+                                        android:layout_width="match_parent"
+                                        android:id="@+id/txtMonthlyDeposit"
+                                        android:textSize="15dp"
+                                        android:inputType="number"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Monthly Deposit" />
+
+                                </android.support.design.widget.TextInputLayout>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dip"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_weight="0.5"
+                                >
+
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColorHint="@color/grey_40">
+
+                                    <android.support.v7.widget.AppCompatEditText
+                                        android:layout_width="match_parent"
+                                        android:id="@+id/txtTotalDeposit"
+                                        android:inputType="number"
+                                        android:textSize="15dp"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Total Deposit" />
+
+                                </android.support.design.widget.TextInputLayout>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+
+                        <!-- Deposit  / Leaves so far -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="0dip"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                >
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColorHint="@color/grey_40">
+
+                                    <android.support.v7.widget.AppCompatEditText
+                                        android:layout_width="match_parent"
+                                        android:id="@+id/txtDepositSoFar"
+                                        android:textSize="15dp"
+                                        android:inputType="number"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Deposits so far" />
+
+                                </android.support.design.widget.TextInputLayout>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dip"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_weight="0.5"
+                                >
+
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColorHint="@color/grey_40">
+
+                                    <android.support.v7.widget.AppCompatEditText
+                                        android:layout_width="match_parent"
+                                        android:id="@+id/txtLeaveSoFar"
+                                        android:inputType="number"
+                                        android:textSize="15dp"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Leaves so far" />
+
+                                </android.support.design.widget.TextInputLayout>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+
+
+                        <!--Allowances-->
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="@dimen/spacing_medium"
+                            android:layout_marginTop="@dimen/spacing_medium"
+                            android:visibility="visible"
+                            app:cardCornerRadius="0dp"
+                            app:cardElevation="2dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@android:color/white"
+                                    android:gravity="center_vertical"
+                                    android:minHeight="?attr/actionBarSize"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="Allowances Details"
+                                        android:textSize="17dp"
+                                        android:layout_marginLeft="20dp"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                        android:textColor="@color/grey_90"
+                                       />
+
+                                    <View
+                                        android:layout_width="@dimen/spacing_large"
+                                        android:layout_height="wrap_content" />
+
+                                    <ImageButton
+                                        android:id="@+id/bt_add_allowance"
+                                        android:layout_width="?attr/actionBarSize"
+                                        android:layout_height="?attr/actionBarSize"
+                                        android:background="?attr/selectableItemBackgroundBorderless"
+                                        android:tint="@color/grey_60"
+                                        app:srcCompat="@drawable/ic_add" />
+
+                                    <ImageButton
+                                        android:id="@+id/bt_toggle_Allowances"
+                                        android:layout_width="?attr/actionBarSize"
+                                        android:layout_height="?attr/actionBarSize"
+                                        android:background="?attr/selectableItemBackgroundBorderless"
+                                        android:tint="@color/grey_60"
+                                        app:srcCompat="@drawable/ic_expand_arrow" />
+
+                                </LinearLayout>
+
+                                <!-- Salary Inside-->
+                                <LinearLayout
+                                    android:id="@+id/lyt_expand_allowances"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginBottom="20dp"
+                                    android:orientation="vertical"
+                                    android:visibility="gone">
+
+
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/recyclerView"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="300dp"
+                                        android:layout_below="@+id/app_lay"
+                                        android:scrollbars="vertical"
+                                        android:scrollingCache="true" />
+
+
+
+
+
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+
+                        <!--Last Increment-->
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="@dimen/spacing_medium"
+                            android:layout_marginTop="@dimen/spacing_medium"
+                            android:visibility="visible"
+                            app:cardCornerRadius="0dp"
+                            app:cardElevation="2dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@android:color/white"
+                                    android:gravity="center_vertical"
+                                    android:minHeight="?attr/actionBarSize"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="Increment Details"
+                                        android:textSize="17dp"
+                                        android:layout_marginLeft="20dp"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                        android:textColor="@color/grey_90"
+                                        />
+
+                                    <View
+                                        android:layout_width="@dimen/spacing_large"
+                                        android:layout_height="wrap_content" />
+
+                                    <ImageButton
+                                        android:id="@+id/bt_add_last_increment"
+                                        android:layout_width="?attr/actionBarSize"
+                                        android:layout_height="?attr/actionBarSize"
+                                        android:background="?attr/selectableItemBackgroundBorderless"
+                                        android:tint="@color/grey_60"
+                                        app:srcCompat="@drawable/ic_add" />
+
+                                    <ImageButton
+                                        android:id="@+id/bt_toggle_last_incremnet"
+                                        android:layout_width="?attr/actionBarSize"
+                                        android:layout_height="?attr/actionBarSize"
+                                        android:background="?attr/selectableItemBackgroundBorderless"
+                                        android:tint="@color/grey_60"
+                                        app:srcCompat="@drawable/ic_expand_arrow" />
+
+                                </LinearLayout>
+
+                                <!-- Salary Inside-->
+                                <LinearLayout
+                                    android:id="@+id/lyt_expand_last_increment"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginBottom="20dp"
+                                    android:orientation="vertical"
+                                    android:visibility="gone">
+
+
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/rvLastIncrement"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="300dp"
+                                        android:layout_below="@+id/app_lay"
+                                        android:scrollbars="vertical"
+                                        android:scrollingCache="true" />
+
+
+
+
+
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!-- Working Hours -->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:visibility="visible"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:gravity="center_vertical"
+                        android:minHeight="?attr/actionBarSize"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="@android:color/transparent"
+                            android:tint="@color/colorPrimaryLight"
+                            app:srcCompat="@drawable/ic_peoples" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Working Hours"
+                            android:textStyle="bold"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textColor="@color/grey_90"
+                            />
+
+                        <View
+                            android:layout_width="@dimen/spacing_large"
+                            android:layout_height="wrap_content" />
+
+                        <ImageButton
+                            android:id="@+id/bt_add_wh"
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:tint="@color/grey_60"
+                            app:srcCompat="@drawable/ic_add" />
+
+                        <ImageButton
+                            android:id="@+id/bt_toggle_wh"
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:tint="@color/grey_60"
+                            app:srcCompat="@drawable/ic_expand_arrow" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/lyt_expand_wh"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rvWorkingHours"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:layout_below="@+id/app_lay"
+                            android:scrollbars="vertical"
+                            android:scrollingCache="true" />
+
+
+
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <!-- Subjects -->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:visibility="visible"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:gravity="center_vertical"
+                        android:minHeight="?attr/actionBarSize"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="@android:color/transparent"
+                            android:tint="@color/colorPrimaryLight"
+                            app:srcCompat="@drawable/ic_peoples" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Subjects"
+                            android:textStyle="bold"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textColor="@color/grey_90"
+                            />
+
+                        <View
+                            android:layout_width="@dimen/spacing_large"
+                            android:layout_height="wrap_content" />
+
+                        <ImageButton
+                            android:id="@+id/bt_add_sub"
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:tint="@color/grey_60"
+                            app:srcCompat="@drawable/ic_add" />
+
+                        <ImageButton
+                            android:id="@+id/bt_toggle_sub"
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:tint="@color/grey_60"
+                            app:srcCompat="@drawable/ic_expand_arrow" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/lyt_expand_sub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rvSub"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:layout_below="@+id/app_lay"
+                            android:scrollbars="vertical"
+                            android:scrollingCache="true" />
+
+
+
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+    <!--bottom sheet container-->
+    <FrameLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:layout_behavior="@string/bottom_sheet_behavior" />
+
+
+
+
+
+
+</android.support.design.widget.CoordinatorLayout>

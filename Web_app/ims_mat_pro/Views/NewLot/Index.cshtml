@@ -1,0 +1,528 @@
+﻿
+@{
+    ViewBag.Title = "Lot Management (New)";
+}
+
+
+
+@section ControlsSection{
+
+    <div class="card">
+        <div class="card-body">
+            <button id="btnAdd" type="button" class="btn btn-block btn-info col-lg-2" data-toggle="modal" data-target="#add-contact">Add New Lot</button>
+
+            <div id="add-contact" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Add Lot</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="floating-labels m-t-20">
+                               
+                                 <div class="form-group m-b-20">
+                                    @Html.DropDownList("cmbCat", (IEnumerable<SelectListItem>)ViewBag.maincat, String.Empty, new { @class = "form-control p-1" })
+                                    <label for="cmbCat">Category</label>
+                                </div>
+
+                                <div class="form-group m-b-20 focused">
+                                    <input type="text" class="form-control" id="txtLot" required value="">
+                                    <span class="bar"></span>
+                                    <label for="txtSmall">Lot Name</label>
+                                </div>
+
+                                <div class="form-group m-b-20 focused">
+                                    <input type="number" class="form-control" id="txtPacA" required value="0">
+                                    <span class="bar"></span>
+                                    <label for="txtMedium">Packet A</label>
+                                </div>
+
+                                <div class="form-group m-b-20 focused">
+                                    <input type="number" class="form-control" id="txtPacB" required value="0">
+                                    <span class="bar"></span>
+                                    <label for="txtLarge">Packet B</label>
+                                </div>
+                                                              
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnSave" type="button" class="btn btn-info waves-effect" data-dismiss="modal">Save</button>
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+
+            </div>
+
+            <div id="add-loose" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Manage Loose Stock</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="floating-labels m-t-20" id="divLoose">
+
+                             
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnSaveLoose" type="button" class="btn btn-info waves-effect" data-dismiss="modal">Save</button>
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+
+            </div>
+
+            <div class="table-responsive m-t-40">
+                <table id="myTable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Lot</th>                   
+                            <th>Category</th>                        
+                            <th>Packets A</th>
+                            <th>Packets B</th>                           
+                            <th>Options</th>
+
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+    @*ISSUE TABLE:
+
+        issue id
+        typeid
+        local id
+        lot id
+        packet type
+        size
+        is_from_return
+        issue date*@
+
+
+}
+
+
+<script>
+
+    var table;
+    var proID = 0;
+    var editID = 0;
+    var looseID = 0;
+
+    $(document).ready(function () {
+
+        type = '@Session["uType"]';
+        if (type === "") {
+            window.location = '../Login';
+        }
+
+
+        table = $('#myTable').DataTable({
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "bLengthChange": false,
+            buttons: [
+              'copyHtml5',
+              'excelHtml5',
+              'csvHtml5',
+              'pdfHtml5'
+            ],
+            "ajax": {
+                "url": "/NewLot/LoadData",
+                "type": "POST",
+                "datatype": "json",
+                error: function (xhr, error, thrown) {
+                    console.log(xhr);
+                    console.log(error);
+                }
+            },
+            "columnDefs":
+               [{
+                   "targets": [0],
+                   "visible": false,
+                   "searchable": false
+               },
+               {
+                   "targets": [4],
+                   "searchable": false,
+                   "orderable": false
+               },
+               ],
+            "columns": [
+                    { "data": "id", "name": "id", "autoWidth": true },
+                    { "data": "lotName", "name": "lotName", "autoWidth": true },
+                    { "data": "Category", "name": "category", "autoWidth": true },
+                    { "data": "packetA", "name": "packetA", "autoWidth": true },
+                    { "data": "packetB", "name": "packetB", "autoWidth": true },
+                    {
+                        "render": function (data, type, full, meta)
+                        { return '<a href="javascript:void(myFunction())" onclick=ManageLooseItems(' + full.id + ',"' + full.lotName.replace(/ /g, '-') + '"); data-toggle="modal" data-target="#add-loose"><i class="fas fa-plus"></i></a><span> | <a href="javascript:void(myFunction())" onclick=Populate(' + full.id + '); data-toggle="modal" data-target="#add-contact"><i class="fas fa-edit"></i></a><span> | </span> <a href="javascript:void(myFunction())" onclick=DeleteData(' + full.id + ');> <i class="fas fa-trash-alt" style="color:#d9534f;"></i>'; }
+
+                    },
+            ]
+        });
+    });
+
+
+
+    $('#btnAdd').click(function (e) {
+        editID = 0;
+        $('.form-group').addClass('focused');
+        $("#cmbCat").prop("disabled", false);
+        $('.modal-title').text('Add Lot');
+        $('#btnSave').text('Add Lot');
+        $('#cmbCat').val(1);
+        $('#txtLot').val('');       
+        $('#txtPacA').val(0);
+        $('#txtPacB').val(0);      
+    });
+
+    $('#btnSave').click(function (e) {
+
+        e.preventDefault();      
+        var name = $('#txtLot').val();        
+        var pacA = $('#txtPacA').val();
+        var pacB = $('#txtPacB').val();
+        var cat = $('#cmbCat').val();
+
+        if (name.length === 0) {
+            swal({
+
+                title: "Opps!",
+                text: "Please enter lot Name",
+                icon: "error",
+            });
+        }
+        else if (cat.lenght === 0) {
+            swal({
+
+                title: "Opps!",
+                text: "Please Select Category",
+                icon: "error",
+            });
+        }
+        else {
+            if (editID > 0)//Edit
+            {
+                $.ajax({
+                    type: "POST",
+                    url: '/NewLot/Edit',
+                    contentType: "application/json",
+                    traditional: true,
+                    data: JSON.stringify({ id_: editID, cat: cat, name: name, pacA: pacA, pacB: pacB }),
+                    dataType: "json",
+                    success: function (recData) {
+                        if (recData.Data != "0") {
+                            table.ajax.reload(null, false); // user paging is not reset on reload
+                            swal({
+                                title: "Done!",
+                                text: "Saved successfully.",
+                                icon: "success",
+                            });
+
+
+
+                        }
+                        else {
+                            swal({
+                                title: "Opps!",
+                                text: "Can't save right now",
+                                icon: "error",
+                            });
+                        }
+
+                    },
+                    error: function () {
+                        swal({
+
+                            title: "Opps!",
+                            text: "Something went wrong",
+                            icon: "error",
+                        });
+                    }
+                });
+            }
+            else { //ADD            
+                $.ajax({
+                    type: "POST",
+                    url: '/NewLot/Add',
+                    contentType: "application/json",
+                    traditional: true,
+                    data: JSON.stringify({ cat: cat, name: name, pacA: pacA, pacB: pacB }),
+                    dataType: "json",
+                    success: function (recData) {
+                        if (recData.Data != "0") {
+                            table.ajax.reload(null, false); // user paging is not reset on reload
+                            swal({
+                                title: "Done!",
+                                text: "Lot added successfully.",
+                                icon: "success",
+                            });
+
+
+                        }
+                        else {
+                            swal({
+                                title: "Opps!",
+                                text: "Can't save right now",
+                                icon: "error",
+                            });
+                        }
+
+                    },
+                    error: function (e) {
+                        swal({
+
+                            title: "Opps!",
+                            text: "Something went wrong" + e,
+                            icon: "error",
+                        });
+                    }
+                });
+            }
+
+        }
+
+        });
+
+    $('#btnSaveLoose').click(function (e) {
+
+        e.preventDefault();
+       
+        var dIDs = [];
+        var vals = [];
+        var sizes = [];
+        var addEdit;
+        var add = false;
+        var count = 0;
+
+        ////Validation
+        $.each($('[id^=txt_]'), function (i, item) {
+            var _id = $(this).attr('id');
+            var _dID = _id.split('_')[1];
+            var addEdit = _id.split('_')[2];            
+            if (addEdit !== 'a') {
+                add = false;
+                var _size = _id.split('_')[2];
+                sizes.push(_size);
+            }
+            else { //found a
+                add = true;
+                var _size = _id.split('_')[3];
+                sizes.push(_size);
+            }           
+            var _value = $(this).val();           
+            if (_value.length === 0) {
+                _value = 0;
+            }
+            dIDs.push(_dID);
+            vals.push(_value);
+            count++;
+        });
+
+
+        $.ajax({
+            type: "POST",
+            url: '/NewLot/SaveLooseStock',
+            contentType: "application/json",
+            traditional: true,
+            data: JSON.stringify({ lotID: looseID, dIDs: dIDs, sizes: sizes, vals: vals, add: add, count: count }),
+            dataType: "json",
+            success: function (recData) {
+                swal({
+
+                    title: "Done!",
+                    text: "Save successfully!",
+                    icon: "success",
+                });
+            },
+            error: function () {
+                swal({
+
+                    title: "Opps!",
+                    text: "Something went wrong",
+                    icon: "error",
+                });
+            }
+        });
+
+    });
+
+    //populate script
+    function Populate(RetailsID) {
+        editID = RetailsID;
+        $("#cmbCat").prop("disabled", true);
+        $('.modal-title').text('Edit Lot ');
+        $('#btnSave').text('Edit Lot');
+        $.ajax({
+            type: "POST",
+            url: '/NewLot/Populate',
+            contentType: "application/json",
+            traditional: true,
+            data: JSON.stringify({ id: editID }),
+            dataType: "json",
+            success: function (recData) {
+                $('#cmbCat').val(recData.Data.mainCatId);
+                $('#txtLot').val(recData.Data.lotName);
+                $('#txtPacA').val(recData.Data.A);
+                $('#txtPacB').val(recData.Data.B);             
+
+                $('.form-group').addClass('focused');
+            },
+            error: function () {
+                swal({
+
+                    title: "Opps!",
+                    text: "Something went wrong",
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+    //populate script
+    function ManageLooseItems(RetailsID, lotName) {
+        looseID = RetailsID;       
+        $('.form-group').addClass('focused');      
+        $.ajax({
+            type: "POST",
+            url: '/NewLot/PopulateLoose',
+            contentType: "application/json",
+            traditional: true,
+            data: JSON.stringify({ id: looseID }),
+            dataType: "json",
+            success: function (recData) {
+                $('.form-group').addClass('focused');
+                var row1 = "<div class='form-group m-b-40 focused'> <input readonly type='text' class='form-control' id='txtLotLoose' value=" + lotName + "> <span class='bar'></span> <label for='txtSmall'>Lot Name</label> </div>";
+                $('#divLoose').empty();
+                $('#divLoose').append(row1);
+                console.log(recData.status);
+                if (recData.status == 1) { //Populate
+                    $.each(recData.Data, function (i, l) {
+                        //console.log("Index #" + i + ": " + l.size + " - " + l.qty);
+                        if ((i % 2) == 0) {
+                            var data = "<div class='form-group m-t-20 m-b-40 focused' style='WIDTH: 45%;'> <input type='number' class='form-control' id='txt_#id' value='#value'> <span class='bar'></span> <label for='txtA'>#label</label> </div>";
+                            data = data.replace(/#id/g, l.id + "_#label");
+                            data = data.replace(/#label/g, l.size);
+                            data = data.replace(/#value/g, l.qty);
+
+                            $('#divLoose').append(data);
+                        }
+                        else {
+                            var data = "<div class='form-group m-t-20 m-b-40 focused' style='WIDTH: 45%; margin-left: 315px; margin-top: -84px;'> <input type='number' class='form-control' id='txt_#id' value='#value'> <span class='bar'></span> <label for='txtB'>#label</label> </div>";
+                            data = data.replace(/#id/g, l.id + "_#label");
+                            data = data.replace(/#label/g, l.size);
+                            data = data.replace(/#value/g, l.qty);
+
+                            $('#divLoose').append(data);
+                        }
+
+
+                    });
+                }
+                else  if (recData.status == 2) { //From sizes
+                    $.each(recData.Data, function (i, l) {
+                        //console.log("Index #" + i + ": " + l.size1 + " - " + l.mainCatID);
+
+                        if ((i % 2) == 0) {
+                            var data = "<div class='form-group m-t-20 m-b-40 focused' style='WIDTH: 45%;'> <input type='number' class='form-control' id='txt_#id' value='#value'> <span class='bar'></span> <label for='txtA'>#label</label> </div>";
+                            data = data.replace(/#id/g, l.id + "_a_#label");
+                            data = data.replace(/#label/g, l.size1);
+                            data = data.replace(/#value/g, '0');
+
+                            $('#divLoose').append(data);
+                        }
+                        else {
+                            var data = "<div class='form-group m-t-20 m-b-40 focused' style='WIDTH: 45%; margin-left: 315px; margin-top: -84px;'> <input type='number' class='form-control' id='txt_#id' value='#value'> <span class='bar'></span> <label for='txtB'>#label</label> </div>";
+                            data = data.replace(/#id/g, l.id + "_a_#label");
+                            data = data.replace(/#label/g, l.size1);
+                            data = data.replace(/#value/g, '0');
+
+                            $('#divLoose').append(data);
+                        }
+
+                    });
+
+
+                }               
+
+             
+            },
+            error: function () {
+                swal({
+
+                    title: "Opps!",
+                    text: "Something went wrong",
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+    //Delete script
+
+    function DeleteData(RetailsID) {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+      .then((willDelete) => {
+          if (willDelete) {
+
+              $.ajax({
+                  type: "POST",
+                  url: '/NewLot/Delete',
+                  contentType: "application/json",
+                  traditional: true,
+                  data: JSON.stringify({ id: RetailsID }),
+                  dataType: "json",
+                  success: function (recData) {
+                      if (recData.status == "success") {
+                          table.ajax.reload(null, false); // user paging is not reset on reload
+                          swal("Lot has been removed!", {
+                              icon: "success",
+                          });
+                      }
+                      else {
+                          swal({
+                              title: "Opps!",
+                              text: recData.Data,
+                              icon: "error",
+                          });
+                      }
+
+                  },
+                  error: function () {
+                      swal({
+
+                          title: "Opps!",
+                          text: "Something went wrong",
+                          icon: "error",
+                      });
+                  }
+              });
+
+          }
+      });
+    }
+
+
+
+</script>
+

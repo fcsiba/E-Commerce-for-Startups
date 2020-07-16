@@ -1,0 +1,826 @@
+﻿
+@{
+    ViewBag.Title = "Edit Product";
+}
+
+
+
+@section ControlsSection{
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form class="floating-labels m-t-40">
+
+                    @*select lot*@
+
+                    <div class="form-group m-b-40">
+                        @Html.DropDownList("lotDrop", (IEnumerable<SelectListItem>)ViewBag.lotD, String.Empty, new { @class = "form-control p-0" })
+                        <label for="cmbCat">Select Lot</label>
+                    </div>
+
+
+
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtCode" value="@ViewBag.product.itemCode">
+                        <span class="bar"></span>
+                        <label for="txtName">Item Code</label>
+                    </div>
+                    @*article*@
+
+                    <div class="form-group m-b-40">
+                        <input type="number" class="form-control" id="txtArticle">
+                        <span class="bar"></span>
+                        <label for="txtOriginalPrice">Article ID</label>
+                    </div>
+
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtName" value="@ViewBag.product.itemName">
+                        <span class="bar"></span>
+                        <label for="txtName">Item Name</label>
+                    </div>
+
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtFabric" value="@ViewBag.product.fabric">
+                        <span class="bar"></span>
+                        <label for="txtName">Item Fabric</label>
+                    </div>
+
+                    <div class="form-group m-b-40">
+                        <input type="text" disabled="disabled" class="form-control" id="mainCat">
+
+                        @*@Html.DropDownList("mainCat", (IEnumerable<SelectListItem>)ViewBag.maincat, String.Empty, new { @class = "form-control p-0" })*@
+                        <label for="mainCat">Main Category</label>
+                    </div>
+
+                    <div class="form-group m-b-40">
+                        @Html.DropDownList("cmbCat", (IEnumerable<SelectListItem>)ViewBag.cat, String.Empty, new { @class = "form-control p-0" })
+                        <label for="cmbCat">Sub Category</label>
+                    </div>
+
+                  
+
+                 
+                    <div class="form-group m-b-80">
+                        <input type="number" class="form-control" id="txtOriginalPrice" value="@ViewBag.product.originalPrice">
+                        <span class="bar"></span>
+                        <label for="txtOriginalPrice">Original Price</label>
+                    </div>
+
+                    <div class="form-group m-b-80">
+                        <input type="number" class="form-control" id="txtDiscount" value="@ViewBag.product.discount">
+                        <span class="bar"></span>
+                        <label for="txtName">Discount (%)</label>
+                    </div>
+
+                    <div class="form-group m-b-80 focused">
+                        <input type="number" class="form-control" id="txtNetPrice" disabled value="@ViewBag.product.netPrice">
+                        <span class="bar"></span>
+                        <label for="txtName">Net Price</label>
+                    </div>
+
+
+                    <div class="form-group m-b-40 focused">
+                        <textarea type="text" class="form-control" id="txtDesc">@ViewBag.product.description </textarea>
+                        <span class="bar"></span>
+                        <label for="txtDesc">Description</label>
+                    </div>
+
+                    <div class="form-group m-b-40 focused">
+                        <label for="txtDesc">Cover Image</label>
+                        <img id="imgCover" src="~/Uploads/Products/@ViewBag.product.coverImage" style="width:150px; height:150px;" />
+                    </div>
+
+                    <div class="col-lg-3 float-right">
+                        <button id="btnAdd" type="button" class="btn btn-info float-right">Add Images</button>
+                    </div>
+                    <br />
+
+                </form>
+
+                <div class="col-lg-4" hidden>
+                    <form enctype="multipart/form-data">
+                        <input type="file" name="file" id="file" multiple />
+                        <input type="file" name="file" id="fileCover" />       
+                    </form>
+
+                </div>
+                <br />
+                <!--Thumbnails-->
+                <div id="divGallery" class="col-lg-12 row el-element-overlay">
+
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+        <div id="divProgress" class="progress m-t-20">
+            <div id="progressBar" class="progress-bar bg-info progress-bar-striped" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height:10px;" role="progressbar"></div>
+        </div>
+        <br />
+        <button id="btnSave" type="button" class="btn btn-info col-lg-12">Save </button>
+
+    </div>
+
+
+}
+
+<script>
+
+    var i = 1;
+    var loadedThumbnails = 1;
+    //var badgeID = "";
+    //var data = {
+    //    small: 0,
+    //    medium: 0,
+    //    large: 0,
+    //    xLarge: 0
+    //}
+
+    var arr = [];
+    //var sizes = ["S", "M", "L", "XL"];
+    var filesMain = [];
+    var removedItems = [];
+    var pics = new Array();
+    var filesUplaoded = 0;
+
+
+
+    $(document).ready(function () {
+
+        var type = '@Session["uType"]';
+        if (type === "") {
+            window.location = '../../Login';
+        }
+
+        $('.form-group').addClass('focused');
+        $('#cmbCat').val(@ViewBag.product.subCategory);
+        $('#lotDrop').val(@ViewBag.product.lotId);
+        $('#txtArticle').val(@ViewBag.product.articleId);
+        $.getJSON('/ManageProducts/itemList/' + $('#lotDrop').val(), function (data) {
+            $('#mainCat').empty();
+            console.log(data.Data);
+
+            $('#mainCat').val(data.Data);
+
+        });
+        LoadImages();
+
+
+        //Clear
+        removedItems = [];
+        filesMain = [];
+
+        filesMain = $('#file').files;
+
+        $("#txtDiscount").keyup(function () {
+            try {
+                var dis = ($('#txtDiscount').val() / 100) * $('#txtOriginalPrice').val();
+                $('#txtNetPrice').val($('#txtOriginalPrice').val() - dis);
+            } catch (e) {
+                $('#txtNetPrice').val(0);
+            }
+
+        });
+
+        $("#txtOriginalPrice").keyup(function () {
+            try {
+                var dis = ($('#txtDiscount').val() / 100) * $('#txtOriginalPrice').val();
+                $('#txtNetPrice').val($('#txtOriginalPrice').val() - dis);
+            } catch (e) {
+                $('#txtNetPrice').val(0);
+            }
+
+        });
+
+        $('#imgCover').click(function (e) {
+
+            e.preventDefault();
+            $('#fileCover').click();
+
+        });
+
+
+        $('#btnSave').click(function (e) {
+
+            e.preventDefault();
+            filesUploaded = 0;
+            console.log('Files to upload: ', filesMain);
+            var code = $('#txtCode').val();
+            var name = $('#txtName').val();
+            var fabric = $('#txtFabric').val();
+            var priceO = $('#txtOriginalPrice').val();
+            var discount = $('#txtDiscount').val();
+            var priceNet = $('#txtNetPrice').val();
+            var cat = $('#cmbCat').val();
+            var mainCat = $('#mainCat').val();
+            var desc = $('#txtDesc').val();
+            var lotId = $('#lotDrop').val();
+            var articleId = $('#txtArticle').val();
+            var per = 0;
+            pics = [];
+
+
+
+            if (code.length === 0) {
+                swal({
+
+                    title: "Opps!",
+                    text: "Please enter product code",
+                    icon: "error",
+                });
+            }
+            else if (name.length === 0) {
+                swal({
+
+                    title: "Opps!",
+                    text: "Please enter product name",
+                    icon: "error",
+                });
+            }
+            else if (fabric.length === 0) {
+                swal({
+
+                    title: "Opps!",
+                    text: "Please enter product fabric",
+                    icon: "error",
+                });
+            }
+            else if (cat.length === 0) {
+                swal({
+
+                    title: "Opps!",
+                    text: "Please select a category",
+                    icon: "error",
+                });
+            }
+            else if (priceO.length === 0) {
+                swal({
+
+                    title: "Opps!",
+                    text: "Please enter original price",
+                    icon: "error",
+                });
+            }
+            else if (discount.length === 0) {
+                swal({
+
+                    title: "Opps!",
+                    text: "Please enter discount (%)",
+                    icon: "error",
+                });
+            }
+            else if (desc.length === 0) {
+                desc = "";
+            }
+            else
+            {
+                //Progress bar
+                //var el = "<div id='progressBar' class='progress-bar bg-info progress-bar-striped' aria-valuenow='0' aria-valuemin='0' aria-valuemax='" + filesMain.length + "' style='width: 0%; height:10px; max' role='progressbar'></div>";
+                //$('#divProgress').empty();
+                //$('#divProgress').append(el);
+
+
+                //Removed Pictures
+                $.each(removedItems, function (index, val) {
+                    console.log('Del: ', val);
+                    filesMain.splice($.inArray(filesMain[val], filesMain), 1);
+                });
+
+
+                //console.log('Final list: ', filesMain);
+                try {
+                    if (filesMain.length == 0) {
+                        filesMain = undefined;
+                    }
+                } catch (e) {}
+
+                if (filesMain != undefined) {
+                    $.each(filesMain, function (index, val) {
+                        var fd = new FormData();
+                        fd.append('files', val);
+
+                        $.ajax({
+                            url: '/ManageProducts/Upload',
+                            data: fd,
+                            processData: false,
+                            contentType: false,
+                            type: 'POST',
+                            success: function (dataa) {
+                                pics.push(dataa.message);
+                                filesUplaoded += 1;
+                                per = (filesUplaoded / filesMain.length) * 100;
+                                $('#progressBar').css('width', per + '%');
+                                console.log('Progress: ', filesUplaoded, filesMain.length, per);
+                                if (per == 100) { //All files uploaded
+                                    //Ajax to save
+                                    $.ajax({
+                                        type: "POST",
+                                        url: '/ManageProducts/EditProduct',
+                                        contentType: "application/json",
+                                        traditional: true,
+                                        data: JSON.stringify({ id: @ViewBag.pID, code: code, name: name, fabric: fabric, priceO: priceO, discount: discount, priceNet: priceNet, cat: cat,mainCat: mainCat, lotId: lotId, articleId: articleId, desc: desc, picsArr: pics }),
+                                        dataType: "json",
+                                        success: function (recData) {
+                                            if (recData.Data != "0") {
+
+                                                //Save Cover Image
+                                                var inputCover = $('#fileCover')[0];
+                                                if (inputCover.files && inputCover.files[0])
+                                                {
+                                                    console.log('Saving cover:,' + inputCover.files[0]);
+                                                    var fdCover = new FormData();
+                                                    fdCover.append('files', inputCover.files[0]);
+                                                    $.ajax({
+                                                        url: '/ManageProducts/Upload',
+                                                        data: fdCover,
+                                                        processData: false,
+                                                        contentType: false,
+                                                        type: 'POST',
+                                                        success: function (dataa) {
+                                                            var coverPath = dataa.message;
+                                                            //Update Cover Path
+                                                            $.ajax({
+                                                                type: "POST",
+                                                                url: '/ManageProducts/UpdateCover',
+                                                                contentType: "application/json",
+                                                                traditional: true,
+                                                                data: JSON.stringify({ id: recData.Data, cover: coverPath }),
+                                                                dataType: "json",
+                                                                success: function (dataa) {
+                                                                    if (dataa.status === "success") {
+                                                                        //Product saved
+                                                                        $('#progressBar').css('width', 0 + '%');
+                                                                        swal({
+                                                                            title: "Done!",
+                                                                            text: "Product Saved",
+                                                                            icon: "success",
+                                                                        });
+
+                                                                        //Clear
+                                                                        removedItems = [];
+                                                                        filesUplaoded = 0;
+                                                                        per = 0;
+                                                                        filesMain = [];
+                                                                        pics = [];
+                                                                        clear();
+                                                                    }
+                                                                    else {
+                                                                        swal({
+                                                                            title: "Opps!",
+                                                                            text: "Cover not saved",
+                                                                            icon: "error",
+                                                                        });
+                                                                    }
+
+                                                                },
+                                                                error: function () {
+                                                                    swal({
+                                                                        title: "Opps!",
+                                                                        text: "Server error on saving cover",
+                                                                        icon: "error",
+                                                                    });
+                                                                }
+                                                            });
+
+
+                                                        },
+                                                        error: function () {
+                                                            swal({
+                                                                title: "Opps!",
+                                                                text: "Cover not saved",
+                                                                icon: "error",
+                                                            });
+                                                        }
+                                                    });
+
+                                                }
+                                                else {
+                                                    //Product saved
+                                                    $('#progressBar').css('width', 0 + '%');
+                                                    swal({
+                                                        title: "Done!",
+                                                        text: "Product Saved",
+                                                        icon: "success",
+                                                    });
+
+                                                    //Clear
+                                                    removedItems = [];
+                                                    filesUplaoded = 0;
+                                                    per = 0;
+                                                    filesMain = [];
+                                                    pics = [];
+                                                    clear();
+                                                }
+
+                                            }
+                                            else {
+                                                swal({
+                                                    title: "Opps!",
+                                                    text: "Can't save right now",
+                                                    icon: "error",
+                                                });
+                                            }
+
+                                        },
+                                        error: function () {
+                                            swal({
+
+                                                title: "Opps!",
+                                                text: "Something went wrong",
+                                                icon: "error",
+                                            });
+                                        }
+                                    });
+                                }
+                                else {
+                                    //console.log('Not uploaded', filesUploaded, filesMain.length);
+                                }
+                            },
+                            error: function () {
+                                swal({
+                                    title: "Opps!",
+                                    text: "Pictures not saved",
+                                    icon: "error",
+                                });
+                            }
+                        });
+
+                    });
+                }
+                else { //Without Image
+                    $.ajax({
+                        type: "POST",
+                        url: '/ManageProducts/EditProduct',
+                        contentType: "application/json",
+                        traditional: true,
+                        data: JSON.stringify({ id: @ViewBag.pID, code: code, name: name, fabric: fabric, priceO: priceO, discount: discount, priceNet: priceNet, cat: cat,mcat: mainCat, lotId: lotId, articleId: articleId, desc: desc, picsArr: pics }),
+                        dataType: "json",
+                        success: function (recData) {
+                            if (recData.Data != "0") {
+
+
+                                //Save Cover Image
+                                var inputCover = $('#fileCover')[0];
+                                if (inputCover.files && inputCover.files[0]) {
+                                    console.log('Saving cover:,' + inputCover.files[0]);
+                                    var fdCover = new FormData();
+                                    fdCover.append('files', inputCover.files[0]);
+                                    $.ajax({
+                                        url: '/ManageProducts/Upload',
+                                        data: fdCover,
+                                        processData: false,
+                                        contentType: false,
+                                        type: 'POST',
+                                        success: function (dataa) {
+                                            var coverPath = dataa.message;
+                                            //Update Cover Path
+                                            $.ajax({
+                                                type: "POST",
+                                                url: '/ManageProducts/UpdateCover',
+                                                contentType: "application/json",
+                                                traditional: true,
+                                                data: JSON.stringify({ id: recData.Data, cover: coverPath }),
+                                                dataType: "json",
+                                                success: function (dataa) {
+                                                    if (dataa.status === "success") {
+                                                        //Product saved
+                                                        $('#progressBar').css('width', 0 + '%');
+                                                        swal({
+                                                            title: "Done!",
+                                                            text: "Product Saved",
+                                                            icon: "success",
+                                                        });
+
+                                                        //Clear
+                                                        removedItems = [];
+                                                        filesUplaoded = 0;
+                                                        per = 0;
+                                                        filesMain = [];
+                                                        pics = [];
+                                                        clear();
+                                                    }
+                                                    else {
+                                                        swal({
+                                                            title: "Opps!",
+                                                            text: "Cover not saved",
+                                                            icon: "error",
+                                                        });
+                                                    }
+
+                                                },
+                                                error: function () {
+                                                    swal({
+                                                        title: "Opps!",
+                                                        text: "Server error on saving cover",
+                                                        icon: "error",
+                                                    });
+                                                }
+                                            });
+
+
+                                        },
+                                        error: function () {
+                                            swal({
+                                                title: "Opps!",
+                                                text: "Cover not saved",
+                                                icon: "error",
+                                            });
+                                        }
+                                    });
+
+                                }
+                                else {
+                                    //Product saved
+                                    $('#progressBar').css('width', 0 + '%');
+                                    swal({
+                                        title: "Done!",
+                                        text: "Product Saved",
+                                        icon: "success",
+                                    });
+
+                                    //Clear
+                                    removedItems = [];
+                                    filesUplaoded = 0;
+                                    per = 0;
+                                    filesMain = [];
+                                    pics = [];
+                                    clear();
+                                }
+                            }
+                            else {
+                                swal({
+                                    title: "Opps!",
+                                    text: "Can't save right now",
+                                    icon: "error",
+                                });
+                            }
+
+                        },
+                        error: function () {
+                            swal({
+
+                                title: "Opps!",
+                                text: "Something went wrong",
+                                icon: "error",
+                            });
+                        }
+                    });
+                }
+            }
+
+
+        });
+
+
+        $('#btnAdd').click(function () {
+                $('#file').click();
+            }
+          );
+
+        $(document).on('click', '.btnTrash', function () {
+
+            var name = jQuery(this).attr("name");
+            var idd = jQuery(this).attr("id");
+            var iddArr = idd.split('-');
+            var id = "#" + idd + 'Div';
+            var removePic = false;
+
+            if (iddArr[2] === undefined) {
+                console.log("Image is not saved yet");
+            }
+            else {
+                console.log("Image saved with ID: " + iddArr[2]);
+                removePic = true;
+            }
+
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this file!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+
+                    if (removePic) {
+                        //Remove from DB
+                        $.ajax({
+                            type: "POST",
+                            url: '/ManageProducts/RemoveImage',
+                            contentType: "application/json",
+                            traditional: true,
+                            data: JSON.stringify({ imageID : iddArr[2] }),
+                            dataType: "json",
+                            success: function (recData) {
+                                if (recData.Data == "done") {
+                                    $(id).remove();
+                                }
+                            },
+                            error: function () {
+                                swal({
+
+                                    title: "Opps!",
+                                    text: "Error on removing images",
+                                    icon: "error",
+                                });
+                            }
+                        });
+                    }
+                    else
+                    {
+                        //Remove Image from interface
+                        var fileToRemove = filesMain[name];
+                        var found = $.inArray(fileToRemove, filesMain);
+                        if (found > -1) {
+                            removedItems.push(name);
+                        }
+                        else {
+                            console.log('File ' + name, '- Not found');
+                        }
+                        $(id).remove();
+                    }
+                }
+            });
+
+
+        });
+
+
+
+    });
+
+    function clear() {
+        location.reload();
+    }
+
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#tb1').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURLCover(input, elemID) {
+
+        if (input.files && input.files[0]) {
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#' + elemID).attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readImg(input, index, elementID) {
+
+        if (input.files && input.files[index]) {
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $().attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function AddThumbnail(input, filesData) {
+
+        var ind = 0;
+        var elID;
+        var delID;
+        var divID;
+        filesMain = [];
+
+        $.each(filesData, function (index, val) {
+            elID = 'tb' + i;
+            delID = 'remove' + i;
+            divID = delID + 'Div';
+            //var elem = "<img id='" + elID + "' class='col-lg-2' style='width:250px; height:250px; border 1px solid #3b5998;' />";
+            var elem = "<div id='" + divID + "' class='col-lg-2 col-md-2'><div class='el-card-item'> <div class='el-card-avatar el-overlay-1'>  <img id='" + elID + "' class='card' /> <div class='el-overlay'> <ul class='el-info'><li id='" + delID + "' name='" + ind + "'  class='btnTrash'><a class='btn default btn-outline remove'><i class='fas fa-trash-alt'></i></a></li></ul>  </div> </div></div> </div>";
+            $("#divGallery").append(elem);
+            elID = '#' + elID;
+
+
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                //Old ID
+                console.log('setting src for: ' + loadedThumbnails);
+                $('#tb' + loadedThumbnails).attr('src', e.target.result);
+                loadedThumbnails += 1;
+
+                //Save to array
+                filesMain.push(val);
+                //console.log('File added: ', filesMain);
+            }
+            reader.readAsDataURL(val);
+
+            i++;
+
+            //name for removal
+            ind++;
+        });
+
+        console.log('Files Added:', filesMain);
+    }
+
+
+    function LoadImages()
+    {
+        var ind = 0;
+        var elID;
+        var delID;
+        var divID;
+
+
+        $.ajax({
+            type: "POST",
+            url: '/ManageProducts/GetImages',
+            contentType: "application/json",
+            traditional: true,
+            data: JSON.stringify({ id : @ViewBag.pID }),
+            dataType: "json",
+            success: function (recData) {
+                if (recData.Data != "") {
+                    //Create Thumbnail
+                    $.each(recData.Data, function (index, val) {
+
+                        elID = 'tb' + i + '-' + val.id;
+                        delID = 'remove-' + i + '-' + val.id;
+                        divID = delID + 'Div';
+                        //var elem = "<img id='" + elID + "' class='col-lg-2' style='width:250px; height:250px; border 1px solid #3b5998;' />";
+                        var elem = "<div id='" + divID + "' class='col-lg-2 col-md-2'><div class='el-card-item'> <div class='el-card-avatar el-overlay-1'>  <img id='" + elID + "' class='card' /> <div class='el-overlay'> <ul class='el-info'><li id='" + delID + "' name='" + ind + "'  class='btnTrash'><a class='btn default btn-outline remove'><i class='fas fa-trash-alt'></i></a></li></ul>  </div> </div></div> </div>";
+                        $("#divGallery").append(elem);
+                        elID = '#' + elID;
+
+                        $(elID).attr('src', '../../Uploads/Products/' + val.pic);
+
+                        i++;
+                        loadedThumbnails += 1;
+                        //name for removal
+                        ind++;
+
+
+                    });
+
+                }
+                else {
+                    //No Image found
+                }
+
+            },
+            error: function () {
+                swal({
+
+                    title: "Opps!",
+                    text: "Error on loading images",
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+
+    $("#file").change(function () {
+        removedItems = [];
+        filesMain = [];
+        var files = this.files;
+        //$('#divGallery').empty();
+        AddThumbnail(this, files);
+
+
+    });
+
+    $("#fileCover").change(function () {
+        readURLCover(this, 'imgCover');
+
+        //console.log('Cover:', $('#fileCover')[0].files[0]);
+
+    });
+
+    //dropdown value change
+    $(function () {
+        $('#lotDrop').change(function () {
+            $.getJSON('/ManageProducts/itemList/' + $('#lotDrop').val(), function (data) {
+                $('#mainCat').empty();
+                console.log(data.Data);
+
+                $('#mainCat').val(data.Data);
+
+            });
+        });
+    });
+
+</script>
+

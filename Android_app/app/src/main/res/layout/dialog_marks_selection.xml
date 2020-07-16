@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="400dp"
+    android:background="@drawable/btn_rounded_indigo_outline"
+    android:backgroundTint="@color/quantum_white_100"
+    android:fitsSystemWindows="true"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    tools:targetApi="lollipop">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingLeft="@dimen/spacing_small"
+            android:paddingRight="@dimen/spacing_small">
+
+            <Button
+                android:id="@+id/dialog_exam_btn"
+                style="@style/Button.Primary.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_xxlarge"
+                android:background="@drawable/btn_rounded_grey_outline"
+                android:text="EXAMINATION"
+                android:backgroundTint="@color/blue_600"
+                android:textColor="@color/quantum_white_100" />
+
+            <Button
+                android:id="@+id/dialog_session_btn"
+                style="@style/Button.Primary.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_xxlarge"
+                android:background="@drawable/btn_rounded_grey_outline"
+                android:text="SESSION"
+                android:backgroundTint="@color/blue_600"
+                android:textColor="@color/quantum_white_100" />
+
+            <Button
+                android:id="@+id/dialog_class_btn"
+                style="@style/Button.Primary.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_xxlarge"
+                android:background="@drawable/btn_rounded_grey_outline"
+                android:text="CLASS"
+                android:backgroundTint="@color/blue_600"
+                android:textColor="@color/quantum_white_100" />
+
+            <Button
+                android:id="@+id/dialog_section_btn"
+                style="@style/Button.Primary.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_xxlarge"
+                android:background="@drawable/btn_rounded_grey_outline"
+                android:text="SECTION"
+                android:backgroundTint="@color/blue_600"
+                android:textColor="@color/quantum_white_100" />
+
+            <Button
+                android:id="@+id/dialog_subject_btn"
+                style="@style/Button.Primary.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_xxlarge"
+                android:background="@drawable/btn_rounded_grey_outline"
+                android:text="SUBJECT"
+                android:backgroundTint="@color/blue_600"
+                android:textColor="@color/quantum_white_100" />
+
+            <EditText
+                android:id="@+id/dialog_total_text"
+                android:layout_width="match_parent"
+                style="@style/Button.Primary.Borderless"
+                android:layout_height="@dimen/spacing_xxlarge"
+                android:background="@drawable/btn_rounded_grey_outline"
+                android:hint="TOTAL MARKS"
+                android:maxLength="3"
+                android:inputType="number"
+                android:textColorHint="@color/white_transparency"
+                android:textAlignment="center"
+                android:textColor="@color/quantum_white_100" />
+
+            <Button
+                android:id="@+id/dialog_done_btn"
+                style="@style/Button.Primary.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_xxlarge"
+                android:background="@drawable/btn_rounded_grey_outline"
+                android:text="DONE"
+                android:textColor="@color/quantum_white_100" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

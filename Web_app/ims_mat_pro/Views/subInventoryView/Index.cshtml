@@ -1,0 +1,417 @@
+﻿
+@{
+    ViewBag.Title = "Sub Inventory Type";
+}
+
+
+@section ControlsSection{
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <form class="floating-labels m-t-40" style="margin-top: 66Px;">
+                        @*<div class="form-group m-b-40 focused">
+                            <input type="text" disabled="disabled" class="form-control" id="txtlot">
+                            <span class="bar"></span>
+                            <label for="txtlot">Lot </label>
+                        </div>*@
+
+                        <div class="form-group m-b-40 focused">
+                            <input type="text" class="form-control" id="txtp">
+                            <span class="bar"></span>
+                            <label for="txtp">Item Code</label>
+                        </div>
+
+                        <div class="form-group m-t-40">
+                            <input type="number" class="form-control" id="txtA" required value="0">
+                            <span class="bar"></span>
+                            <label for="txtnp">A</label>
+                        </div>
+
+                        <div class="form-group m-t-40">
+                            <input type="number" class="form-control" id="txtB" required value="0">
+                            <span class="bar"></span>
+                            <label for="txtcp">B</label>
+                        </div>
+                        <div class="form-group m-t-40">
+                            <input type="number" class="form-control" id="txtsmall" required value="0">
+                            <span class="bar"></span>
+                            <label for="txtcp">Small</label>
+                        </div>
+                        <div class="form-group m-t-40">
+                            <input type="number" class="form-control" id="txtmed" required value="0">
+                            <span class="bar"></span>
+                            <label for="txtcp">Medium</label>
+                        </div>
+                        <div class="form-group m-t-40">
+                            <input type="number" class="form-control" id="txtlarge" required value="0">
+                            <span class="bar"></span>
+                            <label for="txtcp">Large</label>
+                        </div>
+                        <div class="form-group m-t-40">
+                            <input type="number" class="form-control" id="txtxlarge" required value="0">
+                            <span class="bar"></span>
+                            <label for="txtcp">XLarge</label>
+                        </div>
+
+
+                    </form>
+                    <br />
+
+                    <div style="">
+                        <button id="btnSave" type="button" disabled="true" class="btn btn-info col-lg-4" style="margin-left: 29%;">
+                            Save
+                        </button>
+                
+                        <img id="myimage" src="~/assets/images/images.jpg" alt="homepage" class="dark-logo" style="margin-left: 127%;
+    margin-top: -374%;" />
+
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="table-responsive m-t-40" style="margin-left:50%">
+                        <table id="myTable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>Item Code</th>
+                                    <th>Pac A</th>
+                                    <th>Pac B</th>
+                                    <th>S</th>
+                                    <th>M</th>
+                                    <th>L</th>
+                                    <th>XL</th>
+                                    <th>Options</th>  
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <h2 style="margin-left: 10%;    font-family: cursive;    font-size: x-large;">Name</h2>
+                    <h2 id="name" style="margin-left: 12%;"></h2>
+                    <h2 style="margin-left: 10%;    font-size: x-large;    font-family: cursive">Price</h2>
+                    <h2 id="netPrice" style="margin-left: 12%;"></h2>
+
+                    <h2 style="margin-left: 10%;    font-size: x-large;    font-family: cursive">Category</h2>
+                    <h2 id="category" style="margin-left: 12%;"></h2>
+                    <h2 style="margin-left: 10%;    font-size: x-large;    font-family: cursive">Lot</h2>
+                    <h2 id="txtlot" style="margin-left: 15%;"></h2>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script>
+
+    var table;
+    var editID = 0;
+    var itmCode = 0;
+    var originalItmCode="";
+    $(document).ready(function () {
+
+        type = '@Session["uType"]';
+        if (type === "") {
+            window.location = '../Login';
+        }
+
+         table =  $('#myTable').DataTable({
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "bLengthChange": false,
+                buttons: [
+                  'copyHtml5',
+                  'excelHtml5',
+                  'csvHtml5',
+                  'pdfHtml5'
+                ],
+                "ajax": {
+                    "url": "/subInventoryView/LoadData",
+                    "type": "POST",
+                    "datatype": "json",
+                    error: function (xhr, error, thrown) {
+                        console.log(xhr);
+                        console.log(error);
+                    }
+                },
+                "columnDefs":
+                   [{
+                       "targets": [0],
+                       "visible": false,
+                       "searchable": false
+                   },
+                    {
+                        "targets": [8],
+                        "searchable": false,
+                        "orderable": false
+                    },
+               
+                   ],
+                "columns": [
+                              { "data": "id", "name": "id", "autoWidth": true },
+                    { "data": "itemCode", "name": "itemCode", "autoWidth": true },
+                    { "data": "pacA", "name": "small", "autoWidth": true },
+                    { "data": "pacB", "name": "small", "autoWidth": true },
+                    { "data": "small", "name": "small", "autoWidth": true },
+                     { "data": "med", "name": "medium", "autoWidth": true },
+                      { "data": "large", "name": "large", "autoWidth": true },
+                       { "data": "xlarge", "name": "xlarge", "autoWidth": true },
+                       {
+                           "render": function (data, type, full, meta)
+                           { return '<a href="javascript:void(myFunction())" onclick=DeleteData(' + full.id + ');> <i class="fas fa-trash-alt" style="color:#d9534f;"></i>'; }
+
+                       },
+                       
+                ]
+         });
+
+         $('#btnAdd').click(function (e) {
+             editID = 0;
+             $('.modal-title').text('Add Expense Type');
+             $('#btnAddExpenseType').text('Add Expense Type');
+         });
+
+         $('#btnSave').click(function (e) {
+             e.preventDefault();
+             var pacA = $('#txtA').val();
+             var pacB = $('#txtB').val();
+             var small = $('#txtsmall').val();
+             var medium = $('#txtmed').val();
+             var large = $('#txtlarge').val();
+             var xlarge = $('#txtxlarge').val();
+             itmCode = $('#txtp').val();
+             console.log(originalItmCode, itmCode);
+             if (originalItmCode != itmCode) {
+
+                 originalItmCode = itmCode;
+
+
+            
+               
+       
+
+                 $.ajax({
+                     type: "POST",
+                     url: '/subInventoryView/Add',
+                     contentType: "application/json",
+                     traditional: true,
+                     data: JSON.stringify({ itemCode: itmCode, pacA: pacA, pacB: pacB, small: small, medium: medium, large: large, xlarge: xlarge }),
+                     dataType: "json",
+                     success: function (recData) {
+                         if (recData.Data == "success") {
+                             table.ajax.reload(null, false); // user paging is not reset on reload
+
+                             swal({
+                                 title: "Done!",
+                                 text: "added to sub inventory successfully.",
+                                 icon: "success",
+                             });
+
+                             //Clear
+                             $('#txtA').val('0');
+                             $('#txtB').val('0');
+                             $('#txtsmall').val('0');
+                             $('#txtmed').val('0');
+                             $('#txtlarge').val('0');
+                             $('#txtxlarge').val('0');
+
+                         }
+                         else {
+                             swal({
+                                 title: "Opps!",
+                                 text: recData.Data,
+                                 icon: "error",
+                             });
+                         }
+
+                     },
+                     error: function () {
+                         swal({
+
+                             title: "Opps!",
+                             text: "Something went wrong",
+                             icon: "error",
+                         });
+                     }
+                 });
+
+             }
+             else {
+                //ask the user what to do if same product adding to sub inventory..
+                 $.ajax({
+                     type: "POST",
+                     url: '/subInventoryView/Add',
+                     contentType: "application/json",
+                     traditional: true,
+                     data: JSON.stringify({ itemCode: itmCode, pacA: pacA, pacB: pacB, small: small, medium: medium, large: large, xlarge: xlarge }),
+                     dataType: "json",
+                     success: function (recData) {
+                         if (recData.Data == "success") {
+                             table.ajax.reload(null, false); // user paging is not reset on reload
+
+                             swal({
+                                 title: "Done!",
+                                 text: "added to sub inventory successfully.",
+                                 icon: "success",
+                             });
+
+                             //Clear
+                             $('#txtA').val('0');
+                             $('#txtB').val('0');
+                             $('#txtsmall').val('0');
+                             $('#txtmed').val('0');
+                             $('#txtlarge').val('0');
+                             $('#txtxlarge').val('0');
+
+                         }
+                         else {
+                             swal({
+                                 title: "Opps!",
+                                 text: recData.Data,
+                                 icon: "error",
+                             });
+                         }
+                     },
+                     error: function () {
+                         swal({
+
+                             title: "Opps!",
+                             text: "Something went wrong",
+                             icon: "error",
+                         });
+                     }
+                 });
+                 
+                 //end 
+                    
+             }
+
+         });
+    });
+
+    $("#txtp").keypress(function (e) {
+        if (e.which == 13) {
+            var id = $('#txtp').val();
+
+            $.getJSON('/subInventoryView/checkitm/' + $('#txtp').val(), function (data) {
+                    console.log(data.Data);
+                    originalItmCode = data.Data;
+
+                
+            });
+
+           // originalItmCode = id;
+            //$('.modal-title').text('Edit Sub inventory ');
+            //$('#btnAddExpenseType').text('Edit ExpenseType');
+            $.ajax({
+                type: "POST",
+                url: '/subInventoryView/Populate',
+                contentType: "application/json",
+                traditional: true,
+                data: JSON.stringify({ id: id }),
+                dataType: "json",
+                success: function (recData) {
+                    if (recData.Data == "failed") {
+                        $('#txtlot').val("");
+                        $('#category').val("");
+                        $('#txtType').val("");
+                        document.getElementById("name").innerText = "";
+                        document.getElementById("netPrice").innerText = "";
+                        document.getElementById("category").innerText = "";
+
+
+                        swal({
+
+                            title: "Opps!",
+                            text: "Product not found with Code "+id+" Or MayBe The Product Doesnt Belong to the Selected Lot Category ",
+                            icon: "error",
+                        });
+                        $('#btnSave').prop('disabled', true);
+                    }
+                    else {
+                        console.log(recData.Data.netPrice, recData.Data.category)
+                        document.getElementById("name").innerText = recData.Data.itm;
+                        document.getElementById("netPrice").innerText = recData.Data.netPrice;
+
+                        document.getElementById("category").innerText = recData.Data.category;
+                        //  $('#myimage').attr('src', recData.Data.coverImage);
+                         itmCode = recData.Data.itmCode;
+                         $('#btnSave').prop('disabled', false);
+                         document.getElementById("txtlot").innerText = recData.Data.lotname;
+                        $('#txtType').val(recData.Data.type);
+                        $('.form-group').addClass('focused');
+                    }
+                },
+                error: function () {
+                    swal({
+
+                        title: "Opps!",
+                        text: "Something went wrong",
+                        icon: "error",
+                    });
+            
+                }
+    
+            });
+        }
+    });
+
+    function DeleteData(ExpenseTypeID) {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+      .then((willDelete) => {
+          if (willDelete) {
+
+              $.ajax({
+                  type: "POST",
+                  url: '/subInventoryView/Delete',
+                  contentType: "application/json",
+                  traditional: true,
+                  data: JSON.stringify({ id: ExpenseTypeID }),
+                  dataType: "json",
+                  success: function (recData) {
+                      if (recData.status == "success") {
+                          table.ajax.reload(null, false); // user paging is not reset on reload
+                          swal("Data has been removed!", {
+                              icon: "success",
+                          });
+                      }
+                      else {
+                          swal({
+                              title: "Opps!",
+                              text: recData.Data,
+                              icon: "error",
+                          });
+                      }
+
+                  },
+                  error: function () {
+                      swal({
+
+                          title: "Opps!",
+                          text: "Something went wrong",
+                          icon: "error",
+                      });
+                  }
+              });
+
+          }
+      });
+    }
+
+    function EditData(id) {
+        
+    }
+
+</script>
+

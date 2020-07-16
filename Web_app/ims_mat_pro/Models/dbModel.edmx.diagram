@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0f3e59c7997046d99131309e5dee3590" Name="Diagram1" ShowGrid="true">
+        <EntityTypeShape EntityType="saajClothingModel.tblCategory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblReseller" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblItemPicture" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblCC" Width="1.5" PointX="4.75" PointY="2.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblOrderSummary" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblDistributor" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblOutlet" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblRetail" Width="1.5" PointX="6.75" PointY="2.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblUser" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblWarehouse" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblWholeseller" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblMainCategory" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblItem" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblLot" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblMainInventry" Width="1.5" PointX="8.75" PointY="2.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.issuedRetailer" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblSubInventory" Width="1.5" PointX="4.75" PointY="8.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblsubInventoryDetail" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblReturnInventory" Width="1.5" PointX="6.75" PointY="8.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblreturnHistoryDetail" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblMessage" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="saajClothingModel.tblIssue" Width="1.5" PointX="3.375" PointY="10.75" />
+        <EntityTypeShape EntityType="saajClothingModel.tblReturnHistory" Width="1.5" PointX="5.375" PointY="10.75" />
+        <EntityTypeShape EntityType="saajClothingModel.vInv" Width="1.5" PointX="9.375" PointY="10.75" />
+        <EntityTypeShape EntityType="saajClothingModel.Customer" Width="1.5" PointX="11.375" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.tblShare" Width="1.5" PointX="11.375" PointY="4.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.Lot" Width="1.5" PointX="11.5" PointY="6.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.Lot_Loose_Items" Width="1.5" PointX="11.5" PointY="7.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.size" Width="1.5" PointX="11.5" PointY="8" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.Main_Inventory" Width="1.5" PointX="11.375" PointY="9.375" />
+        <EntityTypeShape EntityType="saajClothingModel.Main_Inventory_Loose" Width="1.5" PointX="11.375" PointY="12.5" />
+        <EntityTypeShape EntityType="saajClothingModel.Packets_Scale" Width="1.5" PointX="13.375" PointY="0.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.Lot_Issued" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="saajClothingModel.Lot_Issued_Loose" Width="1.5" PointX="13.375" PointY="1.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="saajClothingModel.Inventory_Latest" Width="1.5" PointX="12" PointY="15.75" />
+        <EntityTypeShape EntityType="saajClothingModel.Lot_Distributed" Width="1.5" PointX="14.375" PointY="3.75" />
+        <EntityTypeShape EntityType="saajClothingModel.Lot_Distributed_Loose" Width="1.5" PointX="14.375" PointY="6.75" />
+        <EntityTypeShape EntityType="saajClothingModel.tblItemsSold" Width="1.5" PointX="0.75" PointY="2.75" />
+        <EntityTypeShape EntityType="saajClothingModel.tblCart" Width="1.5" PointX="15.375" PointY="0.75" />
+        <EntityTypeShape EntityType="saajClothingModel.temp_inv" Width="1.5" PointX="3.375" PointY="15.75" />
+        <EntityTypeShape EntityType="saajClothingModel.temp_issued" Width="1.5" PointX="14.375" PointY="9.75" />
+        <EntityTypeShape EntityType="saajClothingModel.temp_dist" Width="1.5" PointX="5.375" PointY="15.75" />
+        <EntityTypeShape EntityType="saajClothingModel.vDist" Width="1.5" PointX="7.375" PointY="15.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

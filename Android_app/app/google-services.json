@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "182823167139",
+    "firebase_url": "https://fusion-c7ef4.firebaseio.com",
+    "project_id": "fusion-c7ef4",
+    "storage_bucket": "fusion-c7ef4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182823167139:android:742bbf62eac47aa1158b16",
+        "android_client_info": {
+          "package_name": "fusionerp.pk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "182823167139-mfgt4dh0fm4ttc9ckdk8a74s1hb9a83b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fusionerp.pk",
+            "certificate_hash": "d1ad4eacf543202f7a75ec373629fff7bb75e51a"
+          }
+        },
+        {
+          "client_id": "182823167139-e7qhcv3v6h1fut6oidobdi5dq6u0eeoe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtXYFMfQb3LbC-vHESuNZlZgSMM-mgehE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "182823167139-e7qhcv3v6h1fut6oidobdi5dq6u0eeoe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

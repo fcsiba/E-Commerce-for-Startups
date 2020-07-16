@@ -1,0 +1,29 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_class_selection"
+        android:icon="@drawable/ic_group_black_24dp"
+        android:orderInCategory="100"
+        android:title="Select Class"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_done_all_attendance"
+        android:icon="@drawable/ic_save"
+        android:orderInCategory="100"
+        android:title="Done"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_sort_attendance"
+        android:title="Sort list"
+        app:showAsAction="collapseActionView" />
+
+
+    <item
+        android:id="@+id/action_help_attendance"
+        android:title="Help"
+        app:showAsAction="collapseActionView" />
+
+</menu>

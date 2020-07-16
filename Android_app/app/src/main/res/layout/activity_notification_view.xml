@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mdtp_white"
+    tools:context="pushy.fastech.pk.admin.adminportal.NotificationView">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/id_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="@dimen/spacing_large"
+                android:layout_height="0dp"/>
+
+            <RelativeLayout
+                android:id="@+id/open_dialog_change_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/course_first_letter_image_tint"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/shape_circle"
+                    android:backgroundTint="@color/mdtp_white"
+                    android:tint="@color/grey_40" />
+
+                <TextView
+                    android:id="@+id/course_first_letter_image"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:gravity="center"
+                    android:text="T"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/blue_700"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/transparent"
+                app:title="Notification"
+                app:contentInsetStartWithNavigation="0dp"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </LinearLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <TextView
+        android:layout_below="@id/id_toolbar"
+        android:id="@+id/tv_check_connection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/internet_connection"
+        android:textAlignment="center"
+        android:visibility="gone" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/mdtp_white"
+        android:scrollbars="vertical"
+        android:visibility="visible"
+        android:scrollingCache="true"
+        android:layout_below="@+id/tv_check_connection"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnNewNotification"
+        android:layout_width="53dp"
+        android:layout_height="62dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp"
+        android:visibility="visible"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:clickable="true"
+        android:layout_gravity="bottom|right"
+        android:tint="@color/mdtp_white"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+    // Loading animation recycler view
+    <LinearLayout
+        android:id="@+id/progress_bar_attendance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="visible"
+        android:layout_margin="@dimen/spacing_medium"
+        android:orientation="vertical">
+
+        <com.material.components.widget.ViewLoadingDotsBounce
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:background="@color/blue_600" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+

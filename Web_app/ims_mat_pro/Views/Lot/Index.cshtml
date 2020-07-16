@@ -1,0 +1,464 @@
+﻿
+@{
+    ViewBag.Title = "Lot Overview";
+}
+
+
+@section ControlsSection{
+
+    <div class="card">
+        <div class="card-body">
+            <button id="btnUpdateStock3432" type="button" class="btn waves-effect waves-light btn-block btn-info col-lg-2" data-toggle="modal" data-target="#add-contact">Add New Lot</button>
+
+            <div id="add-contact" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Add Lot</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="floating-labels m-t-20">
+                                <div class="form-group m-b-20">
+                                    @Html.DropDownList("cmbCat", (IEnumerable<SelectListItem>)ViewBag.maincat, String.Empty, new { @class = "form-control p-1" })
+                                    <label for="cmbCat">Category</label>
+                                </div>
+
+                                <div class="form-group m-b-20 focused">
+                                    <input type="text" class="form-control" id="txtNam" required value="0">
+                                    <span class="bar"></span>
+                                    <label for="txtSmall">lot Name</label>
+                                </div>
+
+                                <div class="form-group m-b-20 focused">
+                                    <input type="number" class="form-control" id="txtPacA" required value="0">
+                                    <span class="bar"></span>
+                                    <label for="txtMedium">Packet A</label>
+                                </div>
+
+                                <div class="form-group m-b-20 focused">
+                                    <input type="number" class="form-control" id="txtPacB" required value="0">
+                                    <span class="bar"></span>
+                                    <label for="txtLarge">Packet B</label>
+                                </div>
+
+                                <div class="form-group m-b-20 focused">
+                                    <input type="number" class="form-control" id="txtSmall" required value="0">
+                                    <span class="bar"></span>
+                                    <label for="txtxLarge">Small</label>
+                                </div>
+                                <div class="form-group m-b-20 focused">
+                                    <input type="number" class="form-control" id="txtMedium" required value="0">
+                                    <span class="bar"></span>
+                                    <label for="txtxLarge">Medium</label>
+                                </div>
+                                <div class="form-group m-b-20 focused">
+                                    <input type="number" class="form-control" id="txtLarge" required value="0">
+                                    <span class="bar"></span>
+                                    <label for="txtxLarge">Large</label>
+                                </div>
+                                <div class="form-group m-b-20 focused">
+                                    <input type="number" class="form-control" id="txtxLarge" required value="0">
+                                    <span class="bar"></span>
+                                    <label for="txtxLarge">XLarge</label>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnUpdateStock" type="button" class="btn btn-info waves-effect" data-dismiss="modal">Add Lot</button>
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+
+            </div>
+
+            <div class="table-responsive m-t-40">
+                <table id="myTable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Category</th>
+                            <th>lot Name</th>
+                            <th>Packets A</th>
+                            <th>Packets B</th>
+                            <th>Small</th>
+                            <th>Medium</th>
+                            <th>Large</th>
+                            <th>X Large</th>
+                            <th>Options</th>
+
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+    @*ISSUE TABLE:
+
+        issue id
+        typeid
+        local id
+        lot id
+        packet type
+        size
+        is_from_return
+        issue date*@
+
+
+}
+
+
+<script>
+
+    var table;
+    var proID = 0;
+    var editID = 0;
+
+    $(document).ready(function () {
+
+        type = '@Session["uType"]';
+        if (type === "") {
+            window.location = '../Login';
+        }
+
+
+        table = $('#myTable').DataTable({
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "bLengthChange": false,
+            buttons: [
+              'copyHtml5',
+              'excelHtml5',
+              'csvHtml5',
+              'pdfHtml5'
+            ],
+            "ajax": {
+                "url": "/lot/LoadData",
+                "type": "POST",
+                "datatype": "json",
+                error: function (xhr, error, thrown) {
+                    console.log(xhr);
+                    console.log(error);
+                }
+            },
+            "columnDefs":
+               [{
+                   "targets": [0],
+                   "visible": false,
+                   "searchable": false
+               },
+               {
+                   "targets": [5],
+                   "searchable": false,
+                   "orderable": false
+               },
+               {
+                   "targets": [6],
+                   "searchable": false,
+                   "orderable": false
+               }],
+            "columns": [
+                    { "data": "id", "name": "id", "autoWidth": true },
+                    { "data": "Category", "name": "category", "autoWidth": true },
+                    { "data": "lotName", "name": "Code", "autoWidth": true },
+                    { "data": "packetA", "name": "itemName", "autoWidth": true },
+                    { "data": "packetB", "name": "Fabric", "autoWidth": true },
+                    { "data": "small", "name": "small", "autoWidth": true },
+                     { "data": "medium", "name": "medium", "autoWidth": true },
+                      { "data": "large", "name": "large", "autoWidth": true },
+                       { "data": "xlarge", "name": "xlarge", "autoWidth": true },
+
+
+                    {
+                        "render": function (data, type, full, meta)
+                        { return '<a href="javascript:void(myFunction())" onclick=Populate(' + full.id + '); data-toggle="modal" data-target="#add-contact"><i class="fas fa-edit"></i></a><span> | </span> <a href="javascript:void(myFunction())" onclick=DeleteData(' + full.id + ');> <i class="fas fa-trash-alt" style="color:#d9534f;"></i>'; }
+
+                    },
+            ]
+        });
+    });
+
+
+
+    $('#btnUpdateStock3432').click(function (e) {
+        editID = 0;
+        $('.modal-title').text('Add Lot');
+        $('#btnUpdateStock').text('Add Lot');
+
+        $('#cmbCat').val(1);
+        $('#txtNam').val('');
+        $('#txtPacA').val(0);
+        $('#txtPacB').val(0);
+        $('#txtSmall').val(0);
+        $('#txtMedium').val(0);
+        $('#txtLarge').val(0);
+        $('#txtxLarge').val(0);
+    });
+
+    $('#btnUpdateStock').click(function (e) {
+
+        e.preventDefault();
+        //start monday morning from here!!!!
+        var name = $('#txtNam').val();
+        var cat = $('#cmbCat').val();
+        var pacA = $('#txtPacA').val();
+        var pacB = $('#txtPacB').val();
+        var small = $('#txtSmall').val();
+        var med = $('#txtMedium').val();
+        var large = $('#txtLarge').val();
+        var xLarge = $('#txtxLarge').val();
+
+        if (name.length === 0) {
+            swal({
+
+                title: "Opps!",
+                text: "Please enter lot Name",
+                icon: "error",
+            });
+        }
+        else if (cat.lenght === 0) {
+            swal({
+
+                title: "Opps!",
+                text: "Please Select Category",
+                icon: "error",
+            });
+        }
+        //else if (pacA < 1) {
+        //    swal({
+
+        //        title: "Opps!",
+        //        text: "Please enter Packet A",
+        //        icon: "error",
+        //    });
+        //}
+        //else if (pacB < 1) {
+        //    swal({
+
+        //        title: "Opps!",
+        //        text: "Please Enter Packet b",
+        //        icon: "error",
+        //    });
+        //}
+        //else if (small <1) {
+        //    swal({
+
+        //        title: "Opps!",
+        //        text: "Please Enter Packet Small",
+        //        icon: "error",
+        //    });
+        //}
+        //else if (med <1) {
+        //    swal({
+
+        //        title: "Opps!",
+        //        text: "Please enter Packet Medium",
+        //        icon: "error",
+        //    });
+        //}
+        //else if (large <1 ) {
+        //    swal({
+
+        //        title: "Opps!",
+        //        text: "Please enter Packet Large",
+        //        icon: "error",
+        //    });
+        //}
+
+        //else if (xLarge <1 ) {
+        //    swal({
+
+        //        title: "Opps!",
+        //        text: "Please Enter PAcket x Large",
+        //        icon: "error",
+        //    });
+        //}
+
+
+
+        else {
+
+
+
+            if (editID > 0)//Edit
+            {
+                $.ajax({
+                    type: "POST",
+                    url: '/Lot/Edit',
+                    contentType: "application/json",
+                    traditional: true,
+                    data: JSON.stringify({ id_: editID, cat: cat, name: name, pacA: pacA, pacB: pacB, small: small, med: med, large: large, xLarge: xLarge }),
+                    dataType: "json",
+                    success: function (recData) {
+                        if (recData.Data != "0") {
+                            table.ajax.reload(null, false); // user paging is not reset on reload
+                            swal({
+                                title: "Done!",
+                                text: "Saved successfully.",
+                                icon: "success",
+                            });
+
+
+
+                        }
+                        else {
+                            swal({
+                                title: "Opps!",
+                                text: "Can't save right now",
+                                icon: "error",
+                            });
+                        }
+
+                    },
+                    error: function () {
+                        swal({
+
+                            title: "Opps!",
+                            text: "Something went wrong",
+                            icon: "error",
+                        });
+                    }
+                });
+            }
+            else { //ADD
+                console.log("we are ading")
+                $.ajax({
+                    type: "POST",
+                    url: '/Lot/Add',
+                    contentType: "application/json",
+                    traditional: true,
+                    data: JSON.stringify({ cat: cat, name: name, pacA: pacA, pacB: pacB, small: small, med: med, large: large, xLarge: xLarge }),
+                    dataType: "json",
+                    success: function (recData) {
+                        if (recData.Data != "0") {
+                            table.ajax.reload(null, false); // user paging is not reset on reload
+                            swal({
+                                title: "Done!",
+                                text: "Lot added successfully.",
+                                icon: "success",
+                            });
+
+
+                        }
+                        else {
+                            swal({
+                                title: "Opps!",
+                                text: "Can't save right now",
+                                icon: "error",
+                            });
+                        }
+
+                    },
+                    error: function (e) {
+                        swal({
+
+                            title: "Opps!",
+                            text: "Something went wrong" + e,
+                            icon: "error",
+                        });
+                    }
+                });
+            }
+
+        }
+
+        });
+    
+    
+
+    //populate script
+    function Populate(RetailsID) {
+        editID = RetailsID;
+
+        $('.modal-title').text('Edit Lot ');
+        $('#btnUpdateStock').text('Edit Lot');
+        $.ajax({
+            type: "POST",
+            url: '/lot/Populate',
+            contentType: "application/json",
+            traditional: true,
+            data: JSON.stringify({ id: editID }),
+            dataType: "json",
+            success: function (recData) {
+                $('#cmbCat').val(recData.Data.mainCatId);
+                $('#txtNam').val(recData.Data.lotName);
+                $('#txtPacA').val(recData.Data.packets_A);
+                $('#txtPacB').val(recData.Data.packets_B);
+                $('#txtSmall').val(recData.Data.small);
+                $('#txtMedium').val(recData.Data.medium);
+                $('#txtLarge').val(recData.Data.large);
+                $('#txtxLarge').val(recData.Data.xLarge);
+
+                $('.form-group').addClass('focused');
+            },
+            error: function () {
+                swal({
+
+                    title: "Opps!",
+                    text: "Something went wrong",
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+    //Delete script
+
+    function DeleteData(RetailsID) {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+      .then((willDelete) => {
+          if (willDelete) {
+
+              $.ajax({
+                  type: "POST",
+                  url: '/lot/Delete',
+                  contentType: "application/json",
+                  traditional: true,
+                  data: JSON.stringify({ id: RetailsID }),
+                  dataType: "json",
+                  success: function (recData) {
+                      if (recData.status == "success") {
+                          table.ajax.reload(null, false); // user paging is not reset on reload
+                          swal("Lot has been removed!", {
+                              icon: "success",
+                          });
+                      }
+                      else {
+                          swal({
+                              title: "Opps!",
+                              text: recData.Data,
+                              icon: "error",
+                          });
+                      }
+
+                  },
+                  error: function () {
+                      swal({
+
+                          title: "Opps!",
+                          text: "Something went wrong",
+                          icon: "error",
+                      });
+                  }
+              });
+
+          }
+      });
+    }
+
+
+
+</script>

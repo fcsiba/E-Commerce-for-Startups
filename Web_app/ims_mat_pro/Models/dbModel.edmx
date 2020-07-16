@@ -1,0 +1,2044 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="saajClothingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="150" />
+          <Property Name="number" Type="nvarchar" MaxLength="15" />
+          <Property Name="address" Type="nvarchar" MaxLength="300" />
+          <Property Name="city" Type="nvarchar" MaxLength="75" />
+          <Property Name="email" Type="nvarchar" MaxLength="300" />
+          <Property Name="password" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Inventory_Latest">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="itemId" Type="int" />
+          <Property Name="size" Type="nvarchar" MaxLength="150" />
+          <Property Name="qty" Type="int" />
+          <Property Name="network" Type="int" />
+          <Property Name="localID" Type="int" />
+        </EntityType>
+        <EntityType Name="issuedRetailer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="retailId" Type="int" />
+          <Property Name="localId" Type="int" />
+          <Property Name="localName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Lot">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mainCatId" Type="int" />
+          <Property Name="lotName" Type="nvarchar" MaxLength="200" />
+          <Property Name="A" Type="int" />
+          <Property Name="B" Type="int" />
+        </EntityType>
+        <EntityType Name="Lot_Distributed">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="issueId" Type="int" />
+          <Property Name="itemId" Type="int" />
+          <Property Name="pacA" Type="int" />
+          <Property Name="pacB" Type="int" />
+          <Property Name="date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Lot_Distributed_Loose">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="issueId" Type="int" />
+          <Property Name="itemId" Type="int" />
+          <Property Name="size" Type="nvarchar" MaxLength="150" />
+          <Property Name="qty" Type="int" />
+          <Property Name="date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Lot_Issued">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lotID" Type="int" />
+          <Property Name="packet_A" Type="int" />
+          <Property Name="packet_B" Type="int" />
+          <Property Name="networkID" Type="int" />
+          <Property Name="localID" Type="int" />
+          <Property Name="date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Lot_Issued_Loose">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="primaryID" Type="int" />
+          <Property Name="lotID" Type="int" />
+          <Property Name="size" Type="nvarchar" MaxLength="100" />
+          <Property Name="qty" Type="int" />
+          <Property Name="date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Lot_Loose_Items">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lotID" Type="int" />
+          <Property Name="size" Type="nvarchar" MaxLength="100" />
+          <Property Name="qty" Type="int" />
+        </EntityType>
+        <EntityType Name="Main_Inventory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mainCatID" Type="int" />
+          <Property Name="packet_A" Type="int" />
+          <Property Name="packet_B" Type="int" />
+        </EntityType>
+        <EntityType Name="Main_Inventory_Loose">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mainCatID" Type="int" />
+          <Property Name="size" Type="nvarchar" MaxLength="100" />
+          <Property Name="qty" Type="int" />
+        </EntityType>
+        <EntityType Name="Packets_Scale">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mainCatID" Type="int" />
+          <Property Name="size" Type="nvarchar" MaxLength="100" />
+          <Property Name="qty" Type="int" />
+        </EntityType>
+        <EntityType Name="sizes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="size" Type="nvarchar" MaxLength="100" />
+          <Property Name="mainCatID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblCart">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userMob" Type="nvarchar" MaxLength="50" />
+          <Property Name="itemID" Type="int" />
+          <Property Name="itemQty" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="size" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblCategory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="80" />
+        </EntityType>
+        <EntityType Name="tblCC">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" />
+          <Property Name="num" Type="nvarchar" MaxLength="50" />
+          <Property Name="expiry" Type="nvarchar" MaxLength="50" />
+          <Property Name="cvc" Type="nvarchar" MaxLength="50" />
+          <Property Name="userID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblDistributor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="NIC" Type="nvarchar" MaxLength="50" />
+          <Property Name="NTN" Type="nvarchar" MaxLength="50" />
+          <Property Name="Moblie" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReferredBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblIssue">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="issuedRetailId" Type="int" Nullable="false" />
+          <Property Name="lotId" Type="int" />
+          <Property Name="packetA" Type="int" />
+          <Property Name="packetB" Type="int" />
+          <Property Name="small" Type="int" />
+          <Property Name="medium" Type="int" />
+          <Property Name="large" Type="int" />
+          <Property Name="xLarge" Type="int" />
+          <Property Name="issueDate" Type="date" />
+          <Property Name="isFromReturn" Type="bit" />
+          <Property Name="networkID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblItemPictures">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="itemID" Type="int" />
+          <Property Name="picLocation" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tblItems">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lotId" Type="int" />
+          <Property Name="articleId" Type="nvarchar" MaxLength="100" />
+          <Property Name="itemCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="itemName" Type="nvarchar" MaxLength="50" />
+          <Property Name="fabric" Type="nvarchar" MaxLength="100" />
+          <Property Name="mainCategory" Type="int" />
+          <Property Name="subCategory" Type="int" />
+          <Property Name="originalPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="discount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="netPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="tag" Type="nvarchar" MaxLength="100" />
+          <Property Name="scale" Type="nvarchar" MaxLength="100" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="coverImage" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tblItemsSold">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="invoiceNum" Type="int" />
+          <Property Name="itemID" Type="int" />
+          <Property Name="quantity" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="userID" Type="int" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="size" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblLot">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mainCatId" Type="int" />
+          <Property Name="lotName" Type="nvarchar" MaxLength="100" />
+          <Property Name="packets_A" Type="int" />
+          <Property Name="packets_B" Type="int" />
+          <Property Name="small" Type="int" />
+          <Property Name="medium" Type="int" />
+          <Property Name="large" Type="int" />
+          <Property Name="xLarge" Type="int" />
+          <Property Name="date" Type="date" />
+        </EntityType>
+        <EntityType Name="tblMainCategory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblMainInventry">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mainCatId" Type="int" />
+          <Property Name="pacA" Type="int" />
+          <Property Name="pacB" Type="int" />
+          <Property Name="small" Type="int" />
+          <Property Name="medium" Type="int" />
+          <Property Name="large" Type="int" />
+          <Property Name="xLarge" Type="int" />
+        </EntityType>
+        <EntityType Name="tblMessage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="message" Type="nvarchar(max)" />
+          <Property Name="sent_time" Type="datetime" />
+          <Property Name="isSent" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblOrderSummary">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userID" Type="int" />
+          <Property Name="totalAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="discount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="netAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="paid" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="balance" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="status" Type="nvarchar" MaxLength="100" />
+          <Property Name="deliveryOption" Type="nvarchar" MaxLength="100" />
+          <Property Name="deliveryCharges" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="payMode" Type="nvarchar" MaxLength="50" />
+          <Property Name="firstName" Type="nvarchar" MaxLength="200" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="200" />
+          <Property Name="shippingAddress" Type="nvarchar" MaxLength="500" />
+          <Property Name="mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="city" Type="nvarchar" MaxLength="100" />
+          <Property Name="country" Type="nvarchar" MaxLength="100" />
+          <Property Name="note" Type="nvarchar(max)" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblOutlets">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OutletName" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Moblie" Type="nvarchar" MaxLength="50" />
+          <Property Name="NTN" Type="nvarchar" MaxLength="50" />
+          <Property Name="Location" Type="varchar(max)" />
+          <Property Name="OwnerName" Type="varchar" MaxLength="50" />
+          <Property Name="NIC" Type="nvarchar" MaxLength="50" />
+          <Property Name="OwnerAddress" Type="varchar(max)" />
+          <Property Name="ContactNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="UserMoblieNo" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblReseller">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="fatherName" Type="nvarchar" MaxLength="100" />
+          <Property Name="NIC" Type="nvarchar" MaxLength="50" />
+          <Property Name="address" Type="nvarchar(max)" />
+          <Property Name="Mob" Type="nvarchar" MaxLength="50" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="DOA" Type="datetime" />
+          <Property Name="supervisor" Type="int" />
+          <Property Name="isSupervisor" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblRetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblReturnHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="issueRetailId" Type="int" />
+          <Property Name="category_Id" Type="int" />
+          <Property Name="pacA" Type="int" />
+          <Property Name="pacB" Type="int" />
+          <Property Name="small" Type="int" />
+          <Property Name="medium" Type="int" />
+          <Property Name="large" Type="int" />
+          <Property Name="xLarge" Type="int" />
+          <Property Name="date" Type="date" />
+          <Property Name="save_to_main_inventory" Type="bit" />
+          <Property Name="reason" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tblreturnHistoryDetails">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="issueRetailId" Type="int" />
+          <Property Name="itmId" Type="int" />
+          <Property Name="small" Type="int" />
+          <Property Name="medium" Type="int" />
+          <Property Name="large" Type="int" />
+          <Property Name="xlarge" Type="int" />
+          <Property Name="date" Type="text" />
+          <Property Name="reason" Type="nvarchar(max)" />
+          <Property Name="invoice#" Type="int" />
+          <Property Name="RID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblReturnInventory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mainCatId" Type="int" />
+          <Property Name="pacA" Type="int" />
+          <Property Name="pacB" Type="int" />
+          <Property Name="small" Type="int" />
+          <Property Name="medium" Type="int" />
+          <Property Name="large" Type="int" />
+          <Property Name="xLarge" Type="int" />
+        </EntityType>
+        <EntityType Name="tblShare">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="nvarchar" MaxLength="100" />
+          <Property Name="amount" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="tblSubInventory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="itemId" Type="int" Nullable="false" />
+          <Property Name="issueRetailId" Type="int" Nullable="false" />
+          <Property Name="small" Type="int" />
+          <Property Name="medium" Type="int" />
+          <Property Name="large" Type="int" />
+          <Property Name="xLarge" Type="int" />
+          <Property Name="networkID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblsubInventoryDetails">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="issueId" Type="int" Nullable="false" />
+          <Property Name="itemId" Type="int" Nullable="false" />
+          <Property Name="packetA" Type="int" />
+          <Property Name="packetB" Type="int" />
+          <Property Name="small" Type="int" />
+          <Property Name="medium" Type="int" />
+          <Property Name="large" Type="int" />
+          <Property Name="xLarge" Type="int" />
+        </EntityType>
+        <EntityType Name="tblUsers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userName" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="type" Type="int" />
+          <Property Name="localID" Type="int" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblWarehouse">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="InchargeName" Type="varchar" MaxLength="50" />
+          <Property Name="Moblie" Type="nvarchar" MaxLength="50" />
+          <Property Name="NIC" Type="nvarchar" MaxLength="50" />
+          <Property Name="InchargeAddress" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="tblWholesellers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="NIC" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="ContactNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="NTN" Type="nvarchar" MaxLength="50" />
+          <Property Name="Moblie" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReferredBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="temp_dist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="issueId" Type="int" />
+          <Property Name="itemId" Type="int" />
+          <Property Name="14 (12-18 month)" Type="int" />
+          <Property Name="16 (2-3 year)" Type="int" />
+          <Property Name="18 (3-4 year)" Type="int" />
+          <Property Name="20 (5-6 year)" Type="int" />
+          <Property Name="22 (7-8 year)" Type="int" />
+          <Property Name="24 (9-10 year)" Type="int" />
+          <Property Name="26 (11-12 year)" Type="int" />
+          <Property Name="28" Type="int" />
+          <Property Name="28 (13-15 year)" Type="int" />
+          <Property Name="30" Type="int" />
+          <Property Name="32" Type="int" />
+          <Property Name="34" Type="int" />
+          <Property Name="36" Type="int" />
+          <Property Name="38" Type="int" />
+          <Property Name="40" Type="int" />
+          <Property Name="42" Type="int" />
+          <Property Name="44" Type="int" />
+          <Property Name="L" Type="int" />
+          <Property Name="M" Type="int" />
+          <Property Name="S" Type="int" />
+          <Property Name="XL" Type="int" />
+          <Property Name="XXL" Type="int" />
+          <Property Name="XXXL" Type="int" />
+        </EntityType>
+        <EntityType Name="temp_inv">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="itemId" Type="int" />
+          <Property Name="14 (12-18 month)" Type="int" />
+          <Property Name="16 (2-3 year)" Type="int" />
+          <Property Name="18 (3-4 year)" Type="int" />
+          <Property Name="20 (5-6 year)" Type="int" />
+          <Property Name="22 (7-8 year)" Type="int" />
+          <Property Name="24 (9-10 year)" Type="int" />
+          <Property Name="26 (11-12 year)" Type="int" />
+          <Property Name="28" Type="int" />
+          <Property Name="28 (13-15 year)" Type="int" />
+          <Property Name="30" Type="int" />
+          <Property Name="32" Type="int" />
+          <Property Name="34" Type="int" />
+          <Property Name="36" Type="int" />
+          <Property Name="38" Type="int" />
+          <Property Name="40" Type="int" />
+          <Property Name="42" Type="int" />
+          <Property Name="44" Type="int" />
+          <Property Name="L" Type="int" />
+          <Property Name="M" Type="int" />
+          <Property Name="S" Type="int" />
+          <Property Name="XL" Type="int" />
+          <Property Name="XXL" Type="int" />
+          <Property Name="XXXL" Type="int" />
+        </EntityType>
+        <EntityType Name="temp_issued">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="primaryID" Type="int" />
+          <Property Name="14 (12-18 month)" Type="int" />
+          <Property Name="16 (2-3 year)" Type="int" />
+          <Property Name="18 (3-4 year)" Type="int" />
+          <Property Name="20 (5-6 year)" Type="int" />
+          <Property Name="22 (7-8 year)" Type="int" />
+          <Property Name="24 (9-10 year)" Type="int" />
+          <Property Name="26 (11-12 year)" Type="int" />
+          <Property Name="28" Type="int" />
+          <Property Name="28 (13-15 year)" Type="int" />
+          <Property Name="30" Type="int" />
+          <Property Name="32" Type="int" />
+          <Property Name="34" Type="int" />
+          <Property Name="36" Type="int" />
+          <Property Name="38" Type="int" />
+          <Property Name="40" Type="int" />
+          <Property Name="42" Type="int" />
+          <Property Name="44" Type="int" />
+          <Property Name="L" Type="int" />
+          <Property Name="M" Type="int" />
+          <Property Name="S" Type="int" />
+          <Property Name="XL" Type="int" />
+          <Property Name="XXL" Type="int" />
+          <Property Name="XXXL" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'saaj.dbo.vDist' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vDist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="itemCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="pacA" Type="int" />
+          <Property Name="pacB" Type="int" />
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="issueId" Type="int" />
+          <Property Name="itemId" Type="int" />
+          <Property Name="14 (12-18 month)" Type="int" />
+          <Property Name="16 (2-3 year)" Type="int" />
+          <Property Name="18 (3-4 year)" Type="int" />
+          <Property Name="20 (5-6 year)" Type="int" />
+          <Property Name="22 (7-8 year)" Type="int" />
+          <Property Name="24 (9-10 year)" Type="int" />
+          <Property Name="26 (11-12 year)" Type="int" />
+          <Property Name="28" Type="int" />
+          <Property Name="28 (13-15 year)" Type="int" />
+          <Property Name="30" Type="int" />
+          <Property Name="32" Type="int" />
+          <Property Name="34" Type="int" />
+          <Property Name="36" Type="int" />
+          <Property Name="38" Type="int" />
+          <Property Name="40" Type="int" />
+          <Property Name="42" Type="int" />
+          <Property Name="44" Type="int" />
+          <Property Name="L" Type="int" />
+          <Property Name="M" Type="int" />
+          <Property Name="S" Type="int" />
+          <Property Name="XL" Type="int" />
+          <Property Name="XXL" Type="int" />
+          <Property Name="XXXL" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'saaj.dbo.vInv' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vInv">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="issuedRetailId" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="issuedRetailId" Type="int" Nullable="false" />
+          <Property Name="lotId" Type="int" />
+          <Property Name="packetA" Type="int" />
+          <Property Name="packetB" Type="int" />
+          <Property Name="small" Type="int" />
+          <Property Name="medium" Type="int" />
+          <Property Name="large" Type="int" />
+          <Property Name="xLarge" Type="int" />
+          <Property Name="issueDate" Type="date" />
+          <Property Name="isFromReturn" Type="bit" />
+          <Property Name="networkID" Type="int" />
+          <Property Name="localId" Type="int" />
+          <Property Name="localName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityContainer Name="saajClothingModelStoreContainer">
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inventory_Latest" EntityType="Self.Inventory_Latest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="issuedRetailer" EntityType="Self.issuedRetailer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lot" EntityType="Self.Lot" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lot_Distributed" EntityType="Self.Lot_Distributed" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lot_Distributed_Loose" EntityType="Self.Lot_Distributed_Loose" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lot_Issued" EntityType="Self.Lot_Issued" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lot_Issued_Loose" EntityType="Self.Lot_Issued_Loose" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lot_Loose_Items" EntityType="Self.Lot_Loose_Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Main_Inventory" EntityType="Self.Main_Inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Main_Inventory_Loose" EntityType="Self.Main_Inventory_Loose" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Packets_Scale" EntityType="Self.Packets_Scale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sizes" EntityType="Self.sizes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCart" EntityType="Self.tblCart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCategory" EntityType="Self.tblCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCC" EntityType="Self.tblCC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDistributor" EntityType="Self.tblDistributor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblIssue" EntityType="Self.tblIssue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblItemPictures" EntityType="Self.tblItemPictures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblItems" EntityType="Self.tblItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblItemsSold" EntityType="Self.tblItemsSold" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblLot" EntityType="Self.tblLot" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMainCategory" EntityType="Self.tblMainCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMainInventry" EntityType="Self.tblMainInventry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMessage" EntityType="Self.tblMessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOrderSummary" EntityType="Self.tblOrderSummary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOutlets" EntityType="Self.tblOutlets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblReseller" EntityType="Self.tblReseller" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRetail" EntityType="Self.tblRetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblReturnHistory" EntityType="Self.tblReturnHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblreturnHistoryDetails" EntityType="Self.tblreturnHistoryDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblReturnInventory" EntityType="Self.tblReturnInventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblShare" EntityType="Self.tblShare" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSubInventory" EntityType="Self.tblSubInventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblsubInventoryDetails" EntityType="Self.tblsubInventoryDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblWarehouse" EntityType="Self.tblWarehouse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblWholesellers" EntityType="Self.tblWholesellers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="temp_dist" EntityType="Self.temp_dist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="temp_inv" EntityType="Self.temp_inv" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="temp_issued" EntityType="Self.temp_issued" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vDist" EntityType="Self.vDist" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vDist].[itemCode] AS [itemCode], 
+    [vDist].[pacA] AS [pacA], 
+    [vDist].[pacB] AS [pacB], 
+    [vDist].[id] AS [id], 
+    [vDist].[issueId] AS [issueId], 
+    [vDist].[itemId] AS [itemId], 
+    [vDist].[14 (12-18 month)] AS [14 (12-18 month)], 
+    [vDist].[16 (2-3 year)] AS [16 (2-3 year)], 
+    [vDist].[18 (3-4 year)] AS [18 (3-4 year)], 
+    [vDist].[20 (5-6 year)] AS [20 (5-6 year)], 
+    [vDist].[22 (7-8 year)] AS [22 (7-8 year)], 
+    [vDist].[24 (9-10 year)] AS [24 (9-10 year)], 
+    [vDist].[26 (11-12 year)] AS [26 (11-12 year)], 
+    [vDist].[28] AS [28], 
+    [vDist].[28 (13-15 year)] AS [28 (13-15 year)], 
+    [vDist].[30] AS [30], 
+    [vDist].[32] AS [32], 
+    [vDist].[34] AS [34], 
+    [vDist].[36] AS [36], 
+    [vDist].[38] AS [38], 
+    [vDist].[40] AS [40], 
+    [vDist].[42] AS [42], 
+    [vDist].[44] AS [44], 
+    [vDist].[L] AS [L], 
+    [vDist].[M] AS [M], 
+    [vDist].[S] AS [S], 
+    [vDist].[XL] AS [XL], 
+    [vDist].[XXL] AS [XXL], 
+    [vDist].[XXXL] AS [XXXL]
+    FROM [dbo].[vDist] AS [vDist]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vInv" EntityType="Self.vInv" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vInv].[id] AS [id], 
+    [vInv].[issuedRetailId] AS [issuedRetailId], 
+    [vInv].[lotId] AS [lotId], 
+    [vInv].[packetA] AS [packetA], 
+    [vInv].[packetB] AS [packetB], 
+    [vInv].[small] AS [small], 
+    [vInv].[medium] AS [medium], 
+    [vInv].[large] AS [large], 
+    [vInv].[xLarge] AS [xLarge], 
+    [vInv].[issueDate] AS [issueDate], 
+    [vInv].[isFromReturn] AS [isFromReturn], 
+    [vInv].[networkID] AS [networkID], 
+    [vInv].[localId] AS [localId], 
+    [vInv].[localName] AS [localName]
+    FROM [dbo].[vInv] AS [vInv]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="saajClothingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="linqDBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblCategories" EntityType="saajClothingModel.tblCategory" />
+          <EntitySet Name="tblResellers" EntityType="saajClothingModel.tblReseller" />
+          <EntitySet Name="tblItemPictures" EntityType="saajClothingModel.tblItemPicture" />
+          <EntitySet Name="tblCCs" EntityType="saajClothingModel.tblCC" />
+          <EntitySet Name="tblOrderSummaries" EntityType="saajClothingModel.tblOrderSummary" />
+          <EntitySet Name="tblDistributors" EntityType="saajClothingModel.tblDistributor" />
+          <EntitySet Name="tblOutlets" EntityType="saajClothingModel.tblOutlet" />
+          <EntitySet Name="tblRetails" EntityType="saajClothingModel.tblRetail" />
+          <EntitySet Name="tblUsers" EntityType="saajClothingModel.tblUser" />
+          <EntitySet Name="tblWarehouses" EntityType="saajClothingModel.tblWarehouse" />
+          <EntitySet Name="tblWholesellers" EntityType="saajClothingModel.tblWholeseller" />
+          <EntitySet Name="tblMainCategories" EntityType="saajClothingModel.tblMainCategory" />
+          <EntitySet Name="tblItems" EntityType="saajClothingModel.tblItem" />
+          <EntitySet Name="tblLots" EntityType="saajClothingModel.tblLot" />
+          <EntitySet Name="tblMainInventries" EntityType="saajClothingModel.tblMainInventry" />
+          <EntitySet Name="issuedRetailers" EntityType="saajClothingModel.issuedRetailer" />
+          <EntitySet Name="tblSubInventories" EntityType="saajClothingModel.tblSubInventory" />
+          <EntitySet Name="tblsubInventoryDetails" EntityType="saajClothingModel.tblsubInventoryDetail" />
+          <EntitySet Name="tblReturnInventories" EntityType="saajClothingModel.tblReturnInventory" />
+          <EntitySet Name="tblreturnHistoryDetails" EntityType="saajClothingModel.tblreturnHistoryDetail" />
+          <EntitySet Name="tblMessages" EntityType="saajClothingModel.tblMessage" />
+          <EntitySet Name="tblIssues" EntityType="saajClothingModel.tblIssue" />
+          <EntitySet Name="tblReturnHistories" EntityType="saajClothingModel.tblReturnHistory" />
+          <EntitySet Name="vInvs" EntityType="saajClothingModel.vInv" />
+          <EntitySet Name="Customers" EntityType="saajClothingModel.Customer" />
+          <EntitySet Name="tblShares" EntityType="saajClothingModel.tblShare" />
+          <EntitySet Name="Lots" EntityType="saajClothingModel.Lot" />
+          <EntitySet Name="Lot_Loose_Items" EntityType="saajClothingModel.Lot_Loose_Items" />
+          <EntitySet Name="sizes" EntityType="saajClothingModel.size" />
+          <EntitySet Name="Main_Inventory" EntityType="saajClothingModel.Main_Inventory" />
+          <EntitySet Name="Main_Inventory_Loose" EntityType="saajClothingModel.Main_Inventory_Loose" />
+          <EntitySet Name="Packets_Scale" EntityType="saajClothingModel.Packets_Scale" />
+          <EntitySet Name="Lot_Issued" EntityType="saajClothingModel.Lot_Issued" />
+          <EntitySet Name="Lot_Issued_Loose" EntityType="saajClothingModel.Lot_Issued_Loose" />
+          <EntitySet Name="Inventory_Latest" EntityType="saajClothingModel.Inventory_Latest" />
+          <EntitySet Name="Lot_Distributed" EntityType="saajClothingModel.Lot_Distributed" />
+          <EntitySet Name="Lot_Distributed_Loose" EntityType="saajClothingModel.Lot_Distributed_Loose" />
+          <EntitySet Name="tblItemsSolds" EntityType="saajClothingModel.tblItemsSold" />
+          <EntitySet Name="tblCarts" EntityType="saajClothingModel.tblCart" />
+          <EntitySet Name="temp_inv" EntityType="saajClothingModel.temp_inv" />
+          <EntitySet Name="temp_issued" EntityType="saajClothingModel.temp_issued" />
+          <EntitySet Name="temp_dist" EntityType="saajClothingModel.temp_dist" />
+          <EntitySet Name="vDists" EntityType="saajClothingModel.vDist" />
+          </EntityContainer>
+        <EntityType Name="tblCategory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblReseller">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="fatherName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NIC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Mob" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isActive" Type="Boolean" />
+          <Property Name="DOA" Type="DateTime" Precision="3" />
+          <Property Name="supervisor" Type="Int32" />
+          <Property Name="isSupervisor" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblItemPicture">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="itemID" Type="Int32" />
+          <Property Name="picLocation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblCC">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="num" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="expiry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cvc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblOrderSummary">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="Int32" />
+          <Property Name="totalAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="discount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="netAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="paid" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="balance" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="status" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="deliveryOption" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="deliveryCharges" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="payMode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="firstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="lastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="shippingAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="country" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="time" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblDistributor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NIC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NTN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Moblie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReferredBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblOutlet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OutletName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Moblie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NTN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OwnerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NIC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserMoblieNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblRetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="Int32" />
+          <Property Name="localID" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblWarehouse">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InchargeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Moblie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NIC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InchargeAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblWholeseller">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NIC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NTN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Moblie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReferredBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblMainCategory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblItem">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="itemCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="itemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fabric" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="mainCategory" Type="Int32" />
+          <Property Name="subCategory" Type="Int32" />
+          <Property Name="originalPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="discount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="netPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tag" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="scale" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="coverImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lotId" Type="Int32" />
+          <Property Name="articleId" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblLot">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mainCatId" Type="Int32" />
+          <Property Name="lotName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="packets_A" Type="Int32" />
+          <Property Name="packets_B" Type="Int32" />
+          <Property Name="small" Type="Int32" />
+          <Property Name="medium" Type="Int32" />
+          <Property Name="large" Type="Int32" />
+          <Property Name="xLarge" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="tblMainInventry">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mainCatId" Type="Int32" />
+          <Property Name="pacA" Type="Int32" />
+          <Property Name="pacB" Type="Int32" />
+          <Property Name="small" Type="Int32" />
+          <Property Name="medium" Type="Int32" />
+          <Property Name="large" Type="Int32" />
+          <Property Name="xLarge" Type="Int32" />
+        </EntityType>
+        <EntityType Name="issuedRetailer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="retailId" Type="Int32" />
+          <Property Name="localId" Type="Int32" />
+          <Property Name="localName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblSubInventory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="itemId" Type="Int32" Nullable="false" />
+          <Property Name="issueRetailId" Type="Int32" Nullable="false" />
+          <Property Name="small" Type="Int32" />
+          <Property Name="medium" Type="Int32" />
+          <Property Name="large" Type="Int32" />
+          <Property Name="xLarge" Type="Int32" />
+          <Property Name="networkID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblsubInventoryDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="issueId" Type="Int32" Nullable="false" />
+          <Property Name="itemId" Type="Int32" Nullable="false" />
+          <Property Name="packetA" Type="Int32" />
+          <Property Name="packetB" Type="Int32" />
+          <Property Name="small" Type="Int32" />
+          <Property Name="medium" Type="Int32" />
+          <Property Name="large" Type="Int32" />
+          <Property Name="xLarge" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblReturnInventory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mainCatId" Type="Int32" />
+          <Property Name="pacA" Type="Int32" />
+          <Property Name="pacB" Type="Int32" />
+          <Property Name="small" Type="Int32" />
+          <Property Name="medium" Type="Int32" />
+          <Property Name="large" Type="Int32" />
+          <Property Name="xLarge" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblreturnHistoryDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="issueRetailId" Type="Int32" />
+          <Property Name="itmId" Type="Int32" />
+          <Property Name="small" Type="Int32" />
+          <Property Name="medium" Type="Int32" />
+          <Property Name="large" Type="Int32" />
+          <Property Name="xlarge" Type="Int32" />
+          <Property Name="date" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="invoice_" Type="Int32" />
+          <Property Name="RID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblMessage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sent_time" Type="DateTime" Precision="3" />
+          <Property Name="isSent" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblIssue">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="issuedRetailId" Type="Int32" Nullable="false" />
+          <Property Name="lotId" Type="Int32" />
+          <Property Name="packetA" Type="Int32" />
+          <Property Name="packetB" Type="Int32" />
+          <Property Name="small" Type="Int32" />
+          <Property Name="medium" Type="Int32" />
+          <Property Name="large" Type="Int32" />
+          <Property Name="xLarge" Type="Int32" />
+          <Property Name="issueDate" Type="DateTime" Precision="0" />
+          <Property Name="isFromReturn" Type="Boolean" />
+          <Property Name="networkID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblReturnHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="issueRetailId" Type="Int32" />
+          <Property Name="category_Id" Type="Int32" />
+          <Property Name="pacA" Type="Int32" />
+          <Property Name="pacB" Type="Int32" />
+          <Property Name="small" Type="Int32" />
+          <Property Name="medium" Type="Int32" />
+          <Property Name="large" Type="Int32" />
+          <Property Name="xLarge" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="save_to_main_inventory" Type="Boolean" />
+          <Property Name="reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vInv">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="issuedRetailId" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="issuedRetailId" Type="Int32" Nullable="false" />
+          <Property Name="lotId" Type="Int32" />
+          <Property Name="packetA" Type="Int32" />
+          <Property Name="packetB" Type="Int32" />
+          <Property Name="small" Type="Int32" />
+          <Property Name="medium" Type="Int32" />
+          <Property Name="large" Type="Int32" />
+          <Property Name="xLarge" Type="Int32" />
+          <Property Name="issueDate" Type="DateTime" Precision="0" />
+          <Property Name="isFromReturn" Type="Boolean" />
+          <Property Name="networkID" Type="Int32" />
+          <Property Name="localId" Type="Int32" />
+          <Property Name="localName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="number" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblShare">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="amount" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Lot">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mainCatId" Type="Int32" />
+          <Property Name="lotName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="A" Type="Int32" />
+          <Property Name="B" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Lot_Loose_Items">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lotID" Type="Int32" />
+          <Property Name="size" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="qty" Type="Int32" />
+        </EntityType>
+        <EntityType Name="size">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="size1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="mainCatID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Main_Inventory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mainCatID" Type="Int32" />
+          <Property Name="packet_A" Type="Int32" />
+          <Property Name="packet_B" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Main_Inventory_Loose">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mainCatID" Type="Int32" />
+          <Property Name="size" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="qty" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Packets_Scale">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mainCatID" Type="Int32" />
+          <Property Name="size" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="qty" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Lot_Issued">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lotID" Type="Int32" />
+          <Property Name="packet_A" Type="Int32" />
+          <Property Name="packet_B" Type="Int32" />
+          <Property Name="networkID" Type="Int32" />
+          <Property Name="localID" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Lot_Issued_Loose">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="primaryID" Type="Int32" />
+          <Property Name="lotID" Type="Int32" />
+          <Property Name="size" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="qty" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Inventory_Latest">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="itemId" Type="Int32" />
+          <Property Name="size" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="qty" Type="Int32" />
+          <Property Name="network" Type="Int32" />
+          <Property Name="localID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Lot_Distributed">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="issueId" Type="Int32" />
+          <Property Name="itemId" Type="Int32" />
+          <Property Name="pacA" Type="Int32" />
+          <Property Name="pacB" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Lot_Distributed_Loose">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="issueId" Type="Int32" />
+          <Property Name="itemId" Type="Int32" />
+          <Property Name="size" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="qty" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblItemsSold">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="invoiceNum" Type="Int32" />
+          <Property Name="itemID" Type="Int32" />
+          <Property Name="quantity" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="userID" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="size" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblCart">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userMob" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="itemID" Type="Int32" />
+          <Property Name="itemQty" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="size" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="temp_inv">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="itemId" Type="Int32" />
+          <Property Name="K_14" Type="Int32" />
+          <Property Name="K_16" Type="Int32" />
+          <Property Name="K_18" Type="Int32" />
+          <Property Name="K_20" Type="Int32" />
+          <Property Name="K_22" Type="Int32" />
+          <Property Name="K_24" Type="Int32" />
+          <Property Name="K_26" Type="Int32" />
+          <Property Name="C28" Type="Int32" />
+          <Property Name="K_28" Type="Int32" />
+          <Property Name="C30" Type="Int32" />
+          <Property Name="C32" Type="Int32" />
+          <Property Name="C34" Type="Int32" />
+          <Property Name="C36" Type="Int32" />
+          <Property Name="C38" Type="Int32" />
+          <Property Name="C40" Type="Int32" />
+          <Property Name="C42" Type="Int32" />
+          <Property Name="C44" Type="Int32" />
+          <Property Name="L" Type="Int32" />
+          <Property Name="M" Type="Int32" />
+          <Property Name="S" Type="Int32" />
+          <Property Name="XL" Type="Int32" />
+          <Property Name="XXL" Type="Int32" />
+          <Property Name="XXXL" Type="Int32" />
+        </EntityType>
+        <EntityType Name="temp_issued">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="primaryID" Type="Int32" />
+          <Property Name="K_14" Type="Int32" />
+          <Property Name="K_16" Type="Int32" />
+          <Property Name="K_18" Type="Int32" />
+          <Property Name="K_20" Type="Int32" />
+          <Property Name="K_22" Type="Int32" />
+          <Property Name="K_24" Type="Int32" />
+          <Property Name="K_26" Type="Int32" />
+          <Property Name="C28" Type="Int32" />
+          <Property Name="K_28" Type="Int32" />
+          <Property Name="C30" Type="Int32" />
+          <Property Name="C32" Type="Int32" />
+          <Property Name="C34" Type="Int32" />
+          <Property Name="C36" Type="Int32" />
+          <Property Name="C38" Type="Int32" />
+          <Property Name="C40" Type="Int32" />
+          <Property Name="C42" Type="Int32" />
+          <Property Name="C44" Type="Int32" />
+          <Property Name="L" Type="Int32" />
+          <Property Name="M" Type="Int32" />
+          <Property Name="S" Type="Int32" />
+          <Property Name="XL" Type="Int32" />
+          <Property Name="XXL" Type="Int32" />
+          <Property Name="XXXL" Type="Int32" />
+        </EntityType>
+        <EntityType Name="temp_dist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="issueId" Type="Int32" />
+          <Property Name="itemId" Type="Int32" />
+          <Property Name="K_14" Type="Int32" />
+          <Property Name="K_16" Type="Int32" />
+          <Property Name="K_18" Type="Int32" />
+          <Property Name="K_20" Type="Int32" />
+          <Property Name="K_22" Type="Int32" />
+          <Property Name="K_24" Type="Int32" />
+          <Property Name="K_26" Type="Int32" />
+          <Property Name="C28" Type="Int32" />
+          <Property Name="K_28" Type="Int32" />
+          <Property Name="C30" Type="Int32" />
+          <Property Name="C32" Type="Int32" />
+          <Property Name="C34" Type="Int32" />
+          <Property Name="C36" Type="Int32" />
+          <Property Name="C38" Type="Int32" />
+          <Property Name="C40" Type="Int32" />
+          <Property Name="C42" Type="Int32" />
+          <Property Name="C44" Type="Int32" />
+          <Property Name="L" Type="Int32" />
+          <Property Name="M" Type="Int32" />
+          <Property Name="S" Type="Int32" />
+          <Property Name="XL" Type="Int32" />
+          <Property Name="XXL" Type="Int32" />
+          <Property Name="XXXL" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vDist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="itemCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="pacA" Type="Int32" />
+          <Property Name="pacB" Type="Int32" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="issueId" Type="Int32" />
+          <Property Name="itemId" Type="Int32" />
+          <Property Name="K_14" Type="Int32" />
+          <Property Name="K_16" Type="Int32" />
+          <Property Name="K_18" Type="Int32" />
+          <Property Name="K_20" Type="Int32" />
+          <Property Name="K_22" Type="Int32" />
+          <Property Name="K_24" Type="Int32" />
+          <Property Name="K_26" Type="Int32" />
+          <Property Name="C28" Type="Int32" />
+          <Property Name="K_28" Type="Int32" />
+          <Property Name="C30" Type="Int32" />
+          <Property Name="C32" Type="Int32" />
+          <Property Name="C34" Type="Int32" />
+          <Property Name="C36" Type="Int32" />
+          <Property Name="C38" Type="Int32" />
+          <Property Name="C40" Type="Int32" />
+          <Property Name="C42" Type="Int32" />
+          <Property Name="C44" Type="Int32" />
+          <Property Name="L" Type="Int32" />
+          <Property Name="M" Type="Int32" />
+          <Property Name="S" Type="Int32" />
+          <Property Name="XL" Type="Int32" />
+          <Property Name="XXL" Type="Int32" />
+          <Property Name="XXXL" Type="Int32" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="saajClothingModelStoreContainer" CdmEntityContainer="linqDBContext">
+          <EntitySetMapping Name="tblCategories">
+            <EntityTypeMapping TypeName="saajClothingModel.tblCategory">
+              <MappingFragment StoreEntitySet="tblCategory">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblResellers">
+            <EntityTypeMapping TypeName="saajClothingModel.tblReseller">
+              <MappingFragment StoreEntitySet="tblReseller">
+                <ScalarProperty Name="isSupervisor" ColumnName="isSupervisor" />
+                <ScalarProperty Name="supervisor" ColumnName="supervisor" />
+                <ScalarProperty Name="DOA" ColumnName="DOA" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="Mob" ColumnName="Mob" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="NIC" ColumnName="NIC" />
+                <ScalarProperty Name="fatherName" ColumnName="fatherName" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblItemPictures">
+            <EntityTypeMapping TypeName="saajClothingModel.tblItemPicture">
+              <MappingFragment StoreEntitySet="tblItemPictures">
+                <ScalarProperty Name="picLocation" ColumnName="picLocation" />
+                <ScalarProperty Name="itemID" ColumnName="itemID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCCs">
+            <EntityTypeMapping TypeName="saajClothingModel.tblCC">
+              <MappingFragment StoreEntitySet="tblCC">
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="cvc" ColumnName="cvc" />
+                <ScalarProperty Name="expiry" ColumnName="expiry" />
+                <ScalarProperty Name="num" ColumnName="num" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOrderSummaries">
+            <EntityTypeMapping TypeName="saajClothingModel.tblOrderSummary">
+              <MappingFragment StoreEntitySet="tblOrderSummary">
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="shippingAddress" ColumnName="shippingAddress" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="payMode" ColumnName="payMode" />
+                <ScalarProperty Name="deliveryCharges" ColumnName="deliveryCharges" />
+                <ScalarProperty Name="deliveryOption" ColumnName="deliveryOption" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="balance" ColumnName="balance" />
+                <ScalarProperty Name="paid" ColumnName="paid" />
+                <ScalarProperty Name="netAmount" ColumnName="netAmount" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="totalAmount" ColumnName="totalAmount" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDistributors">
+            <EntityTypeMapping TypeName="saajClothingModel.tblDistributor">
+              <MappingFragment StoreEntitySet="tblDistributor">
+                <ScalarProperty Name="ReferredBy" ColumnName="ReferredBy" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="Moblie" ColumnName="Moblie" />
+                <ScalarProperty Name="NTN" ColumnName="NTN" />
+                <ScalarProperty Name="NIC" ColumnName="NIC" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOutlets">
+            <EntityTypeMapping TypeName="saajClothingModel.tblOutlet">
+              <MappingFragment StoreEntitySet="tblOutlets">
+                <ScalarProperty Name="UserMoblieNo" ColumnName="UserMoblieNo" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="OwnerAddress" ColumnName="OwnerAddress" />
+                <ScalarProperty Name="NIC" ColumnName="NIC" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="NTN" ColumnName="NTN" />
+                <ScalarProperty Name="Moblie" ColumnName="Moblie" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="OutletName" ColumnName="OutletName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRetails">
+            <EntityTypeMapping TypeName="saajClothingModel.tblRetail">
+              <MappingFragment StoreEntitySet="tblRetail">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="saajClothingModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="localID" ColumnName="localID" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblWarehouses">
+            <EntityTypeMapping TypeName="saajClothingModel.tblWarehouse">
+              <MappingFragment StoreEntitySet="tblWarehouse">
+                <ScalarProperty Name="InchargeAddress" ColumnName="InchargeAddress" />
+                <ScalarProperty Name="NIC" ColumnName="NIC" />
+                <ScalarProperty Name="Moblie" ColumnName="Moblie" />
+                <ScalarProperty Name="InchargeName" ColumnName="InchargeName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblWholesellers">
+            <EntityTypeMapping TypeName="saajClothingModel.tblWholeseller">
+              <MappingFragment StoreEntitySet="tblWholesellers">
+                <ScalarProperty Name="ReferredBy" ColumnName="ReferredBy" />
+                <ScalarProperty Name="Moblie" ColumnName="Moblie" />
+                <ScalarProperty Name="NTN" ColumnName="NTN" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="NIC" ColumnName="NIC" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMainCategories">
+            <EntityTypeMapping TypeName="saajClothingModel.tblMainCategory">
+              <MappingFragment StoreEntitySet="tblMainCategory">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblItems">
+            <EntityTypeMapping TypeName="saajClothingModel.tblItem">
+              <MappingFragment StoreEntitySet="tblItems">
+                <ScalarProperty Name="articleId" ColumnName="articleId" />
+                <ScalarProperty Name="lotId" ColumnName="lotId" />
+                <ScalarProperty Name="coverImage" ColumnName="coverImage" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="scale" ColumnName="scale" />
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="netPrice" ColumnName="netPrice" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="originalPrice" ColumnName="originalPrice" />
+                <ScalarProperty Name="subCategory" ColumnName="subCategory" />
+                <ScalarProperty Name="mainCategory" ColumnName="mainCategory" />
+                <ScalarProperty Name="fabric" ColumnName="fabric" />
+                <ScalarProperty Name="itemName" ColumnName="itemName" />
+                <ScalarProperty Name="itemCode" ColumnName="itemCode" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblLots">
+            <EntityTypeMapping TypeName="saajClothingModel.tblLot">
+              <MappingFragment StoreEntitySet="tblLot">
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="xLarge" ColumnName="xLarge" />
+                <ScalarProperty Name="large" ColumnName="large" />
+                <ScalarProperty Name="medium" ColumnName="medium" />
+                <ScalarProperty Name="small" ColumnName="small" />
+                <ScalarProperty Name="packets_B" ColumnName="packets_B" />
+                <ScalarProperty Name="packets_A" ColumnName="packets_A" />
+                <ScalarProperty Name="lotName" ColumnName="lotName" />
+                <ScalarProperty Name="mainCatId" ColumnName="mainCatId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMainInventries">
+            <EntityTypeMapping TypeName="saajClothingModel.tblMainInventry">
+              <MappingFragment StoreEntitySet="tblMainInventry">
+                <ScalarProperty Name="xLarge" ColumnName="xLarge" />
+                <ScalarProperty Name="large" ColumnName="large" />
+                <ScalarProperty Name="medium" ColumnName="medium" />
+                <ScalarProperty Name="small" ColumnName="small" />
+                <ScalarProperty Name="pacB" ColumnName="pacB" />
+                <ScalarProperty Name="pacA" ColumnName="pacA" />
+                <ScalarProperty Name="mainCatId" ColumnName="mainCatId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="issuedRetailers">
+            <EntityTypeMapping TypeName="saajClothingModel.issuedRetailer">
+              <MappingFragment StoreEntitySet="issuedRetailer">
+                <ScalarProperty Name="localName" ColumnName="localName" />
+                <ScalarProperty Name="localId" ColumnName="localId" />
+                <ScalarProperty Name="retailId" ColumnName="retailId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSubInventories">
+            <EntityTypeMapping TypeName="saajClothingModel.tblSubInventory">
+              <MappingFragment StoreEntitySet="tblSubInventory">
+                <ScalarProperty Name="networkID" ColumnName="networkID" />
+                <ScalarProperty Name="xLarge" ColumnName="xLarge" />
+                <ScalarProperty Name="large" ColumnName="large" />
+                <ScalarProperty Name="medium" ColumnName="medium" />
+                <ScalarProperty Name="small" ColumnName="small" />
+                <ScalarProperty Name="issueRetailId" ColumnName="issueRetailId" />
+                <ScalarProperty Name="itemId" ColumnName="itemId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblsubInventoryDetails">
+            <EntityTypeMapping TypeName="saajClothingModel.tblsubInventoryDetail">
+              <MappingFragment StoreEntitySet="tblsubInventoryDetails">
+                <ScalarProperty Name="xLarge" ColumnName="xLarge" />
+                <ScalarProperty Name="large" ColumnName="large" />
+                <ScalarProperty Name="medium" ColumnName="medium" />
+                <ScalarProperty Name="small" ColumnName="small" />
+                <ScalarProperty Name="packetB" ColumnName="packetB" />
+                <ScalarProperty Name="packetA" ColumnName="packetA" />
+                <ScalarProperty Name="itemId" ColumnName="itemId" />
+                <ScalarProperty Name="issueId" ColumnName="issueId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblReturnInventories">
+            <EntityTypeMapping TypeName="saajClothingModel.tblReturnInventory">
+              <MappingFragment StoreEntitySet="tblReturnInventory">
+                <ScalarProperty Name="xLarge" ColumnName="xLarge" />
+                <ScalarProperty Name="large" ColumnName="large" />
+                <ScalarProperty Name="medium" ColumnName="medium" />
+                <ScalarProperty Name="small" ColumnName="small" />
+                <ScalarProperty Name="pacB" ColumnName="pacB" />
+                <ScalarProperty Name="pacA" ColumnName="pacA" />
+                <ScalarProperty Name="mainCatId" ColumnName="mainCatId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblreturnHistoryDetails">
+            <EntityTypeMapping TypeName="saajClothingModel.tblreturnHistoryDetail">
+              <MappingFragment StoreEntitySet="tblreturnHistoryDetails">
+                <ScalarProperty Name="RID" ColumnName="RID" />
+                <ScalarProperty Name="invoice_" ColumnName="invoice#" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="xlarge" ColumnName="xlarge" />
+                <ScalarProperty Name="large" ColumnName="large" />
+                <ScalarProperty Name="medium" ColumnName="medium" />
+                <ScalarProperty Name="small" ColumnName="small" />
+                <ScalarProperty Name="itmId" ColumnName="itmId" />
+                <ScalarProperty Name="issueRetailId" ColumnName="issueRetailId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMessages">
+            <EntityTypeMapping TypeName="saajClothingModel.tblMessage">
+              <MappingFragment StoreEntitySet="tblMessage">
+                <ScalarProperty Name="isSent" ColumnName="isSent" />
+                <ScalarProperty Name="sent_time" ColumnName="sent_time" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblIssues">
+            <EntityTypeMapping TypeName="saajClothingModel.tblIssue">
+              <MappingFragment StoreEntitySet="tblIssue">
+                <ScalarProperty Name="networkID" ColumnName="networkID" />
+                <ScalarProperty Name="isFromReturn" ColumnName="isFromReturn" />
+                <ScalarProperty Name="issueDate" ColumnName="issueDate" />
+                <ScalarProperty Name="xLarge" ColumnName="xLarge" />
+                <ScalarProperty Name="large" ColumnName="large" />
+                <ScalarProperty Name="medium" ColumnName="medium" />
+                <ScalarProperty Name="small" ColumnName="small" />
+                <ScalarProperty Name="packetB" ColumnName="packetB" />
+                <ScalarProperty Name="packetA" ColumnName="packetA" />
+                <ScalarProperty Name="lotId" ColumnName="lotId" />
+                <ScalarProperty Name="issuedRetailId" ColumnName="issuedRetailId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblReturnHistories">
+            <EntityTypeMapping TypeName="saajClothingModel.tblReturnHistory">
+              <MappingFragment StoreEntitySet="tblReturnHistory">
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="save_to_main_inventory" ColumnName="save_to_main_inventory" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="xLarge" ColumnName="xLarge" />
+                <ScalarProperty Name="large" ColumnName="large" />
+                <ScalarProperty Name="medium" ColumnName="medium" />
+                <ScalarProperty Name="small" ColumnName="small" />
+                <ScalarProperty Name="pacB" ColumnName="pacB" />
+                <ScalarProperty Name="pacA" ColumnName="pacA" />
+                <ScalarProperty Name="category_Id" ColumnName="category_Id" />
+                <ScalarProperty Name="issueRetailId" ColumnName="issueRetailId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vInvs">
+            <EntityTypeMapping TypeName="saajClothingModel.vInv">
+              <MappingFragment StoreEntitySet="vInv">
+                <ScalarProperty Name="localName" ColumnName="localName" />
+                <ScalarProperty Name="localId" ColumnName="localId" />
+                <ScalarProperty Name="networkID" ColumnName="networkID" />
+                <ScalarProperty Name="isFromReturn" ColumnName="isFromReturn" />
+                <ScalarProperty Name="issueDate" ColumnName="issueDate" />
+                <ScalarProperty Name="xLarge" ColumnName="xLarge" />
+                <ScalarProperty Name="large" ColumnName="large" />
+                <ScalarProperty Name="medium" ColumnName="medium" />
+                <ScalarProperty Name="small" ColumnName="small" />
+                <ScalarProperty Name="packetB" ColumnName="packetB" />
+                <ScalarProperty Name="packetA" ColumnName="packetA" />
+                <ScalarProperty Name="lotId" ColumnName="lotId" />
+                <ScalarProperty Name="issuedRetailId" ColumnName="issuedRetailId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="saajClothingModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblShares">
+            <EntityTypeMapping TypeName="saajClothingModel.tblShare">
+              <MappingFragment StoreEntitySet="tblShare">
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lots">
+            <EntityTypeMapping TypeName="saajClothingModel.Lot">
+              <MappingFragment StoreEntitySet="Lot">
+                <ScalarProperty Name="B" ColumnName="B" />
+                <ScalarProperty Name="A" ColumnName="A" />
+                <ScalarProperty Name="lotName" ColumnName="lotName" />
+                <ScalarProperty Name="mainCatId" ColumnName="mainCatId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lot_Loose_Items">
+            <EntityTypeMapping TypeName="saajClothingModel.Lot_Loose_Items">
+              <MappingFragment StoreEntitySet="Lot_Loose_Items">
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="lotID" ColumnName="lotID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sizes">
+            <EntityTypeMapping TypeName="saajClothingModel.size">
+              <MappingFragment StoreEntitySet="sizes">
+                <ScalarProperty Name="mainCatID" ColumnName="mainCatID" />
+                <ScalarProperty Name="size1" ColumnName="size" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Main_Inventory">
+            <EntityTypeMapping TypeName="saajClothingModel.Main_Inventory">
+              <MappingFragment StoreEntitySet="Main_Inventory">
+                <ScalarProperty Name="packet_B" ColumnName="packet_B" />
+                <ScalarProperty Name="packet_A" ColumnName="packet_A" />
+                <ScalarProperty Name="mainCatID" ColumnName="mainCatID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Main_Inventory_Loose">
+            <EntityTypeMapping TypeName="saajClothingModel.Main_Inventory_Loose">
+              <MappingFragment StoreEntitySet="Main_Inventory_Loose">
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="mainCatID" ColumnName="mainCatID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Packets_Scale">
+            <EntityTypeMapping TypeName="saajClothingModel.Packets_Scale">
+              <MappingFragment StoreEntitySet="Packets_Scale">
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="mainCatID" ColumnName="mainCatID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lot_Issued">
+            <EntityTypeMapping TypeName="saajClothingModel.Lot_Issued">
+              <MappingFragment StoreEntitySet="Lot_Issued">
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="localID" ColumnName="localID" />
+                <ScalarProperty Name="networkID" ColumnName="networkID" />
+                <ScalarProperty Name="packet_B" ColumnName="packet_B" />
+                <ScalarProperty Name="packet_A" ColumnName="packet_A" />
+                <ScalarProperty Name="lotID" ColumnName="lotID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lot_Issued_Loose">
+            <EntityTypeMapping TypeName="saajClothingModel.Lot_Issued_Loose">
+              <MappingFragment StoreEntitySet="Lot_Issued_Loose">
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="lotID" ColumnName="lotID" />
+                <ScalarProperty Name="primaryID" ColumnName="primaryID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inventory_Latest">
+            <EntityTypeMapping TypeName="saajClothingModel.Inventory_Latest">
+              <MappingFragment StoreEntitySet="Inventory_Latest">
+                <ScalarProperty Name="localID" ColumnName="localID" />
+                <ScalarProperty Name="network" ColumnName="network" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="itemId" ColumnName="itemId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lot_Distributed">
+            <EntityTypeMapping TypeName="saajClothingModel.Lot_Distributed">
+              <MappingFragment StoreEntitySet="Lot_Distributed">
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="pacB" ColumnName="pacB" />
+                <ScalarProperty Name="pacA" ColumnName="pacA" />
+                <ScalarProperty Name="itemId" ColumnName="itemId" />
+                <ScalarProperty Name="issueId" ColumnName="issueId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lot_Distributed_Loose">
+            <EntityTypeMapping TypeName="saajClothingModel.Lot_Distributed_Loose">
+              <MappingFragment StoreEntitySet="Lot_Distributed_Loose">
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="itemId" ColumnName="itemId" />
+                <ScalarProperty Name="issueId" ColumnName="issueId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblItemsSolds">
+            <EntityTypeMapping TypeName="saajClothingModel.tblItemsSold">
+              <MappingFragment StoreEntitySet="tblItemsSold">
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="itemID" ColumnName="itemID" />
+                <ScalarProperty Name="invoiceNum" ColumnName="invoiceNum" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCarts">
+            <EntityTypeMapping TypeName="saajClothingModel.tblCart">
+              <MappingFragment StoreEntitySet="tblCart">
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="itemQty" ColumnName="itemQty" />
+                <ScalarProperty Name="itemID" ColumnName="itemID" />
+                <ScalarProperty Name="userMob" ColumnName="userMob" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="temp_inv">
+            <EntityTypeMapping TypeName="saajClothingModel.temp_inv">
+              <MappingFragment StoreEntitySet="temp_inv">
+                <ScalarProperty Name="XXXL" ColumnName="XXXL" />
+                <ScalarProperty Name="XXL" ColumnName="XXL" />
+                <ScalarProperty Name="XL" ColumnName="XL" />
+                <ScalarProperty Name="S" ColumnName="S" />
+                <ScalarProperty Name="M" ColumnName="M" />
+                <ScalarProperty Name="L" ColumnName="L" />
+                <ScalarProperty Name="C44" ColumnName="44" />
+                <ScalarProperty Name="C42" ColumnName="42" />
+                <ScalarProperty Name="C40" ColumnName="40" />
+                <ScalarProperty Name="C38" ColumnName="38" />
+                <ScalarProperty Name="C36" ColumnName="36" />
+                <ScalarProperty Name="C34" ColumnName="34" />
+                <ScalarProperty Name="C32" ColumnName="32" />
+                <ScalarProperty Name="C30" ColumnName="30" />
+                <ScalarProperty Name="K_28" ColumnName="28 (13-15 year)" />
+                <ScalarProperty Name="C28" ColumnName="28" />
+                <ScalarProperty Name="K_26" ColumnName="26 (11-12 year)" />
+                <ScalarProperty Name="K_24" ColumnName="24 (9-10 year)" />
+                <ScalarProperty Name="K_22" ColumnName="22 (7-8 year)" />
+                <ScalarProperty Name="K_20" ColumnName="20 (5-6 year)" />
+                <ScalarProperty Name="K_18" ColumnName="18 (3-4 year)" />
+                <ScalarProperty Name="K_16" ColumnName="16 (2-3 year)" />
+                <ScalarProperty Name="K_14" ColumnName="14 (12-18 month)" />
+                <ScalarProperty Name="itemId" ColumnName="itemId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="temp_issued">
+            <EntityTypeMapping TypeName="saajClothingModel.temp_issued">
+              <MappingFragment StoreEntitySet="temp_issued">
+                <ScalarProperty Name="XXXL" ColumnName="XXXL" />
+                <ScalarProperty Name="XXL" ColumnName="XXL" />
+                <ScalarProperty Name="XL" ColumnName="XL" />
+                <ScalarProperty Name="S" ColumnName="S" />
+                <ScalarProperty Name="M" ColumnName="M" />
+                <ScalarProperty Name="L" ColumnName="L" />
+                <ScalarProperty Name="C44" ColumnName="44" />
+                <ScalarProperty Name="C42" ColumnName="42" />
+                <ScalarProperty Name="C40" ColumnName="40" />
+                <ScalarProperty Name="C38" ColumnName="38" />
+                <ScalarProperty Name="C36" ColumnName="36" />
+                <ScalarProperty Name="C34" ColumnName="34" />
+                <ScalarProperty Name="C32" ColumnName="32" />
+                <ScalarProperty Name="C30" ColumnName="30" />
+                <ScalarProperty Name="K_28" ColumnName="28 (13-15 year)" />
+                <ScalarProperty Name="C28" ColumnName="28" />
+                <ScalarProperty Name="K_26" ColumnName="26 (11-12 year)" />
+                <ScalarProperty Name="K_24" ColumnName="24 (9-10 year)" />
+                <ScalarProperty Name="K_22" ColumnName="22 (7-8 year)" />
+                <ScalarProperty Name="K_20" ColumnName="20 (5-6 year)" />
+                <ScalarProperty Name="K_18" ColumnName="18 (3-4 year)" />
+                <ScalarProperty Name="K_16" ColumnName="16 (2-3 year)" />
+                <ScalarProperty Name="K_14" ColumnName="14 (12-18 month)" />
+                <ScalarProperty Name="primaryID" ColumnName="primaryID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="temp_dist">
+            <EntityTypeMapping TypeName="saajClothingModel.temp_dist">
+              <MappingFragment StoreEntitySet="temp_dist">
+                <ScalarProperty Name="XXXL" ColumnName="XXXL" />
+                <ScalarProperty Name="XXL" ColumnName="XXL" />
+                <ScalarProperty Name="XL" ColumnName="XL" />
+                <ScalarProperty Name="S" ColumnName="S" />
+                <ScalarProperty Name="M" ColumnName="M" />
+                <ScalarProperty Name="L" ColumnName="L" />
+                <ScalarProperty Name="C44" ColumnName="44" />
+                <ScalarProperty Name="C42" ColumnName="42" />
+                <ScalarProperty Name="C40" ColumnName="40" />
+                <ScalarProperty Name="C38" ColumnName="38" />
+                <ScalarProperty Name="C36" ColumnName="36" />
+                <ScalarProperty Name="C34" ColumnName="34" />
+                <ScalarProperty Name="C32" ColumnName="32" />
+                <ScalarProperty Name="C30" ColumnName="30" />
+                <ScalarProperty Name="K_28" ColumnName="28 (13-15 year)" />
+                <ScalarProperty Name="C28" ColumnName="28" />
+                <ScalarProperty Name="K_26" ColumnName="26 (11-12 year)" />
+                <ScalarProperty Name="K_24" ColumnName="24 (9-10 year)" />
+                <ScalarProperty Name="K_22" ColumnName="22 (7-8 year)" />
+                <ScalarProperty Name="K_20" ColumnName="20 (5-6 year)" />
+                <ScalarProperty Name="K_18" ColumnName="18 (3-4 year)" />
+                <ScalarProperty Name="K_16" ColumnName="16 (2-3 year)" />
+                <ScalarProperty Name="K_14" ColumnName="14 (12-18 month)" />
+                <ScalarProperty Name="itemId" ColumnName="itemId" />
+                <ScalarProperty Name="issueId" ColumnName="issueId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vDists">
+            <EntityTypeMapping TypeName="saajClothingModel.vDist">
+              <MappingFragment StoreEntitySet="vDist">
+                <ScalarProperty Name="XXXL" ColumnName="XXXL" />
+                <ScalarProperty Name="XXL" ColumnName="XXL" />
+                <ScalarProperty Name="XL" ColumnName="XL" />
+                <ScalarProperty Name="S" ColumnName="S" />
+                <ScalarProperty Name="M" ColumnName="M" />
+                <ScalarProperty Name="L" ColumnName="L" />
+                <ScalarProperty Name="C44" ColumnName="44" />
+                <ScalarProperty Name="C42" ColumnName="42" />
+                <ScalarProperty Name="C40" ColumnName="40" />
+                <ScalarProperty Name="C38" ColumnName="38" />
+                <ScalarProperty Name="C36" ColumnName="36" />
+                <ScalarProperty Name="C34" ColumnName="34" />
+                <ScalarProperty Name="C32" ColumnName="32" />
+                <ScalarProperty Name="C30" ColumnName="30" />
+                <ScalarProperty Name="K_28" ColumnName="28 (13-15 year)" />
+                <ScalarProperty Name="C28" ColumnName="28" />
+                <ScalarProperty Name="K_26" ColumnName="26 (11-12 year)" />
+                <ScalarProperty Name="K_24" ColumnName="24 (9-10 year)" />
+                <ScalarProperty Name="K_22" ColumnName="22 (7-8 year)" />
+                <ScalarProperty Name="K_20" ColumnName="20 (5-6 year)" />
+                <ScalarProperty Name="K_18" ColumnName="18 (3-4 year)" />
+                <ScalarProperty Name="K_16" ColumnName="16 (2-3 year)" />
+                <ScalarProperty Name="K_14" ColumnName="14 (12-18 month)" />
+                <ScalarProperty Name="itemId" ColumnName="itemId" />
+                <ScalarProperty Name="issueId" ColumnName="issueId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pacB" ColumnName="pacB" />
+                <ScalarProperty Name="pacA" ColumnName="pacA" />
+                <ScalarProperty Name="itemCode" ColumnName="itemCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

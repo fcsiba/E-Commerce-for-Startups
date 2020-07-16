@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/blue_600"
+    tools:context="pushy.fastech.pk.accounts.SelectAccount">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/spacing_large"
+        android:paddingBottom="@dimen/spacing_large"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="30dp"/>
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/logo_front"
+            app:civ_border="true"
+            app:civ_shadow="true"
+            app:civ_shadow_radius="0"
+            android:layout_marginBottom="@dimen/spacing_small"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome!"
+            android:textColor="@color/quantum_white_100"
+            android:textStyle="bold"
+            style="@style/TextAppearance.AppCompat.Headline"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Campus"
+            android:textColor="@color/white_transparency"
+            style="@style/TextAppearance.AppCompat.Headline"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/spacing_large"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewSelectAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/spacing_small"
+            android:paddingTop="@dimen/spacing_small"
+            android:paddingRight="13dp"
+            android:paddingLeft="13dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            app:reverseLayout="true"
+            android:scrollingCache="true"/>
+
+    </LinearLayout>
+
+    <!--Loading animation recycler view-->
+    <LinearLayout
+        android:id="@+id/on_screen_loader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:layout_margin="@dimen/spacing_medium"
+        android:orientation="vertical">
+
+        <com.material.components.widget.ViewLoadingDotsBounce
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:background="@color/quantum_white_100" />
+
+    </LinearLayout>
+
+</RelativeLayout>

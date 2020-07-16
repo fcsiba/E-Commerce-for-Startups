@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial;
+            color: white;
+        }
+
+        .split {
+            height: 100%;
+            width: 50%;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .left {
+            left: 0;
+            background-color: Highlight;
+        }
+
+        .right {
+            right: 0;
+            background-color: steelblue;
+        }
+
+        .centered {
+            position: absolute;
+            top: 30%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+            .centered img {
+                width: 150px;
+                border-radius: 50%;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="split left">
+        <div class="centered">
+            <input id="Text1" type="text" /> 
+            <hr />
+         <p id="pId"></p>
+            <p id="name"></p>
+
+            <p id="prIce"></p>
+
+            <img  id="imgTag" alt="" />
+
+
+        </div>
+    </div>
+
+    <div class="split right">
+        <div class="centered">
+            <div class="container">
+                <div class="table-responsive m-t-40">
+                    <table id="myTable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0"  style="padding-left:280px" width="100%">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>item Name</th>
+                                <th>Retailer</th>
+
+                                <th>small</th>
+                                <th>medium</th>
+                                <th>large</th>
+                                <th>xLarge</th>
+
+                                <th>Options</th>
+
+
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+
+
+</html>
+<script type="text/javascript">
+
+    $("#Text1").keypress(function (e) {
+        if (e.which == 13) {
+
+          
+            var id = document.getElementById("pId").innerHTML;
+            //start populate
+           
+                editID = id;
+                $.ajax({
+                    type: "POST",
+                    url: '/subInventory/Populate',
+                    contentType: "application/json",
+                    traditional: true,
+                    data: JSON.stringify({ id: id }),
+                    dataType: "json",
+                    success: function (recData) {
+                        $('#name').val(recData.Data.itemName);
+                        $('#price').val(recData.Data.netPrice);
+                        $('#imgTag').val(recData.Data.coverImage);
+                    
+
+                    },
+                    error: function () {
+                        swal({
+
+                            title: "Opps!",
+                            text: "Something went wrong",
+                            icon: "error",
+                        });
+                    }
+                });
+            }
+//end populate
+
+        
+    });
+    </script>
+<script>
+    var table;
+    var proID = 0;
+    var editID = 0;
+
+    $(document).ready(function () {
+
+        type = '@Session["uType"]';
+        if (type === "") {
+            window.location = '../Login';
+        }
+
+        table = $('#myTable').DataTable({
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "bLengthChange": false,
+            buttons: [
+              'copyHtml5',
+              'excelHtml5',
+              'csvHtml5',
+              'pdfHtml5'
+            ],
+            "ajax": {
+                "url": "/subInventory/LoadData",
+                "type": "POST",
+                "datatype": "json",
+                error: function (xhr, error, thrown) {
+                    console.log(xhr);
+                    console.log(error);
+                }
+            },
+            "columnDefs":
+               [{
+                   "targets": [0],
+                   "visible": false,
+                   "searchable": false
+               }],
+            "columns": [
+                    { "data": "id", "name": "id", "autoWidth": true },
+                    { "data": "itmName", "name": "typeId", "autoWidth": true },
+                    { "data": "retail", "name": "lotId", "autoWidth": true },
+          
+                    { "data": "small", "name": "small", "autoWidth": true },
+                     { "data": "med", "name": "medium", "autoWidth": true },
+                      { "data": "large", "name": "large", "autoWidth": true },
+                       { "data": "xlarge", "name": "xlarge", "autoWidth": true },
+         
+                    {
+                        "render": function (data, type, full, meta)
+                        { return '<a href="javascript:void(myFunction())" onclick=Populate(' + full.id + '); data-toggle="modal" data-target="#add-contact"><i class="fas fa-edit"></i></a><span> | </span> <a href="javascript:void(myFunction())" onclick=DeleteData(' + full.id + ');> <i class="fas fa-trash-alt" style="color:#d9534f;"></i>'; }
+
+                    },
+            ]
+        });
+    });
+
+
+
+
+</script>
+//

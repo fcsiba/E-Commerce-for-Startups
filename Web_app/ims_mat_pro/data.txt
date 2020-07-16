@@ -1,0 +1,14 @@
+Error on share report: 
+Invalid index. (Exception from HRESULT: 0x8002000B (DISP_E_BADINDEX))
+Error on share report: 
+Error in File invoice 17776_4600_{903EB808-4FAF-4899-BDD6-036D3A6221D3}.rpt:
+Error in formula  Record_Selection: 
+'{tblOrderSummary.id} in (50,51,52,53,54,55)'
+The ) is missing.
+Details: errorKind
+Error on share report: 
+Error in File invoice 17776_4600_{F1C248A8-904A-4B7A-B39A-F1D017E27FE7}.rpt:
+Error in formula  Record_Selection: 
+'{tblOrderSummary.id} in (50,51,52,53,54,55)'
+The ) is missing.
+Details: errorKind

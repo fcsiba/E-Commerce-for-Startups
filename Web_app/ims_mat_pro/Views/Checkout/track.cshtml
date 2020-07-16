@@ -1,0 +1,142 @@
+﻿
+@{
+    Layout = "../Shared/_LayoutClient.cshtml";
+    ViewBag.Title = "Saaj Apparels - Track Order";
+}
+
+
+@section ControlsSection{
+
+    <div class="card">
+        <div class="card-body">       
+
+            <button id="btnAdd" type="button" class="btn waves-effect waves-light btn-block btn-info col-lg-2">Go to Homepage</button>
+
+            <div class="table-responsive m-t-40">
+                <table id="myTable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Invoice No.</th>
+                            <th>Customer</th>
+                            <th>Bill</th>
+                            <th>DC</th>    
+                            <th>Total Bill</th>    
+                            <th>Paid</th>                                       
+                            <th>Balance</th>                                                  
+                            <th>Date</th>                         
+                            <th>Status</th>      
+                            <th>Details</th>        
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<script>
+
+    var table;
+    var proID = 0;
+    var user = 0;
+    user = '@Session["uID"]';
+    //console.log('User', user);
+
+    if (user == 0 || user == "") {
+        UpdateSession('page', 'Checkout/track');
+        window.location = '../Login';
+    }
+
+    $(document).ready(function () {
+
+        
+
+        $('#btnAdd').click(function () {
+            window.location = '/Shop';
+        });
+
+            table =  $('#myTable').DataTable({
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "bLengthChange": false,
+                buttons: [
+                  'copyHtml5',
+                  'excelHtml5',
+                  'csvHtml5',
+                  'pdfHtml5'
+                ],
+                "ajax": {
+                    "url": "/Checkout/LoadSummary",
+                    "type": "POST",
+                    "datatype": "json",
+                    error: function (xhr, error, thrown) {
+                        console.log(xhr);
+                        console.log(error);
+                    }
+                },               
+                "columns": [
+                        { "data": "id", "name": "Invoice No.", "autoWidth": true },
+                        { "data": "customer", "name": "Customer", "autoWidth": true },
+                        { "data": "Bill", "name": "Bill", "autoWidth": true },
+                        { "data": "DC", "name": "DC", "autoWidth": true },
+                        { "data": "TBill", "name": "Total Bill", "autoWidth": true },
+                        { "data": "Paid", "name": "Paid", "autoWidth": true },                       
+                        { "data": "Bal", "name": "Balance", "autoWidth": true },
+                        { "data": "date", "name": "Date", "autoWidth": true },                       
+                        { "data": "status", "name": "Status", "autoWidth": true },
+                          {
+                              "render": function (data, type, full, meta)
+                              { return '<button id="btnDetails"onclick=ViewDetails(' + full.id + '); type="button" class="btn waves-effect waves-light btn-block btn-info">View Details</button>'; }
+
+
+                          },
+                ]
+            });
+    });
+
+    function UpdateSession(key, value) {
+        //Update Session
+        $.ajax({
+            type: "POST",
+            url: '../Home/UpdateSession',
+            contentType: "application/json",
+            traditional: true,
+            data: JSON.stringify({ key: key, value: value }),
+            dataType: "json",
+            success: function (recData) {
+                if (recData.Data == "done") {
+                    window.location = "../ManageOrders/Details"
+                }
+                else {
+                    swal({
+                        title: "Opps!",
+                        text: "Session expired.",
+                        icon: "error",
+                    });
+                }
+
+            },
+            error: function () {
+                swal({
+
+                    title: "Opps!",
+                    text: "Server error.",
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+    function ViewDetails(invId) {
+        UpdateSession("inVID", invId);
+        
+    }
+
+
+
+
+</script>

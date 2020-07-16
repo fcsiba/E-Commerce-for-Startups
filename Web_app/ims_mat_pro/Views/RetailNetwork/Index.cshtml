@@ -1,0 +1,290 @@
+﻿
+
+@{
+    ViewBag.Title = "Manage Retail Netwok";
+}
+
+
+@section ControlsSection{
+
+    <div class="card">
+        <div class="card-body">
+            <button id="btnAdd" type="button" class="btn waves-effect waves-light btn-block btn-info col-lg-2" data-toggle="modal" data-target="#add-contact">Add Network</button>
+            <div id="add-contact" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Add New Network</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="floating-labels m-t-40">
+                                <div class="form-group m-b-40 focused">
+                                    <input type="text" class="form-control" id="txtName">
+                                    <span class="bar"></span>
+                                    <label for="txtName">Name</label>
+                                </div>
+
+
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnAddNetwork" type="button" class="btn btn-info waves-effect" data-dismiss="modal">Add Network</button>
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+            <div class="table-responsive m-t-40">
+                <table id="myTable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Name</th>
+                            <th>Options</th>
+
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<script>
+
+    var table;
+    var editID = 0;
+    $(document).ready(function () {
+
+        type = '@Session["uType"]';
+        if (type === "") {
+            window.location = '../Login';
+        }
+
+         table =  $('#myTable').DataTable({
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "bLengthChange": false,
+                buttons: [
+                  'copyHtml5',
+                  'excelHtml5',
+                  'csvHtml5',
+                  'pdfHtml5'
+                ],
+                "ajax": {
+                    "url": "/RetailNetwork/LoadData",
+                    "type": "POST",
+                    "datatype": "json",
+                    error: function (xhr, error, thrown) {
+                        console.log(xhr);
+                        console.log(error);
+                    }
+                },
+                "columnDefs":
+                   [{
+                       "targets": [0],
+                       "visible": false,
+                       "searchable": false
+                   },
+                   {
+                      "targets": [2],
+                      "searchable": false,
+                      "orderable": false
+                  }
+                   ],
+                "columns": [
+                        { "data": "id", "name": "id", "autoWidth": true },
+                        { "data": "name", "name": "Name", "autoWidth": true },
+                        {
+                            "render": function (data, type, full, meta)
+                             { return '<a href="javascript:void(myFunction())" onclick=Populate(' + full.id + '); data-toggle="modal" data-target="#add-contact"><i class="fas fa-edit"></i></a><span> | </span> <a href="javascript:void(myFunction())" onclick=DeleteData(' + full.id + ');> <i class="fas fa-trash-alt" style="color:#d9534f;"></i>'; }
+
+                        },
+                ]
+         });
+
+         $('#btnAdd').click(function (e) {
+             editID = 0;
+             $('.modal-title').text('Add Network');
+             $('#btnAddNetwork').text('Add Network');
+         });
+
+         $('#btnAddNetwork').click(function (e) {
+
+             e.preventDefault();
+
+             var name = $('#txtName').val();
+
+             if (editID > 0)//Edit
+             {
+                 $.ajax({
+                     type: "POST",
+                     url: '/RetailNetwork/Edit',
+                     contentType: "application/json",
+                     traditional: true,
+                     data: JSON.stringify({ id: editID, name: name }),
+                     dataType: "json",
+                     success: function (recData) {
+                         if (recData.Data != "0") {
+                             table.ajax.reload(null, false); // user paging is not reset on reload
+                             swal({
+                                 title: "Done!",
+                                 text: "Saved successfully.",
+                                 icon: "success",
+                             });
+
+                             //Clear
+                             $('#txtName').val('');
+
+                         }
+                         else {
+                             swal({
+                                 title: "Opps!",
+                                 text: "Can't save right now",
+                                 icon: "error",
+                             });
+                         }
+
+                     },
+                     error: function () {
+                         swal({
+
+                             title: "Opps!",
+                             text: "Something went wrong",
+                             icon: "error",
+                         });
+                     }
+                 });
+             }
+             else { //ADD
+                 $.ajax({
+                     type: "POST",
+                     url: '/RetailNetwork/Add',
+                     contentType: "application/json",
+                     traditional: true,
+                     data: JSON.stringify({ name: name }),
+                     dataType: "json",
+                     success: function (recData) {
+                         if (recData.Data != "0") {
+                             table.ajax.reload(null, false); // user paging is not reset on reload
+                             swal({
+                                 title: "Done!",
+                                 text: "Retails added successfully.",
+                                 icon: "success",
+                             });
+
+                             //Clear
+                             $('#txtName').val('');
+
+                         }
+                         else {
+                             swal({
+                                 title: "Opps!",
+                                 text: "Can't save right now",
+                                 icon: "error",
+                             });
+                         }
+
+                     },
+                     error: function () {
+                         swal({
+
+                             title: "Opps!",
+                             text: "Something went wrong",
+                             icon: "error",
+                         });
+                     }
+                 });
+             }
+
+
+         });
+    });
+
+    function Populate(RetailsID) {
+        editID = RetailsID;
+
+        $('.modal-title').text('Edit Network ');
+        $('#btnAddNetwork').text('Edit Network');
+        $.ajax({
+            type: "POST",
+            url: '/RetailNetwork/Populate',
+            contentType: "application/json",
+            traditional: true,
+            data: JSON.stringify({ id: editID }),
+            dataType: "json",
+            success: function (recData) {
+                $('#txtName').val(recData.Data.name);
+                $('.form-group').addClass('focused');
+            },
+            error: function () {
+                swal({
+
+                    title: "Opps!",
+                    text: "Something went wrong",
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+
+    function DeleteData(RetailsID) {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+      .then((willDelete) => {
+          if (willDelete) {
+
+              $.ajax({
+                  type: "POST",
+                  url: '/RetailNetwork/Delete',
+                  contentType: "application/json",
+                  traditional: true,
+                  data: JSON.stringify({ id: RetailsID }),
+                  dataType: "json",
+                  success: function (recData) {
+                      if (recData.status == "success") {
+                          table.ajax.reload(null, false); // user paging is not reset on reload
+                          swal("Retails has been removed!", {
+                              icon: "success",
+                          });
+                      }
+                      else {
+                          swal({
+                              title: "Opps!",
+                              text: recData.Data,
+                              icon: "error",
+                          });
+                      }
+
+                  },
+                  error: function () {
+                      swal({
+
+                          title: "Opps!",
+                          text: "Something went wrong",
+                          icon: "error",
+                      });
+                  }
+              });
+
+          }
+      });
+    }
+
+</script>
