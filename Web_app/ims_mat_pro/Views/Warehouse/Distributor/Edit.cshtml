@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewBag.Title = "Edit Distributor";
+}
+
+
+
+@section ControlsSection{
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <a id="btnBank" href="/Distributor/index" class="btn waves-effect waves-light btn-block btn-info col-lg-2">Go Back</a>
+
+                <form class="floating-labels m-t-40">
+
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtName" value="@ViewBag.data.Name">
+                        <span class="bar"></span>
+                        <label for="txtName">Name</label>
+                    </div>
+
+
+
+                    <div class="form-group m-b-80">
+                        <input type="text" class="form-control" id="txtCity" value="@ViewBag.data.City">
+                        <span class="bar"></span>
+                        <label for="txtCity">City</label>
+                    </div>
+
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtAddress" value="@ViewBag.data.Address">
+                        <span class="bar"></span>
+                        <label for="txtAddress">Address</label>
+                    </div>
+
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtNIC" value="@ViewBag.data.NIC">
+                        <span class="bar"></span>
+                        <label for="txtNIC">NIC</label>
+                    </div>
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtNTN" value="@ViewBag.data.NTN">
+                        <span class="bar"></span>
+                        <label for="txtNTN">NTN</label>
+                    </div>
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtMoblie" value="@ViewBag.data.Moblie">
+                        <span class="bar"></span>
+                        <label for="txtMoblie">Mobile</label>
+                    </div>
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtContactNo" value="@ViewBag.data.ContactNo">
+                        <span class="bar"></span>
+                        <label for="txtContactNo">Contact No</label>
+                    </div>
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtReferredBy" value="@ViewBag.data.ReferredBy">
+                        <span class="bar"></span>
+                        <label for="txtReferredBy">Referred By</label>
+                    </div>
+
+
+                </form>
+
+                <br />
+                <!--Thumbnails-->
+
+
+
+
+            </div>
+
+        </div>
+        <div id="divProgress" class="progress m-t-20">
+            <div id="progressBar" class="progress-bar bg-info progress-bar-striped" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height:10px;" role="progressbar"></div>
+        </div>
+        <br />
+        <button id="btnSave" type="button" class="btn btn-info col-lg-12">Edit Distributor </button>
+
+    </div>
+
+
+}
+
+<script>
+
+    $(document).ready(function () {
+
+
+         $('#btnSave').click(function (e) {
+
+             e.preventDefault();
+             var name = $('#txtName').val();
+             var city = $('#txtCity').val();
+             var address  = $('#txtAddress').val();
+             var nic = $('#txtNIC').val();
+             var ntn = $('#txtNTN').val();
+             var mob = $('#txtMoblie').val();
+             var contact = $('#txtContactNo').val();
+             var referredBy = $('#txtReferredBy').val();
+
+             if (name != "" || city != "" || address != "" || nic != "" || ntn != "" || mob != "" || contact != "" || referredBy != "") 
+             {  
+                 $.ajax({
+                     type: "POST",
+                     url: '/Distributor/EditDistributor',
+                     contentType: "application/json",
+                     traditional: true,
+                     data: JSON.stringify({ id:@ViewBag.dID,  Name: name, City: city, Address: address, NIC: nic, NTN: ntn, Moblie: mob, ContactNo: contact, ReferredBy: referredBy }),
+                     dataType: "json",
+                     success: function (recData) {
+                         if (recData.Data == "Success") {
+
+                             swal({
+                                 title: "Done!",
+                                 text: "Distributor saved successfully.",
+                                 icon: "success",
+                             });
+                         }
+                         else {
+                             swal({
+                                 title: "Error!",
+                                 text: "User with the same mobile numeber already exist",
+                                 icon: "error",
+                             });
+                         }
+
+                     },
+                     error: function () {
+                         swal({
+
+                             title: "Opps!",
+                             text: "Something went wrong",
+                             icon: "error",
+                         });
+                     }
+                 });
+             }
+             else {
+                 swal({
+
+                     title: "Invalid Data",
+                     text: "Please fill all fields to save data",
+                     icon: "info",
+                 });
+             }
+
+             
+
+         });
+    });
+
+
+</script>
+
+
+

@@ -1,0 +1,136 @@
+<resources>
+    <string name="app_name">Saaj</string>
+    <string name="oxour_pk">oxour.fastech.pk</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyC3SrcUtXXXXXXXXXXXXXXXXXXXXXX
+    </string>
+
+    <string name="admob_app_id">ca-app-pub-3239677920600357~2463316049</string>
+
+    <string name="authenticate_all">Are you sure you want to authenticate all notifications?</string>
+
+    <string name="step_of">Step %1$d of %2$d</string>
+    <string name="section_format">Section : %1$d</string>
+
+    <string name="about_text">The best android implementation of material UI components. This app implemented based on Google Design Guidelines.
+    </string>
+
+    <string name="version_unknown">Unknown</string>
+    <string name="app_version">Version</string>
+    <string name="default_notification_channel_id">Default</string>
+    <string name="webview_loading">Load Content... </string>
+    <string name="title_activity_home_students_main">home_students_main</string>
+    <string name="title_activity_home_std_main">home_std_main</string>
+
+    <string name="internet_connection">Internet Connection</string>
+
+    <string name="oxour">oxour.fastech.pk</string>
+    <string name="everest">Institute Management System</string>
+    <string name="campus">ims.fastech.pk</string>
+    <string name="select_campus">Select Campus</string>
+    <string name="select_department">Select Department</string>
+    <string name="select_date">Select Date</string>
+    <string name="amount">Amount</string>
+
+    <string name="market_summary">Summary</string>
+    <string name="student">Student</string>
+    <string name="staff">Staff</string>
+    <string name="collection">Collection</string>
+    <string name="receivable">Receivable</string>
+    <string name="defaulters">Defaulters</string>
+    <string name="expense">Expense</string>
+    <string name="bank_balance">Bank Balance</string>
+
+    <string name="received">Received</string>
+    <string name="badDebts">Bad Debts</string>
+    <string name="balance">Balance</string>
+    <string name="other_income">Other Income</string>
+    <string name="summary">Summary</string>
+    <string name="profit_loss">Profit/Loss</string>
+
+    <string name="dcr">DCR</string>
+
+    <string name="today">Today</string>
+    <string name="this_week">This Week</string>
+    <string name="this_month">This Month</string>
+    <string name="tution_fee">Tuition Fee</string>
+    <string name="other_fee">Other Fee</string>
+
+    <string name="total">Total</string>
+    <string name="current_month">Current Month</string>
+    <string name="arrears">Arrears</string>
+
+    <string name="present">Present</string>
+    <string name="absent">Absent</string>
+    <string name="late">Late</string>
+    <string name="on_leave">On Leave</string>
+
+    <string name="chooser_title">Lorem ipsum</string>
+    <string name="choose_file">Select a file</string>
+    <string name="internal_storage">Internal storage</string>
+    <string name="empty_directory">Empty Directory</string>
+    <string name="storage_removed">Storage was removed or unmounted.</string>
+    <string name="error_selecting_file">Error selecting File</string>
+
+    <string name="dummy_amount">Rs.-,---,---</string>
+    <string name="r">RV</string>
+    <string name="rd">RD</string>
+    <string name="a">A</string>
+    <string name="b">BL</string>
+    <string name="bd">BD</string>
+    <string name="s">SM</string>
+    <string name="e">E</string>
+    <string name="oi">OI</string>
+    <string name="p_l">PNL</string>
+    <string name="td">TD</string>
+    <string name="t">TL</string>
+    <string name="tw">TW</string>
+    <string name="tm">TM</string>
+    <string name="tf">TF</string>
+    <string name="of">OF</string>
+    <string name="cm">CM</string>
+    <string name="ar">AR</string>
+    <string name="p">P</string>
+    <string name="ol">OL</string>
+    <string name="l">L</string>
+
+    <string name="description_marks">\u2022  Press the <b>Select Class</b> icon
+        \n\u2022  A <b>Dialog Box</b> will appear
+        \n\u2022  Select all the fields provided in the dialog box
+        \n\u2022  Set <b>Total Marks</b> for grading criteria
+        \n\u2022  Press <b>Done</b> , the dialog box will disappear
+        \n\u2022  On the main screen, you\'ll see Input fields associated with every student. Enter their obtained marks
+        \n\u2022  Once you\'ve finished, press <b><font color='blue'>Save</font></b> icon
+    </string>
+
+
+    <string name="attendance">Attendance</string>
+    <string name="homework">Homework</string>
+    <string name="marks">Marks Entry</string>
+    <string name="notification">Notification</string>
+
+    <string name="attendance_description">Mark Students\n Attendance</string>
+    <string name="homework_description">Post Homework for\n Students</string>
+    <string name="marks_description">Assignments, Quizzes,\n Finals etc.</string>
+    <string name="notification_description">Send Notifications\n through Mobile</string>
+
+    <string name="internet_off">You\'re offline</string>
+    <string name="check_internet">Please check your internet connection</string>
+
+    <string name="help">Tips</string>
+
+    <string name="sms_settings">SMS Settings</string>
+    <string name="sms_absent">Send SMS when student is Absent</string>
+    <string name="sms_present">Send SMS when student is Present</string>
+    <string name="sms_on_leave">Send SMS when student is on Leave</string>
+    <string name="notification_setting">Notification Settings</string>
+    <string name="father_number">Send Notifications to Father\'s number</string>
+    <string name="mother_number">Send Notifications to Mother\'s number</string>
+    <string name="tutor_number">Send Notifications to Tutor\'s number</string>
+
+
+</resources>

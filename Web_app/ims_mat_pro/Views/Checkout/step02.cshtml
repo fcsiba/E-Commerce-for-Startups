@@ -1,0 +1,149 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title> Saaj Apparels - Checkout </title>   
+
+    <!--Core CSS -->
+    <link rel="stylesheet" href="../assetsCheckout/css/bulma.css">
+    <link rel="stylesheet" href="../assetsCheckout/css/core.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:100,400" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500" rel="stylesheet">
+
+    <!-- plugins -->
+    <link rel="stylesheet" href="../assetsCheckout/js/slick/slick.css">
+    <link rel="stylesheet" href="../assetsCheckout/js/slick/slick-theme.css">
+    <link rel="stylesheet" href="../assetsCheckout/js/webuipopover/jquery.webui-popover.min.css">
+    <link rel="stylesheet" href="../assetsCheckout/js/izitoast/css/iziToast.min.css">
+    <link rel="stylesheet" href="../assetsCheckout/js/zoom/zoom.css">
+    <link rel="stylesheet" href="../assetsCheckout/js/jpcard/card.css">
+    <link rel="stylesheet" href="../assetsCheckout/css/chosen/chosen.css">
+    <link rel="stylesheet" href="../assetsCheckout/css/icons.min.css">
+
+</head>
+<body>
+
+    <!-- Pageloader -->
+    <div class="pageloader"></div>
+    <div class="infraloader is-active"></div>
+
+
+    <!-- Action Bar -->
+    <div class="action-bar is-centered" style="width:100%">
+        <div class="steps-wrapper">
+            <ol class="step-list">
+                <li class="active"></li>
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Main wrapper -->
+    <div class="shop-wrapper">
+
+        <!-- Search overlay -->
+        <div class="search-overlay"></div>
+
+        <!-- Main section -->
+        <div class="section">
+            <!-- Container -->
+            <div class="container">
+
+                <!-- Checkout step 3 -->
+                <div class="columns account-header">
+                    <div class="column is-10 is-offset-1 checkout-wrapper is-tablet-landscape-padded">
+                        <!-- Title -->
+                        <div class="checkout-title">
+                            <h2>VERIFICATION</h2>
+                            @*<h3>ORDER-485359</h3>*@
+                        </div>
+                        <!-- Card -->
+                        <div class="flat-card is-auto is-checkout-form">
+                            <div class="columns is-gapless is-vcentered">
+                                <!-- Order Total -->
+                                <div class="column is-4 has-text-centered grey-column is-padded">
+                                    <div class="verification-wrapper">
+                                        <div class="total-price">
+                                            <i data-feather="credit-card"></i>
+                                            <span>Order Total</span>
+                                            <span>Rs.@ViewBag.bill</span>
+                                            <span>@ViewBag.count Products ordered</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- List of items -->
+                                <div class="column is-8 is-padded items-column">
+                                   
+                                     <!-- Shipping item -->
+                                    <div class="order-item has-popover-top">
+                                        <!-- Description -->
+                                        <div class="item-description">
+                                            <span>Shipping</span>
+                                            <span>Delivery</span>
+                                        </div>
+                                        <!-- Quantity -->
+                                        <div class="item-quantity has-text-centered">
+                                            <span>Qty</span>
+                                            <span>1</span>
+                                        </div>
+                                        <!-- Price -->
+                                        <div class="item-price has-text-right">
+                                            @ViewBag.dc
+                                        </div>
+                                    </div>
+
+                                    <!-- Shipping Popover -->
+                                    <div class="webui-popover-content">
+                                        <div class="popover-flex-block">
+                                            <!-- Icon -->
+                                            <div class="icon-block">
+                                                <img src="../assetsCheckout/images/logo/nephos.svg" alt="">
+                                            </div>
+                                            <!-- Content -->
+                                            <div class="content-block">This is the shipping method that you chose in the previous step.</div>
+                                        </div>
+                                    </div>
+
+                                    @Html.Raw(ViewBag.data)
+
+                                 
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Checkout Next/Previous Buttons -->
+                        <div class="button-wrapper has-text-right">
+                            <a href="../Checkout" class="button feather-button is-small primary-button upper-button raised">
+                                <span>Previous</span>
+                            </a>
+                            <a href="../Checkout/step04" class="button feather-button is-small primary-button upper-button raised">
+                                <span>Confirm Order</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Container -->
+        </div>
+        <!-- /Main section -->
+    </div>
+    <!-- /Main wrapper -->
+    <!-- Concatenated plugins -->
+    <script src="../assetsCheckout/js/app.js"></script>
+    <!-- Helios js -->
+    <script src="../assetsCheckout/js/nephos.js"></script>
+</body>
+</html>

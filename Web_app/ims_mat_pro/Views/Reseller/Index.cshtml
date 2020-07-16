@@ -1,0 +1,594 @@
+﻿
+@{
+    ViewBag.Title = "Manage Reseller";
+}
+
+
+@section ControlsSection{
+
+    <div class="card">
+        <div class="card-body">
+            <button id="btnAdd" type="button" class="btn waves-effect waves-light btn-block btn-info col-lg-2" data-toggle="modal" data-target="#add-contact">Add Reseller</button>
+            
+            <button id="btnAchi" type="button" class="btn waves-effect waves-light btn-block btn-info col-lg-2" data-toggle="modal" data-target="#add-contact2">Resellers Achievements</button>
+            
+            <button id="btnSAchi" type="button" class="btn waves-effect waves-light btn-block btn-info col-lg-2" data-toggle="modal" data-target="#add-contact3">Supervisors Achievements</button>
+
+           
+
+            @{
+                if (Convert.ToInt32(Session["uType"]) == 2)
+                {
+                    <button id="btnShop" type="button" class="btn waves-effect waves-light btn-block btn-info col-lg-2">Start shopping</button>
+                }
+                if (Convert.ToInt32(Session["uType"]) == 1)
+                {
+                    <button id="btnConfig" type="button" class="btn waves-effect waves-light btn-block btn-info col-lg-2" data-toggle="modal" data-target="#add-config">Config</button>
+                }
+            }
+           
+           
+             <div id="add-contact" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+               
+                 <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Add New Reseller</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="floating-labels m-t-40">
+                                <div class="form-group m-b-40 focused">
+                                    <input type="text" class="form-control" id="txtName">
+                                    <span class="bar"></span>
+                                    <label for="txtName">Name*</label>
+                                </div>
+
+                                <div class="form-group m-b-80">
+                                    <input type="text" class="form-control" id="txtFatherName">
+                                    <span class="bar"></span>
+                                    <label for="txtFatherName">Father Name</label>
+                                </div>
+
+                                <div class="form-group m-b-40">
+                                    @Html.DropDownList("cmbSuper", (IEnumerable<SelectListItem>)ViewBag.super, String.Empty, new { @class = "form-control p-0" })
+                                    <label for="cmbSuper">Supervisor</label>
+                                </div>
+                               
+
+                                <div class="form-group m-b-40 focused">
+                                    <input type="text" class="form-control" id="txtMob">
+                                    <span class="bar"></span>
+                                    <label for="txtMob">Mobile*</label>
+                                </div>
+
+
+                                <div class="form-group m-b-40 focused">
+                                    <input type="text" class="form-control" id="txtNIC">
+                                    <span class="bar"></span>
+                                    <label for="txtNIC">NIC</label>
+                                </div>
+
+                                <div class="form-group m-b-40 focused">
+                                    <input type="text" class="form-control" id="txtAddress">
+                                    <span class="bar"></span>
+                                    <label for="txtAddress">Address</label>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnAddReseller" type="button" class="btn btn-info waves-effect" data-dismiss="modal">Add Reseller</button>
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+            <div id="add-contact2" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" sytle="margin-top:140px;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Achievement Report - Resellers</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="floating-labels m-t-40">
+
+                                <div class="form-group m-b-40 focused">
+                                    <label for="cmbReseller">Reseller:</label>
+                                    @Html.DropDownList("cmbReseller", (IEnumerable<SelectListItem>)ViewBag.super2, String.Empty, new { @class = "form-control p-0" })
+                                    <span class="bar"></span>
+
+                                </div>
+
+
+                                <div class="form-group m-b-40 focused">
+                                    <label for="txtName">From:</label>
+                                    <input type="date" class="form-control" id="dtFrom">
+                                    <span class="bar"></span>
+
+                                </div>
+
+                                <div class="form-group m-b-80">
+                                    <label for="txtFatherName">To:</label>
+                                    <input type="date" class="form-control" id="dtTo">
+                                    <span class="bar"></span>
+
+                                </div>
+
+
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnReport2" type="button" class="btn btn-info waves-effect" data-dismiss="modal">Show Report</button>
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+
+            </div>
+
+            <div id="add-contact3" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" sytle="margin-top:140px;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Achievement Report - Supervisor</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="floating-labels m-t-40">
+
+                                <div class="form-group m-b-40 focused">
+                                    <label for="cmbReseller">Supervisor:</label>
+                                    @Html.DropDownList("cmbSupervisor", (IEnumerable<SelectListItem>)ViewBag.super, String.Empty, new { @class = "form-control p-0" })
+                                    <span class="bar"></span>
+
+                                </div>
+
+
+                                <div class="form-group m-b-40 focused">
+                                    <label for="txtName">From:</label>
+                                    <input type="date" class="form-control" id="dtFromS">
+                                    <span class="bar"></span>
+
+                                </div>
+
+                                <div class="form-group m-b-80">
+                                    <label for="txtFatherName">To:</label>
+                                    <input type="date" class="form-control" id="dtToS">
+                                    <span class="bar"></span>
+
+                                </div>
+
+
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnReport3" type="button" class="btn btn-info waves-effect" data-dismiss="modal">Show Report</button>
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+
+            </div>
+
+            <div id="add-config" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Supervisor Share - Settings</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="floating-labels m-t-40">
+
+                                <div class="form-group m-b-40 focused">
+                                    <label for="txtName">Share:</label>
+                                    <input type="text" class="form-control" id="txtShare">
+                                    <span class="bar"></span>
+
+                                </div>                               
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnSaveConfig" type="button" class="btn btn-info waves-effect" data-dismiss="modal">Save Settings</button>
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+
+            </div>
+
+            <div class="table-responsive m-t-40">
+                <table id="myTable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Name</th>
+                            <th>Father's Name</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>NIC</th>  
+                            <th>Supervisor</th>                            
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<script>
+
+    var table;
+    var editID = 0;
+    $(document).ready(function () {
+
+        type = '@Session["uType"]';
+        if (type === "") {
+            window.location = '../Login';
+        }
+
+        $("#cmbReseller").prop('selectedIndex', 0);
+        $("#cmbSupervisor").prop('selectedIndex', 0);
+        $("#cmbSuper").prop('selectedIndex', 0);
+       
+        table =  $('#myTable').DataTable({
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "bLengthChange": false,
+            buttons: [
+              'copyHtml5',
+              'excelHtml5',
+              'csvHtml5',
+              'pdfHtml5'
+            ],
+            "ajax": {
+                "url": "/Reseller/LoadData",
+                "type": "POST",
+                "datatype": "json",
+                error: function (xhr, error, thrown) {
+                    console.log(xhr);
+                    console.log(error);
+                }
+            },
+            "columnDefs":
+               [{
+                   "targets": [0],
+                   "visible": false,
+                   "searchable": false
+               },
+               {
+                   "targets": [6],
+                   "searchable": false,
+                   "orderable": false
+               }],
+            "columns": [
+                    { "data": "id", "name": "id", "autoWidth": true },
+                    { "data": "name", "name": "name", "autoWidth": true },
+                    { "data": "fatherName", "name": "fatherName", "autoWidth": true },
+                    { "data": "Mob", "name": "fatherName", "autoWidth": true },
+                    { "data": "pw", "name": "fatherName", "autoWidth": true },
+                    { "data": "NIC", "name": "NIC", "autoWidth": true },
+                    { "data": "Supervisor", "name": "Supervisor", "autoWidth": true },                     
+                    {
+                        "render": function (data, type, full, meta)
+                        { return '<a href="javascript:void(myFunction())" onclick=Populate(' + full.id + '); data-toggle="modal" data-target="#add-contact"><i class="fas fa-edit"></i></a><span> | </span> <a href="javascript:void(myFunction())" onclick=DeleteData(' + full.id + ');> <i class="fas fa-trash-alt" style="color:#d9534f;"></i>'; }
+
+                    },
+            ]
+        });
+
+        $('#btnAdd').click(function (e) {
+            editID = 0;
+            $('.modal-title').text('Add Reseller');
+            $('#btnAddReseller').text('Add Reseller');
+        });
+
+        $('#btnAddReseller').click(function (e) {
+
+            e.preventDefault();
+            
+            var name = $('#txtName').val();
+            var fName = $('#txtFatherName').val();
+            var supervisor = $('#cmbSuper').val();
+            var mob = $('#txtMob').val();
+            var nic = $('#txtNIC').val();
+            var address = $('#txtAddress').val();
+            console.log(name, fName, mob, supervisor, nic, address);
+            if (name !=null && name.length > 2) {
+                console.log(mob.length);
+                if (mob.length<11) {
+                    swal({
+                        title: "Error!",
+                        text: "Please Provide Correct Mobile number",
+                        icon: "error",
+                    });
+                }
+                else{
+                    if (editID > 0)//Edit
+                    {
+                
+                        $.ajax({
+                            type: "POST",
+                            url: '/Reseller/Edit',
+                            contentType: "application/json",
+                            traditional: true,
+                            data: JSON.stringify({ id: editID, name: name, fName: fName, supervisor: supervisor, mob: mob, nic: nic, address: address }),
+                            dataType: "json",
+                            success: function (recData) {
+                                if (recData.Data != "0") {
+                                    table.ajax.reload(null, false); // user paging is not reset on reload
+                                    swal({
+                                        title: "Done!",
+                                        text: "Saved successfully.",
+                                        icon: "success",
+                                    });
+
+                                    //Clear
+                                    $('#txtName').val('');
+                                    $('#txtFatherName').val('');
+                                    $('#cmbSuper').val('');
+                                    $('#txtMob').val('');
+                                    $('#txtNIC').val('');
+                                    $('#txtAddress').val('');
+
+                                }
+                                else {
+                                    swal({
+                                        title: "Error!",
+                                        text: "User with the same mobile number already exist",
+                                        icon: "error",
+                                    });
+                                }
+
+                            },
+                            error: function () {
+                                swal({
+
+                                    title: "Opps!",
+                                    text: "Something went wrong",
+                                    icon: "error",
+                                });
+                            }
+                        });
+                     
+                     
+                    }
+                    else { //ADD 
+                        $.ajax({
+                            type: "POST",
+                            url: '/Reseller/Add',
+                            contentType: "application/json",
+                            traditional: true,
+                            data: JSON.stringify({ name: name, fName: fName, supervisor: supervisor, mob: mob, nic: nic, address: address }),
+                            dataType: "json",
+                            success: function (recData) {
+                                if (recData.Data != "0") {
+                                    table.ajax.reload(null, false); // user paging is not reset on reload
+                                    swal({
+                                        title: "Done!",
+                                        text: "Reseller added successfully.",
+                                        icon: "success",
+                                    });
+
+                                    //Clear
+                                    $('#txtName').val('');
+                                    $('#txtFatherName').val('');
+                                    $('#cmbSuper').val('');
+                                    $('#txtMob').val('');
+                                    $('#txtNIC').val('');
+                                    $('#txtAddress').val('');
+
+                                }
+                                else {
+                                    swal({
+                                        title: "Opps!",
+                                        text: "Contact No. already exist!",
+                                        icon: "error",
+                                    });
+                                }
+
+                            },
+                            error: function () {
+                                swal({
+
+                                    title: "Opps!",
+                                    text: "Something went wrong",
+                                    icon: "error",
+                                });
+                            }
+                        });
+                    }
+                 
+             
+                }
+            }
+         
+            else {
+                swal({
+
+                    title: "Info!",
+                    text: "Please fill all the fields to save data",
+                    icon: "info",
+                });
+            }
+        });
+
+
+        $('#btnReport2').on('click', function () {
+
+            var dtFrom = $('#dtFrom').val();
+            //alert(dtFrom);
+            var dtTo = $('#dtTo').val();
+            var res = $('#cmbReseller').val();
+            if (dtFrom == "" || dtTo == "") {
+                alert("Please select a date range");
+                return;
+            }
+            if (res == "") {
+                alert("Please select a reseller");
+                return;
+            }
+            link = "Shop/ShowReportSup?dtFrom=" + dtFrom + "&dtTo=" + dtTo + "&res=" + res;
+            window.open(link, '_blank');
+        });
+
+        $('#btnShop').on('click', function () {
+            window.location = "../Shop";
+        });
+
+        $('#btnReport3').on('click', function () {
+
+            var dtFrom = $('#dtFromS').val();
+            //alert(dtFrom);
+            var dtTo = $('#dtToS').val();
+            var sup = $('#cmbSupervisor').val();
+            if (dtFrom == "" || dtTo == "") {
+                alert("Please select a date range");
+                return;
+            }
+            if (sup == "") {
+                alert("Please select a supervisor");
+                return;
+            }
+            link = "Shop/ShowReportSupervisor?dtFrom=" + dtFrom + "&dtTo=" + dtTo + "&sup=" + sup;
+            window.open(link, '_blank');
+        });
+
+        $('#btnSaveConfig').click(function () {
+
+            var share = $('#txtShare').val();
+            if (share == "") {
+                alert("Please enter supervisor share.");
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: '/Reseller/SaveSettings',
+                contentType: "application/json",
+                traditional: true,
+                data: JSON.stringify({ share: share }),
+                dataType: "json",
+                success: function (recData) {
+                    swal({
+                        title: "Done!",
+                        text: "Saved",
+                        icon: "success",
+                    });
+                },
+                error: function () {
+                    swal({
+                        title: "Opps!",
+                        text: "Something went wrong",
+                        icon: "error",
+                    });
+
+                }
+            });
+
+        });
+                
+         
+   });
+         
+
+    function Populate(resellerID) {
+        editID = resellerID;
+        $('.modal-title').text('Edit Reseller');
+        $('#btnAddReseller').text('Edit Reseller');
+
+        $.ajax({
+            type: "POST",
+            url: '/Reseller/Populate',
+            contentType: "application/json",
+            traditional: true,
+            data: JSON.stringify({ id: resellerID }),
+            dataType: "json",
+            success: function (recData) {               
+                $('#txtName').val(recData.Data.name);
+                $('#txtFatherName').val(recData.Data.fatherName);
+                $('#cmbSuper').val(recData.Data.supervisor);
+                $('#txtMob').val(recData.Data.Mob);
+                $('#txtNIC').val(recData.Data.NIC);
+                $('#txtAddress').val(recData.Data.address);
+                $('.form-group').addClass('focused');
+            },
+            error: function () {
+                swal({
+
+                    title: "Opps!",
+                    text: "Something went wrong",
+                    icon: "error",
+                });
+            }
+        });
+
+      
+    }
+
+
+    function DeleteData(resellerID) {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+      .then((willDelete) => {
+          if (willDelete) {
+
+              $.ajax({
+                  type: "POST",
+                  url: '/Reseller/Delete',
+                  contentType: "application/json",
+                  traditional: true,
+                  data: JSON.stringify({ id: resellerID }),
+                  dataType: "json",
+                  success: function (recData) {
+                      if (recData.Data == "Success") {
+                          table.ajax.reload(null, false); // user paging is not reset on reload
+                          swal("Reseller has been removed!", {
+                              icon: "success",
+                          });
+                      }
+                      else {
+                          swal({
+                              title: "Opps!",
+                              text: "Can not remove reseller.",
+                              icon: "error",
+                          });
+                      }
+
+                  },
+                  error: function () {
+                      swal({
+
+                          title: "Opps!",
+                          text: "Something went wrong",
+                          icon: "error",
+                      });
+                  }
+              });
+
+          }
+      });
+    }
+
+</script>

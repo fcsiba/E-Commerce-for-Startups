@@ -1,0 +1,563 @@
+﻿
+@{
+    if (Session["uType"] != null)
+    {
+        if (Convert.ToInt32(Session["uType"]) > 1 & Convert.ToInt32(Session["uType"]) < 7)
+        {
+            Response.Redirect("~/Login");
+        }
+
+    }
+    ViewBag.Title = "Manage Orders";
+}
+
+
+
+<div id="add-summary" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Orders Summary Report</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form class="floating-labels m-t-40">
+
+                    <div class="form-group m-b-40 focused">
+                        <label for="cmbReseller">Status:</label>
+                        @Html.DropDownList("cmbStatusM", (IEnumerable<SelectListItem>)ViewBag.status, String.Empty, new { @class = "form-control p-0" })
+                        <span class="bar"></span>
+
+                    </div>
+
+                    <div class="form-group m-b-40 focused">
+                        <label for="cmbReseller">Delivered By:</label>
+                        @Html.DropDownList("cmbBy", (IEnumerable<SelectListItem>)ViewBag.dBy, String.Empty, new { @class = "form-control p-0" })
+                        <span class="bar"></span>
+                    </div>
+
+
+                    <div class="form-group m-b-40 focused">
+                        <label for="txtName">From:</label>
+                        <input type="date" class="form-control" id="dtFrom">
+                        <span class="bar"></span>
+
+                    </div>
+
+                    <div class="form-group m-b-80">
+                        <label for="txtFatherName">To:</label>
+                        <input type="date" class="form-control" id="dtTo">
+                        <span class="bar"></span>
+
+                    </div>
+
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSummary" type="button" class="btn btn-info waves-effect" data-dismiss="modal">Show Report</button>
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+
+</div>
+
+<div id="add-summaryM" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Mutiple Orders Summary Report</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form class="floating-labels m-t-40">
+                    
+                    <div class="form-group m-b-40 focused">
+                        <label for="txtName">Invoice No. (From):</label>
+                        <input type="text" class="form-control" id="txtFrom">
+                        <span class="bar"></span>
+
+                    </div>
+
+                    <div class="form-group m-b-80">
+                        <label for="txtFatherName">Invoice No. (To):</label>
+                        <input type="text" class="form-control" id="txtTo">
+                        <span class="bar"></span>
+
+                    </div>
+
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSummaryM" type="button" class="btn btn-info waves-effect" data-dismiss="modal">Show Report</button>
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+
+</div>
+
+@section ControlsSection{
+
+    <div class="card">
+        <div class="card-body">
+
+            <button id="btnNew" type="button" class="btn btn-primary">New orders</button>
+
+            <button id="btnAll" type="button" class="btn btn-primary">All orders</button>
+
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-summary">Orders Summary</button>
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-summaryM">Print multiple invoices</button>
+
+            <div id="add-contact" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Update</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="floating-labels m-t-40">
+                               
+                                <div class="form-group m-b-40 focused">
+                                    <input type="number" class="form-control" id="txtDC">
+                                    <span class="bar"></span>
+                                    <label for="txtDC">Delivery Charges:</label>
+                                </div>
+
+                                <div class="form-group m-b-40 focused">
+                                    <input type="number" class="form-control" id="txtPaid">
+                                    <span class="bar"></span>
+                                    <label for="txtPaid">Paid:</label>
+                                </div>                               
+
+                                <div class="form-group m-b-80 focused">
+                                    <label for="cmbdBy">By:</label>
+                                    <select class="custom-select col-15" id="cmbdBy">
+                                        <option value="-">-</option>
+                                        <option value="Saaj">Saaj</option>
+                                        <option value="Leopard">Leopard</option>
+                                        <option value="TCS">TCS</option>
+                                        <option value="Pak Post">Pak Post</option>
+                                        <option value="OCS">OCS</option>
+                                        <option value="Others">Others</option>
+                                    </select>
+                                    <span class="bar"></span>
+                                </div>
+
+                                 <div class="form-group m-b-40 focused">
+                                    <label for="cmbdBy">Status:</label>
+                                    <select class="custom-select col-15" id="cmbStatus">                                       
+                                        <option value="Order Received">Order Received</option>
+                                        <option value="In Progress">In Progress</option>
+                                        <option value="Processed for Delivery">Processed for Delivery</option>
+                                        <option value="Delievered">Delievered</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Rejected">Rejected</option>
+                                        <option value="Returned">Returned</option>
+
+                                    </select>
+                                </div>
+
+                              
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnUpdateStatus" type="button" class="btn btn-info waves-effect" data-dismiss="modal">Update</button>
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+            <div  id="divNew" class="table-responsive m-t-40">
+                <table id="myTableNew" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Reseller</th>
+                            <th>Name</th>
+                            <th>Bill</th>
+                            <th>DC</th>
+                            <th>Total</th>
+                            <th>Paid</th>
+                            <th>Bal.</th>
+                            <th>Mode</th>
+                            <th>By</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Details</th>
+                            <th>Manage</th>
+                            <th>Print</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <div id="divAll" class="table-responsive m-t-40">
+                <table id="myTable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Reseller</th>
+                            <th>Name</th>
+                            <th>Bill</th>
+                            <th>DC</th>
+                            <th>Total</th>
+                            <th>Paid</th>                          
+                            <th>Bal.</th>
+                            <th>Mode</th>
+                            <th>By</th>
+                            <th>Status</th>     
+                            <th>Date</th>                                
+                            <th>Details</th>   
+                            <th>Manage</th> 
+                            <th>Print</th> 
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+
+}
+
+
+<script>
+
+    var table;
+    var proID = 0;
+    var ediitID = 0;
+
+    $(document).ready(function () {
+
+        $('#divAll').hide();
+
+        type = '@Session["uType"]';
+        if (type === "") {
+            window.location = '../Login';
+        }
+
+        $('#dtFrom').val('0');
+        $('#dtTo').val('0');
+        
+
+        $('#btnAdd').click(function () {
+            editID = 0;
+            window.location = "/ManageOrder/Add";
+        });
+
+        $('#btnUpdateStatus').click(function () {
+
+            var st = $("#cmbStatus").val();
+            var paid = $("#txtPaid").val();
+            var dBy = $("#cmbdBy").val();
+            var dc = $("#txtDC").val();
+
+            if (st.length === 0) {
+                alert('Please enter received amonnt');
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: '/ManageOrders/UpdateStatus',
+                contentType: "application/json",
+                traditional: true,
+                data: JSON.stringify({ id: editID, status: st, dBy: dBy, paid: paid, dc: dc }),
+                dataType: "json",
+                success: function (recData) {
+                    if (recData.status == "success") {
+                        table.ajax.reload(null, false); // user paging is not reset on reload
+                        swal({
+                            title: "Done!",
+                            text: "Order updated.",
+                            icon: "success",
+                        });
+                    }
+                    else {
+                        swal({
+                            title: "Opps!",
+                            text: "Can't save right now",
+                            icon: "error",
+                        });
+                    }
+
+                },
+                error: function () {
+                    swal({
+
+                        title: "Opps!",
+                        text: "Something went wrong",
+                        icon: "error",
+                    });
+                }
+            });
+        });
+
+
+        table = $('#myTable').DataTable({
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "bLengthChange": false,
+            buttons: [
+              'copyHtml5',
+              'excelHtml5',
+              'csvHtml5',
+              'pdfHtml5'
+            ],
+            "ajax": {
+                "url": "/ManageOrders/LoadData",
+                "type": "POST",
+                "datatype": "json",
+                error: function (xhr, error, thrown) {
+                    console.log(xhr);
+                    console.log(error);
+                }
+            },
+            "columnDefs":
+               [{
+                   //"targets": [0],
+                   //"visible": false,
+                   //"searchable": false
+               },
+                {
+                    "targets": [12],
+                    "searchable": false,
+                    "orderable": false
+                },
+               {
+                   "targets": [13],
+                   "searchable": false,
+                   "orderable": false
+               }],
+            "columns": [
+                    { "data": "id", "name": "id", "autoWidth": true },
+                    { "data": "Reseller", "name": "Reseller", "autoWidth": true },
+                    { "data": "name", "name": "name", "autoWidth": true },
+                    { "data": "Bill", "name": "Bill", "autoWidth": true },
+                    { "data": "DC", "name": "Delivery", "autoWidth": true },
+                    { "data": "TBill", "name": "Total", "autoWidth": true },
+                    { "data": "Paid", "name": "Paid", "autoWidth": true },                 
+                    { "data": "Bal", "name": "Balance", "autoWidth": true },
+                    { "data": "payMode", "name": "Mode", "autoWidth": true },
+                    { "data": "dBy", "name": "By", "autoWidth": true },
+                    { "data": "status", "name": "Status", "autoWidth": true },
+                    { "data": "date", "name": "date", "autoWidth": true },
+                    {
+                       "render": function (data, type, full, meta)
+                       { return '<button id="btnDetails"onclick=ViewDetails(' + full.id + '); type="button" class="btn waves-effect waves-light btn-block btn-info">Details</button>'; }
+
+
+                     },
+                     {
+                         "render": function (data, type, full, meta)
+                         { return '<button id="btnUpdateStatusMain"onclick="UpdateStatus(' + full.id + ',' + full.Paid + ', ' + "'" + full.status + "'" + ',' + "'" + full.dBy + "'" + ',' + "'" + full.DC + "'" + ')"; type="button" class="btn waves-effect waves-light btn-block btn-info" data-toggle="modal" data-target="#add-contact">Update</button>'; }
+
+                     },
+                      {
+                          "render": function (data, type, full, meta)
+                          { return '<button id="btnPrint"onclick="Print(' + full.id + ')"; type="button" class="btn waves-effect waves-light btn-block btn-success">Print</button>'; }
+
+                      },
+
+            ]
+        });
+
+        table = $('#myTableNew').DataTable({
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "bLengthChange": false,
+            buttons: [
+              'copyHtml5',
+              'excelHtml5',
+              'csvHtml5',
+              'pdfHtml5'
+            ],
+            "ajax": {
+                "url": "/ManageOrders/LoadDataNew",
+                "type": "POST",
+                "datatype": "json",
+                error: function (xhr, error, thrown) {
+                    console.log(xhr);
+                    console.log(error);
+                }
+            },
+            "columnDefs":
+               [{
+                   //"targets": [0],
+                   //"visible": false,
+                   //"searchable": false
+               },
+                {
+                    "targets": [12],
+                    "searchable": false,
+                    "orderable": false
+                },
+               {
+                   "targets": [13],
+                   "searchable": false,
+                   "orderable": false
+               }],
+            "columns": [
+                    { "data": "id", "name": "id", "autoWidth": true },
+                    { "data": "Reseller", "name": "Reseller", "autoWidth": true },
+                    { "data": "name", "name": "name", "autoWidth": true },
+                    { "data": "Bill", "name": "Bill", "autoWidth": true },
+                    { "data": "DC", "name": "Delivery", "autoWidth": true },
+                    { "data": "TBill", "name": "Total", "autoWidth": true },
+                    { "data": "Paid", "name": "Paid", "autoWidth": true },
+                    { "data": "Bal", "name": "Balance", "autoWidth": true },
+                    { "data": "payMode", "name": "Mode", "autoWidth": true },
+                    { "data": "dBy", "name": "By", "autoWidth": true },
+                    { "data": "status", "name": "Status", "autoWidth": true },
+                    { "data": "date", "name": "date", "autoWidth": true },
+                    {
+                        "render": function (data, type, full, meta)
+                        { return '<button id="btnDetails"onclick=ViewDetails(' + full.id + '); type="button" class="btn waves-effect waves-light btn-block btn-info">Details</button>'; }
+
+
+                    },
+                     {
+                         "render": function (data, type, full, meta)
+                         { return '<button id="btnUpdateStatusMain"onclick="UpdateStatus(' + full.id + ',' + full.Paid + ', ' + "'" + full.status + "'" + ',' + "'" + full.dBy + "'" + ',' + "'" + full.DC + "'" + ')"; type="button" class="btn waves-effect waves-light btn-block btn-info" data-toggle="modal" data-target="#add-contact">Update</button>'; }
+
+                     },
+                      {
+                          "render": function (data, type, full, meta)
+                          { return '<button id="btnPrint"onclick="Print(' + full.id + ')"; type="button" class="btn waves-effect waves-light btn-block btn-success">Print</button>'; }
+
+                      },
+
+            ]
+        });
+
+
+        $('#btnSummary').on('click', function () {
+
+            var dtFrom = $('#dtFrom').val();           
+            var dtTo = $('#dtTo').val();
+            var status = $('#cmbStatusM').val();
+            var dBy = $('#cmbBy').val();           
+            if (status == "") {
+                alert("Please select status");
+                $('#add-summary').modal('show');
+                return;
+            }
+            if (dBy == "") {
+                alert("Please select delivered by");
+                $('#add-summary').modal('show');
+                return;
+            }
+            if (dtFrom == "" || dtTo == "") {
+                alert("Please select a date range");
+                $('#add-summary').modal('show');
+                return;
+            }
+            link = "Shop/ShowSummary?dtFrom=" + dtFrom + "&dtTo=" + dtTo + "&status=" + status + "&dBy=" + dBy;
+            window.open(link, '_blank');
+        });
+
+        $('#btnSummaryM').on('click', function () {
+
+            var txtFrom = $('#txtFrom').val();
+            var txtTo = $('#txtTo').val();          
+            if (txtFrom == "" || txtTo == "") {
+                alert("Please enter invoice range ");
+                $('#add-summaryM').modal('show');
+                return;
+            }
+
+            link = "Shop/ShowSummaryM?txtFrom=" + txtFrom + "&txtTo=" + txtTo;
+            window.open(link, '_blank');
+        });
+
+        $('#btnNew').on('click', function () {
+            $('#divAll').hide();
+            $('#divNew').show();
+        });
+
+        $('#btnAll').on('click', function () {
+            $('#divAll').show();
+            $('#divNew').hide();
+        });
+
+
+
+    });
+
+
+    function UpdateStatus(id, paid, status, dBy, dc)
+    {
+        editID = id;     
+        $('#txtPaid').val(paid);
+        $('#cmbStatus').val(status);
+        $('#cmbdBy').val(dBy);
+        $('#txtDC').val(dc);
+        $('.form-group').addClass('focused');
+
+    }
+
+    function ViewDetails(invId) {
+        UpdateSession("inVID", invId);
+       
+    }
+
+    function Print(invId) {
+        link = "Shop/ShowInvoice?id=" + invId;
+        window.open(link, '_blank');
+    }
+
+
+    function UpdateSession(key, value) {
+        //Update Session
+        $.ajax({
+            type: "POST",
+            url: '../Home/UpdateSession',
+            contentType: "application/json",
+            traditional: true,
+            data: JSON.stringify({ key: key, value: value }),
+            dataType: "json",
+            success: function (recData) {
+                if (recData.Data == "done") {
+                    window.location = "../ManageOrders/Details"
+                }
+                else {
+                    swal({
+                        title: "Opps!",
+                        text: "Session expired.",
+                        icon: "error",
+                    });
+                }
+
+            },
+            error: function () {
+                swal({
+
+                    title: "Opps!",
+                    text: "Server error.",
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+</script>

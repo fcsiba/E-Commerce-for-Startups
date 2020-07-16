@@ -1,0 +1,313 @@
+﻿
+@{
+    ViewBag.Title = "Inventory";
+}
+
+
+@section ControlsSection{
+
+    <div class="card">
+        <div class="card-body">
+
+           
+            
+            <div class="row ">
+                <label for="cmbSuper">Network:</label>
+                <div class="form-group m-b-40" style="margin-left:10px;">
+                    @Html.DropDownList("cmbNetwork", (IEnumerable<SelectListItem>)ViewBag.network, String.Empty, new { @class = "form-control p-0" })
+                   
+                </div>
+                <div class="form-group m-b-40" style="margin-left:20px;">
+                    <button id="btnShow" type="button" class="btn btn-info waves-effect">Show inventory</button>
+                </div>
+               
+            </div>
+            
+            <h4 id="txtInv"></h4>
+
+            <div id="table3" class="table-responsive m-t-40">
+                <table id="myTable3" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Item Code</th>
+                            <th>Name</th>
+                            <th>S</th>
+                            <th>M</th>
+                            <th>L</th>
+                            <th>XL</th>                            
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <div id="table1" class="table-responsive m-t-40">
+                <table id="myTable1" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Category</th>                          
+                            <th>A</th>
+                            <th>B</th>
+                            <th>S</th>
+                            <th>M</th>
+                            <th>L</th>
+                            <th>XL</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <div id="table4" class="table-responsive m-t-40">
+                <table id="myTable4" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Lot</th>
+                            <th>A</th>
+                            <th>B</th>
+                            <th>S</th>
+                            <th>M</th>
+                            <th>L</th>
+                            <th>XL</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+}
+
+
+<script>
+
+    var table;
+
+    $(document).ready(function () {
+
+        type = '@Session["uType"]';
+        if (type === "") {
+            window.location = '../Login';
+        }
+
+        var net = null;
+        net = '@Session["network"]';
+        if (net != null) {
+            $("#cmbNetwork").val(net);
+            $('#btnShow').click();
+        }
+        $("#cmbNetwork").change(function () {
+            var network = $('#cmbNetwork').val();
+            SaveSession('network', network);
+        });
+
+        //$('#table1').css('visibility', 'hidden');
+        //$('#table3').css('visibility', 'hidden');
+        //$('#table4').css('visibility', 'hidden');
+
+        $('#table1').hide();
+        $('#table3').hide();
+        $('#table4').hide();
+
+        $('#btnShow').click(function (e) {
+
+            var network = $('#cmbNetwork').val();
+            //alert(network);
+
+            if (network == 3) { //Resellers Inv
+                //$('#table1').css('visibility', 'hidden');
+                //$('#table3').css('visibility', 'visible');
+                //$('#table4').css('visibility', 'hidden');
+
+                $('#table1').hide();
+                $('#table3').show();
+                $('#table4').hide();
+
+                table = $('#myTable3').DataTable({
+                    "processing": true, // for show progress bar
+                    "serverSide": true, // for process server side
+                    "filter": true, // this is for disable filter (search box)
+                    "orderMulti": false, // for disable multiple column at once
+                    "bLengthChange": false,
+                    buttons: [
+                      'copyHtml5',
+                      'excelHtml5',
+                      'csvHtml5',
+                      'pdfHtml5'
+                    ],
+                    "ajax": {
+                        "url": "/Inv/LoadInvResellers",
+                        "type": "POST",
+                        "datatype": "json",
+                        error: function (xhr, error, thrown) {
+                            console.log(xhr);
+                            console.log(error);
+                        }
+                    },
+                    "columnDefs":
+                       [{
+                           "targets": [0],
+                           "visible": false,
+                           "searchable": false
+                       }],
+                    "columns": [
+                            { "data": "id", "name": "id", "autoWidth": true },
+                            { "data": "code", "name": "code", "autoWidth": true },
+                            { "data": "name", "name": "name", "autoWidth": true },
+                            { "data": "S", "name": "S", "autoWidth": true },
+                            { "data": "M", "name": "M", "autoWidth": true },
+                            { "data": "L", "name": "L", "autoWidth": true },
+                            { "data": "XL", "name": "XL", "autoWidth": true }
+                    ]
+                });
+
+                //Load inv total
+                $.ajax({
+                    type: "POST",
+                    url: '/Inv/ResellersInvTotal',
+                    contentType: "application/json",
+                    traditional: true,
+                    data: JSON.stringify({ netID: network }),
+                    dataType: "json",
+                    success: function (recData) {
+                        if (recData.status === "success") {
+                            $("#txtInv").text(recData.Data);
+                        }
+                    }
+                });
+            }
+
+            else if (network == 1) { //Saaj Inv
+                //$('#table1').css('visibility', 'visible');
+                //$('#table3').css('visibility', 'hidden');
+                //$('#table4').css('visibility', 'hidden');
+
+                $('#table1').show();
+                $('#table3').hide();
+                $('#table4').hide();
+
+
+                table = $('#myTable1').DataTable({
+                    "processing": true, // for show progress bar
+                    "serverSide": true, // for process server side
+                    "filter": true, // this is for disable filter (search box)
+                    "orderMulti": false, // for disable multiple column at once
+                    "bLengthChange": false,
+                    buttons: [
+                      'copyHtml5',
+                      'excelHtml5',
+                      'csvHtml5',
+                      'pdfHtml5'
+                    ],
+                    "ajax": {
+                        "url": "/Inv/LoadInvSaaj",
+                        "type": "POST",
+                        "datatype": "json",
+                        error: function (xhr, error, thrown) {
+                            console.log(xhr);
+                            console.log(error);
+                        }
+                    },
+                    "columnDefs":
+                       [{
+                           "targets": [0],
+                           "visible": false,
+                           "searchable": false
+                       }],
+                    "columns": [
+                            { "data": "id", "name": "id", "autoWidth": true },
+                            { "data": "Category", "name": "Category", "autoWidth": true },
+                            { "data": "A", "name": "A", "autoWidth": true },
+                            { "data": "B", "name": "B", "autoWidth": true },
+                            { "data": "S", "name": "S", "autoWidth": true },
+                            { "data": "M", "name": "M", "autoWidth": true },
+                            { "data": "L", "name": "L", "autoWidth": true },
+                            { "data": "XL", "name": "XL", "autoWidth": true }
+                    ]
+                });
+            }
+
+            else { // Warehouse / wholesellers / outlets
+
+                $('#table1').hide();
+                $('#table3').hide();
+                $('#table4').show();
+
+                table = $('#myTable4').DataTable({
+                    "processing": true, // for show progress bar
+                    "serverSide": true, // for process server side
+                    "filter": true, // this is for disable filter (search box)
+                    "orderMulti": false, // for disable multiple column at once
+                    "bLengthChange": false,
+                    buttons: [
+                      'copyHtml5',
+                      'excelHtml5',
+                      'csvHtml5',
+                      'pdfHtml5'
+                    ],
+                    "ajax": {
+                        "url": "/Inv/LoadInvIssued",
+                        "type": "POST",
+                        "data": {
+                            "netID": network
+                        },
+                        "datatype": "json",
+                        error: function (xhr, error, thrown) {
+                            console.log(xhr);
+                            console.log(error);
+                        }
+                    },
+                    "columnDefs":
+                       [{
+                           "targets": [0],
+                           "visible": false,
+                           "searchable": false
+                       }],
+                    "columns": [
+                            { "data": "id", "name": "id", "autoWidth": true },
+                            { "data": "Lot", "name": "Lot", "autoWidth": true },
+                            { "data": "A", "name": "A", "autoWidth": true },
+                            { "data": "B", "name": "B", "autoWidth": true },
+                            { "data": "S", "name": "S", "autoWidth": true },
+                            { "data": "M", "name": "M", "autoWidth": true },
+                            { "data": "L", "name": "L", "autoWidth": true },
+                            { "data": "XL", "name": "XL", "autoWidth": true }
+                    ]
+                });
+            }
+            
+        });
+
+        
+
+  
+    });
+
+    function SaveSession(_key, _value)
+    {
+        $.ajax({
+            type: "POST",
+            url: '/Login/SaveSession',
+            contentType: "application/json",
+            traditional: true,
+            data: JSON.stringify({ key: _key, value: _value }),
+            dataType: "json",
+            success: function (recData) {
+                if (recData.status == "success") {                   
+                    location.reload();
+                }
+            },
+            error: function () {
+                swal({
+
+                    title: "Opps!",
+                    text: "Something went wrong",
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+</script>

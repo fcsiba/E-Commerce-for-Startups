@@ -1,0 +1,60 @@
+                                    <!-- Order item 1 -->
+                                    <div class="order-item has-popover-top">
+                                        <!-- Description -->
+                                        <div class="item-description">
+                                            <span>#itemNameHere</span>
+                                            <span>#itemCatHere</span>
+                                        </div>
+                                        <!-- Quantity -->
+                                        <div class="item-quantity has-text-centered">
+                                            <span>Qty</span>
+                                            <span>#itemQtyHere</span>
+                                        </div>
+                                        <!-- Price -->
+                                        <div class="item-price has-text-right">
+                                            #itemPriceHere
+                                        </div>
+                                    </div>
+
+                                    <!-- Order item 1 Popover -->
+                                    <div class="webui-popover-content">
+                                        <div class="popover-flex-block">
+                                            <!-- Icon -->
+                                            <div class="icon-block">
+                                                <i data-feather="box" class="is-medium"></i>
+                                            </div>
+                                            <!-- Content -->
+                                            <div class="content-block">
+                                                <label>Item category</label>
+                                                <span>#itemCatHere</span>
+                                            </div>
+                                        </div>
+                                        <div class="popover-flex-block">
+                                            <!-- Icon -->
+                                            <div class="icon-block">
+                                                <i data-feather="bar-chart-2" class="is-medium"></i>
+                                            </div>
+                                            <!-- Content -->
+                                            <div class="content-block">
+                                                <label>Item rating</label>
+                                                <span>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="popover-flex-block">
+                                            <!-- Icon -->
+                                            <div class="icon-block">
+                                                <i data-feather="dollar-sign" class="is-medium"></i>
+                                            </div>
+                                            <!-- Content -->
+                                            <div class="content-block">
+                                                <label>Unit price</label>
+                                                <span>Rs.#itemUnitPrice</span>
+                                            </div>
+                                        </div>
+                                    </div>

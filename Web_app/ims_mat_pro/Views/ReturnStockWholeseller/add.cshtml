@@ -1,0 +1,277 @@
+﻿
+@{
+    ViewBag.Title = "Add Return product";
+}
+
+
+
+@section ControlsSection{
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form class="floating-labels m-t-40">
+
+                    @*select lot*@
+
+                    <div class="form-group m-b-40">
+                        @Html.DropDownList("cmbtype", (IEnumerable<SelectListItem>)ViewBag.type, String.Empty, new { @class = "form-control p-0" })
+                        <label for="cmbtype">Select Type</label>
+                    </div>
+
+             
+                    <div class="form-group m-b-20">
+
+                        <select class="form-control p-1" id="local"></select>
+                    </div>
+
+                    <div class="form-group m-b-40"  >
+                        @Html.DropDownList("cmbcat", (IEnumerable<SelectListItem>)ViewBag.category, String.Empty, new { @class = "form-control p-0" })
+                        <label for="cmbcat"> Category</label>
+                    </div>
+
+
+                    <div class="form-group m-b-20 focused">
+                        <input type="number" class="form-control" id="txtpacA" required value="0">
+                        <span class="bar"></span>
+                        <label for="txtpacA">Packet A</label>
+                    </div>
+
+                    <div class="form-group m-b-20 focused">
+                        <input type="number" class="form-control" id="txtpacB" required value="0">
+                        <span class="bar"></span>
+                        <label for="txtpacB">Packet B</label>
+                    </div>
+
+                    <div class="form-group m-b-20 focused">
+                        <input type="number" class="form-control" id="txtsmall" required value="0">
+                        <span class="bar"></span>
+                        <label for="txtsmall">Small</label>
+                    </div>
+                    <div class="form-group m-b-20 focused">
+                        <input type="number" class="form-control" id="txtmedium" required value="0">
+                        <span class="bar"></span>
+                        <label for="txtmedium">Medium</label>
+                    </div>
+                    <div class="form-group m-b-20 focused">
+                        <input type="number" class="form-control" id="txtlarge" required value="0">
+                        <span class="bar"></span>
+                        <label for="txtlarge">Large</label>
+                    </div>
+
+                    <div class="form-group m-b-20 focused">
+                        <input type="number" class="form-control" id="txtxlarge" required value="0">
+                        <span class="bar"></span>
+                        <label for="txtxlarge">XLarge</label>
+                    </div>
+                    @*Date Selection*@
+
+
+                    <div class="form-group m-b-20 focused">
+
+
+                        <input type="date" class="form-control " id="date"
+                               name="meeting-time">
+                        <span class="bar"></span>
+                        <label for="date">Select Date</label>
+
+
+                    </div>
+                    <div class="checkbox checkbox-primary p-t-0">
+                        <input id="checkboxS" type="checkbox">
+                        <label for="checkboxS"> Save to Main </label>
+                    </div>
+                    <br />
+                    <hr />
+                        <div class="form-group m-b-20 focused">
+
+                            <input type="text" class="form-control" id="reason">
+                            <span class="bar"></span>
+                            <label for="reason">Reason</label>
+                        </div>
+
+
+<br/>
+                 
+
+
+
+</form>
+
+            </div>
+
+        </div>
+        <div id="divProgress" class="progress m-t-20">
+            <div id="progressBar" class="progress-bar bg-info progress-bar-striped" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height:10px;" role="progressbar"></div>
+        </div>
+        <br />
+        <button id="btnSave" type="button" class="btn btn-info col-lg-12">Save </button>
+
+    </div>
+
+
+}
+
+<script>
+
+
+
+
+    $(document).ready(function () {
+
+
+
+
+
+        $('#btnSave').click(function (e) {
+
+            e.preventDefault();
+            var retailid = $('#cmbtype').val();
+            var localid = $('#local').val();
+            var catid = $('#cmbcat').val();
+            var date = $('#date').val();
+            var pacA = $('#txtpacA').val();
+            var pacB = $('#txtpacB').val();
+
+            var small = $('#txtsmall').val();
+
+            var med = $('#txtmedium').val();
+
+            var large = $('#txtlarge').val();
+            
+            var xLarge = $('#txtxlarge').val();
+            var savetomain = $("#checkboxS").is(":checked");
+            var reason = $('#reason').val();
+
+
+
+            if (retailid === 0) {
+                swal({
+
+                    title: "Opps!",
+                    text: "Please enter product code",
+                    icon: "error",
+                });
+            }
+            else if (localid === 0) {
+                swal({
+
+                    title: "Opps!",
+                    text: "Please enter product name",
+                    icon: "error",
+                });
+            }
+            else if (catid === 0) {
+                swal({
+
+                    title: "Opps!",
+                    text: "Please enter product fabric",
+                    icon: "error",
+                });
+            }
+            else if (date.length === 0) {
+                swal({
+
+                    title: "Opps!",
+                    text: "Please select a category",
+                    icon: "error",
+                });
+            }
+
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: '/ReturnStockWholeseller/add',
+                    contentType: "application/json",
+                    traditional: true,
+                    data: JSON.stringify({ retailID_: retailid, localID_: localid, categoryID_: catid, pacA: pacA, pacB: pacB, small: small, med: med, large: large, xLarge: xLarge, date: date, savetomain: savetomain ,reason:reason}),
+                    dataType: "json",
+                    success: function (recData) {
+                        if (recData.Data == "Done") {
+
+                            //Save Cover Image
+                            swal({
+                                title: "Done!",
+                                text: "Saved successfully.",
+                                icon: "success",
+                            });
+                            location.reload('/returnStock/index');
+
+                            window.close();
+
+
+                        }
+                        else {
+                            swal({
+                                title: "Opps!",
+                                text: recData.Data,
+                                icon: "error",
+                            });
+
+
+
+                        }
+                    },
+
+                    error: function () {
+                        swal({
+
+                            title: "Opps!",
+                            text: "Something went wrong",
+                            icon: "error",
+                        });
+
+                    }
+                });
+
+            }
+        });
+
+
+
+
+
+        function clear() {
+
+            $('#txtCode').val('');
+            $('#txtName').val('');
+            $('#txtFabric').val('');
+            $('#txtOriginalPrice').val('');
+            $('#txtDiscount').val('');
+            $('#txtNetPrice').val('');
+            $('#cmbCat').val('');
+            $('#divGallery').empty();
+            $("#file").val(null);
+            $("#txtDesc").val('');
+            $("#mainCat").val('');
+            $("#lotDrop").val('');
+            $("#articleId").val('');
+            $("#fileCover").val('');
+            $('#imgCover').attr('src', '../../assets/images/cover.jpg');
+            arr = [];
+        }
+
+
+
+        $(function () {
+            $('#cmbtype').change(function () {
+                $.getJSON('/ReturnStockWholeseller/itemList/' + $('#cmbtype').val(), function (data) {
+                    $('#local').empty();
+                    console.log(data);
+
+                    var items = '<option value="-1">Please Select Type</option>';
+                    $.each(data, function (i, type) {
+                        items += "<option value='" + type.Value + "'>" + type.Text + "</option>";
+                    });
+                    $('#local').html(items);
+
+                });
+            });
+        });
+
+
+
+
+    });
+
+</script>

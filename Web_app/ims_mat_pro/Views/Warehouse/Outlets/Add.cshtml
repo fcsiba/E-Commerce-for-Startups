@@ -1,0 +1,195 @@
+﻿
+@{
+    ViewBag.Title = "Add Outlets";
+}
+
+
+
+@section ControlsSection{
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <a id="btnBank" href="/Outlets/index" class="btn waves-effect waves-light btn-block btn-info col-lg-2">Go Back</a>
+
+                <form class="floating-labels m-t-40">
+
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtOutletName">
+                        <span class="bar"></span>
+                        <label for="txtOutletName">Outlet Name</label>
+                    </div>
+
+
+
+                    <div class="form-group m-b-80">
+                        <input type="text" class="form-control" id="txtPhone">
+                        <span class="bar"></span>
+                        <label for="txtPhone">Phone</label>
+                    </div>
+
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtMoblie">
+                        <span class="bar"></span>
+                        <label for="txtMoblie">Mobile</label>
+                    </div>
+
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtNTN">
+                        <span class="bar"></span>
+                        <label for="txtNTN">NTN</label>
+                    </div>
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtLocation">
+                        <span class="bar"></span>
+                        <label for="txtLocation">Location</label>
+                    </div>
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtOwnerName">
+                        <span class="bar"></span>
+                        <label for="txtOwnerName">Owner Name</label>
+                    </div>
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtNIC">
+                        <span class="bar"></span>
+                        <label for="txtNIC">NIC</label>
+                    </div>
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtOwnerAddress">
+                        <span class="bar"></span>
+                        <label for="txtOwnerAddress">Owner Address</label>
+                    </div>
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtContactNo">
+                        <span class="bar"></span>
+                        <label for="ContactNo">Contact No</label>
+                    </div>
+
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtUserName">
+                        <span class="bar"></span>
+                        <label for="txtUserName">User Name</label>
+                    </div>
+                    <div class="form-group m-b-40 focused">
+                        <input type="text" class="form-control" id="txtUserMoblieNo">
+                        <span class="bar"></span>
+                        <label for="txtUserMoblieNo">User Mobile No</label>
+                    </div>
+
+
+                </form>
+
+                <br />
+                <!--Thumbnails-->
+
+
+
+
+            </div>
+
+        </div>
+        <div id="divProgress" class="progress m-t-20">
+            <div id="progressBar" class="progress-bar bg-info progress-bar-striped" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height:10px;" role="progressbar"></div>
+        </div>
+        <br />
+        <button id="btnSave" type="button" class="btn btn-info col-lg-12">ADD Outlets </button>
+
+    </div>
+
+
+}
+
+<script>
+  
+    var editID = 0;
+
+
+    $(document).ready(function () {
+        //Populate();
+
+         $('#btnSave').click(function (e) {
+
+             e.preventDefault();
+             var OutletName = $('#txtOutletName').val();
+             var Phone = $('#txtPhone').val();
+             var Moblie = $('#txtMoblie').val();
+             var NTN = $('#txtNTN').val();
+             var Location = $('#txtLocation').val();
+             var OwnerName = $('#txtOwnerName').val();
+             var NIC = $('#txtNIC').val();
+             var OwnerAddress = $('#txtOwnerAddress').val();
+             var ContactNo = $('#txtContactNo').val();
+             var UserName = $('#txtUserName').val();
+             var UserMoblieNo = $('#txtUserMoblieNo').val();
+
+
+             if (OutletName != "" || Phone != "" || Moblie != "" || NTN != "" || Location != "" || OwnerName != "" || NIC != "" || OwnerAddress != "" || ContactNo != "" || UserName != "" || UserMoblieNo != "")
+             {
+                 $.ajax({
+                     type: "POST",
+                     url: '/Outlets/AddOutlet',
+                     contentType: "application/json",
+                     traditional: true,
+                     data: JSON.stringify({ OutletName:OutletName,Phone:Phone,Moblie:Moblie,NTN:NTN,Location:Location,OwnerName:OwnerName,NIC:NIC,OwnerAddress:OwnerAddress,ContactNo:ContactNo,UserName:UserName,UserMoblieNo:UserMoblieNo}),
+                     dataType: "json",
+                     success: function (recData) {
+                         if (recData.Data > 0) {
+                             //table.ajax.reload(null, false); // user paging is not reset on reload
+                             swal({
+                                 title: "Done!",
+                                 text: "Outlet added successfully.",
+                                 icon: "success",
+                             });
+
+                             //Clear
+                             $('#txtOutletName').val('');
+                             $('#txtPhone').val('');
+                             $('#txtMoblie').val('');
+                             $('#txtNTN').val('');
+                             $('#txtLocation').val('');
+                             $('#txtOwnerName').val('');
+                             $('#txtNIC').val('');
+                             $('#txtOwnerAddress').val('');
+                             $('#txtContactNo').val('');
+                             $('#txtUserName').val('');
+                             $('#txtUserMoblieNo').val('');
+
+
+                         }
+                         else {
+                             swal({
+                                 title: "Error!",
+                                 text: "User with the same mobile numeber already exist",
+                                 icon: "error",
+                             });
+                         }
+
+                     },
+                     error: function () {
+                         swal({
+
+                             title: "Opps!",
+                             text: "Something went wrong",
+                             icon: "error",
+                         });
+                     }
+                 });
+             }
+             else {
+                 swal({
+
+                     title: "Invalid Data",
+                     text: "Please fill all fields to save data",
+                     icon: "info",
+                 });
+             }
+
+         });
+    });
+
+
+</script>
+
+
+
+

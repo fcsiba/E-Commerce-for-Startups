@@ -1,0 +1,583 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.title = "Issue Stock (New)";
+}
+
+@section ControlsSection{
+
+    <div class="card">
+        <div class="card-body">
+            @if (Convert.ToInt32(Session["uType"]) == 1)
+            {
+                <button id="btnAddIssue" type="button" class="btn btn-block btn-info col-lg-2" data-toggle="modal" data-target="#add-contact">Issue Stock</button>
+
+            }
+            else
+            {
+                // <button id="btnAddIssue" type="button" class="btn waves-effect waves-light btn-block btn-info col-lg-2" data-toggle="modal" data-target="#add-contact">Issue Stock</button>
+
+            }
+            <div id="add-contact" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Issue Stock</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+
+                           
+
+                            <form class="floating-labels m-t-20">
+
+                                <div id="divOptions">
+
+                                    <div class="form-group m-b-20 focused">
+
+                                        @*type selection*@
+                                        @Html.DropDownList("cmbCat", (IEnumerable<SelectListItem>)ViewBag.retailList, String.Empty, new { @class = "form-control p-1" })
+                                        <span class="bar"></span>
+
+                                        <label for="cmbCat">Select Network</label>
+
+                                    </div>
+
+                                    <!-- #region local -->
+                                    <div class="form-group m-b-20">
+                                        <select class="form-control p-1" id="local" name="District"></select>
+                                    </div>
+
+                                    <!-- #region lot -->
+                                    <div class="form-group m-t-40 m-b-20 focused">
+                                        @Html.DropDownList("cmbLot", (IEnumerable<SelectListItem>)ViewBag.lotList, String.Empty, new { @class = "form-control p-1" })
+                                        <span class="bar"></span>
+                                        <label for="cmbCat">Select Lot</label>
+
+                                    </div>
+
+                                </div>
+                                
+
+                                <div id="divLoose">
+
+                                </div>
+
+                               
+
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnUpdateStock" type="button" class="btn btn-info waves-effect" data-dismiss="modal">Issue Stock</button>
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div id="update-contact" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Issue Stock</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <form class="floating-labels m-t-20">
+
+                                <div id="divLoose2">
+
+                                </div>
+
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnUpdateStock" type="button" class="btn btn-info waves-effect" data-dismiss="modal">Issue Stock</button>
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            @*TABLE*@
+            <div class="table-responsive m-t-40">
+                <table id="myTable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Network</th>                          
+                            <th>Lot</th>
+                            <th>A</th>
+                            <th>B</th>
+                            <th>S</th>
+                            <th>M</th>
+                            <th>L</th>
+                            <th>XL</th>
+                            <th>XXL</th>
+                            <th>XXXL</th>                           
+                            <th>Distribute Stock</th>
+                            <th>Options</th>
+
+
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+<script type="text/jscript">
+    var table;
+    var issuid = 0;
+    var editID = 0;
+    var error = false;
+
+    //table script
+    $(document).ready(function () {
+        
+        
+        type = '@Session["uType"]';
+        if (type === "") {
+            window.location = '../Login';
+        }
+
+        var checkId= @Convert.ToInt32(Session["uType"]);
+
+        if (checkId == 1 || checkId == 8) {
+
+            table = $('#myTable').DataTable({
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "bLengthChange": false,
+                buttons: [
+                  'copyHtml5',
+                  'excelHtml5',
+                  'csvHtml5',
+                  'pdfHtml5'
+                ],
+                "ajax": {
+
+                    "url": "/LotIssued/LoadData",
+                    "type": "POST",
+                    "datatype": "json",
+                    error: function (xhr, error, thrown) {
+                        console.log(xhr);
+                        console.log(error);
+                    }
+                },
+                "columnDefs":
+                   [{
+                       "targets": [0],
+                       "visible": false,
+                       "searchable": false
+                   }],
+                "columns": [
+                        { "data": "id", "name": "id", "autoWidth": true },
+                        { "data": "network", "name": "network", "autoWidth": true },                       
+                        { "data": "lot", "name": "lotId", "autoWidth": true },
+                        { "data": "pacA", "name": "itemName", "autoWidth": true },
+                        { "data": "pacB", "name": "Fabric", "autoWidth": true },
+                        { "data": "small", "name": "small", "autoWidth": true },
+                         { "data": "med", "name": "medium", "autoWidth": true },
+                          { "data": "large", "name": "large", "autoWidth": true },
+                           { "data": "xlarge", "name": "xlarge", "autoWidth": true },
+                             { "data": "xxl", "name": "xxl", "autoWidth": true },
+                               { "data": "xxxl", "name": "xxxl", "autoWidth": true },                        
+                             {
+                                 "render": function (data, type, full, meta)
+                                 { return '<button  id="btnUpdateissue"onclick=UpdateStock(' + full.id + ');  type="button" class="btn btn-block btn-info">Manage Inventory</button>'; }
+
+                             },
+                        {
+                            "render": function (data, type, full, meta)
+                            { return '<a href="javascript:void(myFunction())" onclick=Populate(' + full.id + '); data-toggle="modal" data-target="#add-contact"><i class="fas fa-edit"></i></a><span>'; }
+
+                        },
+                ]
+            });
+        }
+
+        else
+        {
+            table = $('#myTable').DataTable({
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "bLengthChange": false,
+                buttons: [
+                  'copyHtml5',
+                  'excelHtml5',
+                  'csvHtml5',
+                  'pdfHtml5'
+                ],
+                "ajax": {
+                    "url": "/issues/LoadDataNA",
+                    "type": "POST",
+                    "datatype": "json",
+                    error: function (xhr, error, thrown) {
+                        console.log(xhr);
+                        console.log(error);
+                    }
+                },
+                "columnDefs":
+                   [{
+                       "targets": [0],
+                       "visible": false,
+                       "searchable": false
+                   }],
+                "columns": [
+                        { "data": "id", "name": "id", "autoWidth": true },
+                        { "data": "type", "name": "typeId", "autoWidth": true },
+                        { "data": "name", "name": "name", "autoWidth": true },
+                        { "data": "lot", "name": "lotId", "autoWidth": true },
+                        { "data": "pacA", "name": "itemName", "autoWidth": true },
+                        { "data": "pacB", "name": "Fabric", "autoWidth": true },
+                        { "data": "small", "name": "small", "autoWidth": true },
+                         { "data": "med", "name": "medium", "autoWidth": true },
+                          { "data": "large", "name": "large", "autoWidth": true },
+                           { "data": "xlarge", "name": "xlarge", "autoWidth": true },
+                         { "data": "issueDate", "name": "issueDate", "autoWidth": true },
+
+                             {
+                                 "render": function (data, type, full, meta)
+                                 { return '<button  id="btnUpdateissue"onclick=UpdateStock(' + full.id + ');  type="button" class="btn waves-effect waves-light btn-block btn-info">Manage Inventory</button>'; }
+
+                             },
+                        {
+                            "render": function (data, type, full, meta)
+                            { return '<a href="javascript:void(myFunction())" onclick=Populate(' + full.id + '); data-toggle="modal" data-target="#add-contact"><i class="fas fa-edit"></i></a><span> | </span> <a href="javascript:void(myFunction())" onclick=DeleteData(' + full.id + ');> <i class="fas fa-trash-alt" style="color:#d9534f;"></i>'; }
+
+                        },
+                ]
+            });
+
+        }
+
+    });
+ 
+
+    $('#btnAddIssue').click(function (e) {
+        editID = 0;
+        $('#divOptions').show();
+        if (!error) {
+            $('#divLoose').empty();
+            $('#cmbLot').val(0);
+        }
+       
+        $('.modal-title').text('Issue Stock');
+        $('#btnUpdateStock').text('Issue Stock');      
+    });
+
+    $('#btnUpdateStock').click(function (e) { //Issue Lot
+
+        var vals = [];
+        var sizes = [];
+        var count = 0;
+
+        e.preventDefault();       
+        var cat = $('#cmbCat').val();
+        var local = $('#local').val();
+        var lot = $('#cmbLot').val();       
+        var pacA = $('#txtA').val();
+        var pacB = $('#txtB').val();
+
+        //cat = parseInt(cat);
+        //local = parseInt(local);
+        //lot = parseInt(lot);
+        //pacA = parseInt(pacA);
+        //pacB = parseInt(pacB);        
+
+        if (editID == 0) {  //Add
+            if (cat === null || cat.length === 0 || cat === NaN) {
+                error = true;
+                swal({
+
+                    title: "Opps!",
+                    text: "Please select network",
+                    icon: "error",
+                });
+            }
+            else if (local === null || local.length === 0 || local === NaN) {
+                error = true;
+                swal({
+
+                    title: "Opps!",
+                    text: "Please select network account",
+                    icon: "error",
+                });
+
+            }
+            else if (lot === null || lot.length === 0 || lot === NaN) {
+                error = true;
+                swal({
+
+                    title: "Opps!",
+                    text: "Please select lot",
+                    icon: "error",
+                });
+
+            }
+        }
+        else if(editID > 0) { //Edit
+            cat = 0;
+            local = 0;
+            lot = 0;
+        }       
+        if (pacA.length === 0 || pacA === NaN) {
+            pacA = 0;           
+        }
+        if (pacB.length === 0 || pacA === NaN) {
+            pacB = 0;           
+        }
+       
+        ////Validation
+        $.each($('[id^=txt_]'), function (i, item) {
+               
+            var _id = $(this).attr('id');    
+            console.log('ID: ' + _id);
+            var _size = _id.split('_')[1];
+            sizes.push(parseInt(_size));
+            var _value = $(this).val();           
+            if (_value.length === 0) {
+                _value = 0;
+            }              
+            vals.push(_value);
+            count++;
+        });
+
+
+        console.log(editID,cat, local, lot, pacA,pacB, sizes, vals, count);
+          
+        $.ajax({
+            type: "POST",
+            url: '/LotIssued/Issue',
+            contentType: "application/json",
+            traditional: true,
+            data: JSON.stringify({ editID: editID, networkID: cat, local: local, lot: lot, pacA: pacA, pacB: pacB, szArr: sizes, vals: vals, count: count }),
+            dataType: "json",
+            success: function (recData) {
+                console.log(cat,local,lot);
+                if (recData.Data == "Done") {
+                    console.log(recData.Data);
+                    error = false;
+                    table.ajax.reload(null, false); // user paging is not reset on reload
+                    swal({
+                        title: "Done!",
+                        text: "Issued  successfully.",
+                        icon: "success",
+                    });
+
+
+                }
+                else {
+                    error = true;
+                    swal({
+                        title: "Error!",
+                        text: recData.Data,
+                        icon: "error",
+                    });
+                }
+
+            },
+            error: function () {
+                error = false;
+                swal({
+
+                    title: "Opps!",
+                    text: "Something went Wrong",
+                    icon: "error",
+                });
+            }
+        });
+
+
+        });
+
+
+
+    //populate script
+    function Populate(RetailsID) {       
+        error = false;
+        editID = RetailsID;
+        $('#divOptions').hide();
+        $('.modal-title').text('Issue Stock');
+        $('#btnUpdateStock').text('Issue Stock');
+        
+        $.ajax({
+            type: "POST",
+            url: '/LotIssued/Populate',
+            contentType: "application/json",
+            traditional: true,
+            data: JSON.stringify({ id: editID }),
+            dataType: "json",
+            success: function (recDataMain) {        
+                
+                $.getJSON('/LotIssued/PopulateLoose/' + editID, function (recData) {                  
+                    $('.form-group').addClass('focused');
+                    $('#divLoose').empty();      
+                    var packs = "<div class='form-group m-t-40 m-b-40 focused' style='WIDTH: 45%;'> <input type='number' class='form-control' id='txtA' value='0'> <span class='bar'></span> <label for='txtA'>Packet A</label> </div> <div class='form-group m-t-40 m-b-40 focused' style='WIDTH: 50%; margin-left: 315px; margin-top: -84px;'> <input type='number' class='form-control' id='txtB' value='0'> <span class='bar'></span> <label for='txtB'>Packet B</label> </div>";
+                    $('#divLoose').append(packs);
+
+                    $('#txtA').val(recDataMain.Data.packet_A);
+                    $('#txtB').val(recDataMain.Data.packet_B);               
+                   
+                    if (recData.status == 1) { //Populate
+                        $.each(recData.Data, function (i, l) {
+                            //console.log("Index #" + i + ": " + l.size + " - " + l.qty);
+                            if ((i % 2) == 0) {
+                                var data = "<div class='form-group m-t-20 m-b-40 focused' style='WIDTH: 45%;'> <input type='number' class='form-control' id='txt_#id' value='#value'> <span class='bar'></span> <label for='txtA'>#label</label> </div>";
+                                data = data.replace(/#id/g, l.id);
+                                data = data.replace(/#label/g, l.size);
+                                data = data.replace(/#value/g, l.qty);
+
+                                $('#divLoose').append(data);
+                            }
+                            else {
+                                var data = "<div class='form-group m-t-20 m-b-40 focused' style='WIDTH: 45%; margin-left: 315px; margin-top: -84px;'> <input type='number' class='form-control' id='txt_#id' value='#value'> <span class='bar'></span> <label for='txtB'>#label</label> </div>";
+                                data = data.replace(/#id/g, l.id);
+                                data = data.replace(/#label/g, l.size);
+                                data = data.replace(/#value/g, l.qty);
+
+                                $('#divLoose').append(data);
+                            }
+
+
+                        });
+                    }
+                });
+
+
+                $('.form-group').addClass('focused');
+            },
+            error: function () {
+                swal({
+
+                    title: "Opps!",
+                    text: "Something went wrong",
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+    //cmbLot value change
+    $(function () {
+        $('#cmbLot').change(function () {            
+            $.getJSON('/NewLot/PopulateLoose/' + $('#cmbLot').val(), function (recData) {
+                console.log(recData);
+                $('.form-group').addClass('focused');
+                $('#divLoose').empty();      
+                var packs = "<div class='form-group m-t-40 m-b-40 focused' style='WIDTH: 45%;'> <input type='number' class='form-control' id='txtA' value='0'> <span class='bar'></span> <label for='txtA'>Packet A</label> </div> <div class='form-group m-t-40 m-b-40 focused' style='WIDTH: 50%; margin-left: 315px; margin-top: -84px;'> <input type='number' class='form-control' id='txtB' value='0'> <span class='bar'></span> <label for='txtB'>Packet B</label> </div>";
+                $('#divLoose').append(packs);
+                
+                console.log(recData.status);
+                if (recData.status == 1) { //Populate
+                    $.each(recData.Data, function (i, l) {
+                        //console.log("Index #" + i + ": " + l.size + " - " + l.qty);
+                        if ((i % 2) == 0) {
+                            var data = "<div class='form-group m-t-20 m-b-40 focused' style='WIDTH: 45%;'> <input type='number' class='form-control' id='txt_#id' value='#value'> <span class='bar'></span> <label for='txtA'>#label</label> </div>";
+                            data = data.replace(/#id/g, l.id);
+                            data = data.replace(/#label/g, l.size);
+                            data = data.replace(/#value/g, '0');
+
+                            $('#divLoose').append(data);
+                        }
+                        else {
+                            var data = "<div class='form-group m-t-20 m-b-40 focused' style='WIDTH: 45%; margin-left: 315px; margin-top: -84px;'> <input type='number' class='form-control' id='txt_#id' value='#value'> <span class='bar'></span> <label for='txtB'>#label</label> </div>";
+                            data = data.replace(/#id/g, l.id);
+                            data = data.replace(/#label/g, l.size);
+                            data = data.replace(/#value/g, '0');
+
+                            $('#divLoose').append(data);
+                        }
+
+
+                    });
+                }
+            });
+        });
+    });
+
+   //dropdown value change
+    $(function () {
+        $('#cmbCat').change(function () {            
+            $.getJSON('/issues/itemList/' + $('#cmbCat').val(), function (data) {
+                $('#local').empty();
+
+                var items=0;
+                if ($('#cmbCat').val()==3 ) {
+                    items = '<option value="0" >All</option>';
+                    console.log(data);
+
+                }
+                else {
+                    items = '<option value="-1" >Please Select Option</option>';
+
+                }
+
+                $.each(data, function (i, type) {
+                    items += "<option value='" + type.Value + "'>" + type.Text + "</option>";
+                });
+                $('#local').html(items);
+                $('#local').val(0);
+
+            });
+        });
+    });
+
+    //Manage Inventory
+    function UpdateStock(_issueId) {
+                
+        $.ajax({
+            type: "POST",
+            url: '/LotIssued/updateSessions',
+            contentType: "application/json",
+            traditional: true,
+            data: JSON.stringify({ id:_issueId}),
+            dataType: "json",
+            success: function (recData) {
+                if (recData.Data == "Done") {                           
+                    window.location = '../DistributeProducts';
+                }
+                else {
+                    swal({
+                        title: "please provide valid!",
+                        text: recData.Data,
+                        icon: "error",
+                    });
+                }
+
+            },
+            error: function () {
+                swal({
+
+                    title: "Opps!",
+                    text: "Something went wrong",
+                    icon: "error",
+                });
+            }
+        });
+
+        
+
+    }
+
+    var dateControl = document.querySelector('input[type="datetime-local"]');
+
+</script>
+

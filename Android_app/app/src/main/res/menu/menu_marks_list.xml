@@ -1,0 +1,13 @@
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_sort_bottom_sheet"
+        android:title="Sort list"
+        android:icon="@drawable/ic_sort_by_alpha"
+        android:iconTint="@color/quantum_white_100"
+        app:showAsAction="always"
+        tools:targetApi="o" />
+
+</menu>

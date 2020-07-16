@@ -1,0 +1,227 @@
+﻿
+@{
+    if ((Session["uType"] != null) && (Convert.ToInt32(Session["uType"]) > 1)) 
+    {
+        Layout = "../Shared/_LayoutClient.cshtml";
+    }
+    ViewBag.Title = "Order Details";
+}
+
+
+@section ControlsSection{
+
+    <div class="card">
+        <div class="card-body">
+
+            <h1>Invoice # @ViewBag.invNum</h1>
+            <h2>Name: @ViewBag.name</h2>
+            <h3>Mobile: @ViewBag.mob</h3>
+            <h3>Address: @ViewBag.address</h3>
+
+
+
+            @*<button id="btnAll" type="button" class="btn btn-primary">Return All</button>*@
+
+            @*<h2>Order details:</h2>*@
+            <div  class="table-responsive m-t-40 display">
+                <table id="myTable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>id</th>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Qty</th>
+                            <th>Size</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+                <div class="col-md-12 ">
+                    <div class="container">
+                        <h1>Return items:</h1>
+                        <div class="card" style="width:100%; height: 200px; overflow-y: auto; border-bottom: 4px solid red; padding: 20px;">
+                            <table id="rTab">
+                                <tr>
+                                    <th>Cancel</th>
+                                    <th>Code</th>
+                                    <th>Name</th>
+                                    <th>Qty</th>
+                                    <th>Size</th>
+                                </tr>
+                           </table>
+                        </div>
+                        <button id="btnReturn" type="button" class="btn btn-primary col-md-12">Return order</button>
+                    </div>
+                </div>
+            
+
+        </div>
+    </div>
+
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.10.2/underscore.js"></script>
+<script>
+
+    var table;
+    var proID = 0;
+    var ediitID = 0;
+    var tReturn;
+    var arr = [];
+
+
+    $(document).ready(function () {
+
+        type = '@Session["uType"]';
+        if (type === "") {
+            window.location = '../Login';
+        }
+
+        $('#btnReturn').click(function () {
+            if (arr.length > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: '/ManageOrders/Return',
+                    contentType: "application/json",
+                    traditional: true,
+                    data: JSON.stringify({ arr: arr }),
+                    dataType: "json",
+                    success: function (recData) {
+                        if (recData.status === "success") {
+                            location.reload();
+                        }
+                        else {
+                            swal({
+                                title: "Opps!",
+                                text: recData.Data,
+                                icon: "error",
+                            });
+                        }
+
+                    },
+                    error: function () {
+                        swal({
+
+                            title: "Opps!",
+                            text: "Something went wrong",
+                            icon: "error",
+                        });
+                    }
+                });
+            }
+            else {
+                swal({
+                    title: "Opps!",
+                    text: 'Select product to return',
+                    icon: "error",
+                });
+            }
+        });
+
+        table = $('#myTable').DataTable({           
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "bLengthChange": false,
+            buttons: [
+              'copyHtml5',
+              'excelHtml5',
+              'csvHtml5',
+              'pdfHtml5'
+            ],
+            "ajax": {
+                "url": "/ManageOrders/LoadDetails",
+                "type": "POST",
+                "datatype": "json",
+                error: function (xhr, error, thrown) {
+                    console.log(xhr);
+                    console.log(error);
+                }
+            },
+            "columnDefs":
+               [{
+                   "targets": [1],
+                   "visible": false,
+                   "searchable": false
+               },
+              ],
+            "columns": [
+                    {
+                        "data": "select",
+                        "render": function (data, type, full, meta)
+                        { return '<button  onclick=Select(' + full.id + '); type="button" class="btn-block btn-info">Select</button>'; }
+                    },
+                    { "data": "id", "name": "id", "autoWidth": true },
+                    { "data": "code", "name": "code", "autoWidth": true },
+                    { "data": "itemName", "name": "itemName", "autoWidth": true },
+                    { "data": "qty", "name": "qty", "autoWidth": true },
+                    { "data": "size", "name": "size", "autoWidth": true },
+
+
+            ]
+        });
+    });
+
+    function Select(id)
+    {
+        if(arr.indexOf(id) > -1) //already selected
+        { }
+        else
+        {
+            $.ajax({
+                type: "POST",
+                url: '/ManageOrders/GetSelected',
+                contentType: "application/json",
+                traditional: true,
+                data: JSON.stringify({ id: id  }),
+                dataType: "json",
+                success: function (recData) {
+                    if (recData.status === "success") {
+                        //console.log(recData);
+                        var row = "<tr id='#id'><td><i onclick=Cancel(#id) class='fa fa-times' aria-hidden='true'></i></td><td>#code</td><td>#name</td><td>#qty</td><td>#size</td></tr>";
+                        row = row.replace(/#id/g, recData.data.id);
+                        row = row.replace(/#code/g, recData.data.code);
+                        row = row.replace(/#name/g, recData.data.itemName);
+                        row = row.replace(/#qty/g, recData.data.qty);
+                        row = row.replace(/#size/g, recData.data.size);
+                        $('#rTab').append(row);
+                        arr.push(id);
+                        console.log(arr);
+                    }
+                    else {
+                        swal({
+                            title: "Opps!",
+                            text: recData.Data,
+                            icon: "error",
+                        });
+                    }
+
+                },
+                error: function () {
+                    swal({
+
+                        title: "Opps!",
+                        text: "Something went wrong",
+                        icon: "error",
+                    });
+                }
+            });         
+        }
+        
+       
+
+    }
+
+    function Cancel(id) {
+        arr = _.without(arr, id);
+        console.log(arr);
+        $('#' + id).remove();
+    }
+
+
+
+
+</script>

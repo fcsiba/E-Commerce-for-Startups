@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/grey_10"
+    tools:context="pushy.fastech.pk.parent.NotificationSideBar">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/bt_back"
+            android:layout_width="wrap_content"
+            android:layout_height="?android:actionBarSize"
+            app:srcCompat="@drawable/ic_arrow_back"
+            android:background="@color/quantum_white_100"
+            android:paddingLeft="@dimen/spacing_large"
+            android:paddingRight="@dimen/spacing_large"
+            android:tint="@color/quantum_black_100"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="?android:actionBarSize"
+            android:text="Notifications"
+            android:background="@color/quantum_white_100"
+            android:gravity="center_vertical"
+            style="@style/TextAppearance.AppCompat.Title"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:rotation="180"
+        android:background="@drawable/bg_gradient_soft" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewNotificationParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/spacing_middle"
+        android:scrollingCache="true" />
+
+</LinearLayout>

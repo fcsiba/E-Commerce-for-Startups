@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/id_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="@dimen/spacing_large"
+                android:layout_height="0dp"/>
+
+            <RelativeLayout
+                android:id="@+id/open_dialog_change_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/course_first_letter_image_tint"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/shape_circle"
+                    android:backgroundTint="@color/mdtp_white"
+                    android:tint="@color/grey_40" />
+
+                <TextView
+                    android:id="@+id/course_first_letter_image"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:gravity="center"
+                    android:text="T"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/blue_700"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/transparent"
+                app:contentInsetStartWithNavigation="0dp"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </LinearLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/spacing_large"
+            android:paddingLeft="@dimen/spacing_small"
+            android:paddingBottom="@dimen/spacing_large"
+            android:paddingRight="@dimen/spacing_small"
+            android:orientation="vertical">
+
+            <!--Class-->
+            <android.support.v7.widget.CardView
+                android:id="@+id/class_cv_hw"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginLeft="@dimen/spacing_middle"
+                android:layout_marginRight="@dimen/spacing_middle"
+                android:layout_marginTop="@dimen/spacing_medium"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="@dimen/spacing_large"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/class_txt_homework_changetxt"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Class"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/grey_80" />
+
+                        <ImageButton
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:tint="@color/grey_80"
+                            android:clickable="false"
+                            app:srcCompat="@drawable/ic_expand_arrow" />
+
+                        <ProgressBar
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/progressBar1"
+                            android:visibility="gone"
+                            android:background="@xml/custom_progress_white"
+                            android:layout_marginRight="@dimen/spacing_large"
+                            android:layout_alignTop="@+id/dialog_class_btn"
+                            android:layout_alignRight="@+id/dialog_class_btn"
+                            android:layout_alignEnd="@+id/dialog_class_btn" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <!--Section-->
+            <android.support.v7.widget.CardView
+                android:id="@+id/section_cv_hw"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginLeft="@dimen/spacing_middle"
+                android:layout_marginRight="@dimen/spacing_middle"
+                android:layout_marginTop="@dimen/spacing_medium"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="@dimen/spacing_large"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/section_txt_homework_changetxt"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Section"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/grey_80" />
+
+                        <ImageButton
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:tint="@color/grey_80"
+                            android:clickable="false"
+                            app:srcCompat="@drawable/ic_expand_arrow" />
+
+                        <ProgressBar
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/progressBar2"
+                            android:visibility="gone"
+                            android:background="@xml/custom_progress_white"
+                            android:layout_marginRight="@dimen/spacing_large"
+                            android:layout_alignTop="@+id/dialog_class_btn"
+                            android:layout_alignRight="@+id/dialog_class_btn"
+                            android:layout_alignEnd="@+id/dialog_class_btn" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <!--Faculty-->
+            <android.support.v7.widget.CardView
+                android:id="@+id/faculty_cv_hw"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginLeft="@dimen/spacing_middle"
+                android:layout_marginRight="@dimen/spacing_middle"
+                android:layout_marginTop="@dimen/spacing_medium"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="@dimen/spacing_large"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/faculty_txt_homework_changetxt"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Faculty"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/grey_80" />
+
+                        <ImageButton
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:tint="@color/grey_80"
+                            android:clickable="false"
+                            app:srcCompat="@drawable/ic_expand_arrow" />
+
+                        <ProgressBar
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/progressBar3"
+                            android:visibility="gone"
+                            android:background="@xml/custom_progress_white"
+                            android:layout_marginRight="@dimen/spacing_large"
+                            android:layout_alignTop="@+id/dialog_class_btn"
+                            android:layout_alignRight="@+id/dialog_class_btn"
+                            android:layout_alignEnd="@+id/dialog_class_btn" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <!--Subject-->
+            <android.support.v7.widget.CardView
+                android:id="@+id/subject_cv_hw"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginLeft="@dimen/spacing_middle"
+                android:layout_marginRight="@dimen/spacing_middle"
+                android:layout_marginTop="@dimen/spacing_medium"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="@dimen/spacing_large"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/subject_txt_homework_changetxt"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Subject"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/grey_80" />
+
+                        <ImageButton
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:tint="@color/grey_80"
+                            android:clickable="false"
+                            app:srcCompat="@drawable/ic_expand_arrow" />
+
+                        <ProgressBar
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/progressBar4"
+                            android:visibility="gone"
+                            android:background="@xml/custom_progress_white"
+                            android:layout_marginRight="@dimen/spacing_large"
+                            android:layout_alignTop="@+id/dialog_class_btn"
+                            android:layout_alignRight="@+id/dialog_class_btn"
+                            android:layout_alignEnd="@+id/dialog_class_btn" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <Button
+                android:id="@+id/date_btn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:text="Date"
+                android:background="@drawable/btn_outline_blue_corner"
+                android:backgroundTint="@color/blue_600"/>
+
+
+            <CheckBox
+                android:id="@+id/deadline_validate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginLeft="@dimen/spacing_middle"
+                android:layout_marginRight="@dimen/spacing_middle"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:text="Provide Deadline"/>
+
+            <!--Date & time-->
+            <TextView
+                android:id="@+id/deadline_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Deadline"
+                android:visibility="gone"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/grey_60"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/date_btn_hw"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Due Date"
+                    android:background="@drawable/btn_outline_blue_corner"
+                    android:backgroundTint="@color/grey_60"
+                    android:enabled="false"/>
+
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="0dp"/>
+
+                <Button
+                    android:id="@+id/time_btn_hw"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Due Time"
+                    android:background="@drawable/btn_outline_blue_corner"
+                    android:backgroundTint="@color/grey_60"
+                    android:enabled="false"/>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/homework_ed_txt"
+                android:layout_width="fill_parent"
+                android:layout_height="240dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginLeft="6dp"
+                android:background="@drawable/btn_outline_blue_corner"
+                android:backgroundTint="@color/blue_600"
+                android:gravity="top|left"
+                android:hint="Write Homework here..."
+                android:inputType="textMultiLine"
+                android:lines="50"
+                android:minLines="20"
+                android:paddingBottom="@dimen/spacing_middle"
+                android:paddingLeft="@dimen/spacing_large"
+                android:paddingRight="@dimen/spacing_large"
+                android:paddingTop="@dimen/spacing_middle"
+                android:scrollHorizontally="false"
+                android:scrollbars="vertical"
+                android:textColorHint="@color/grey_40"
+                android:textColor="@color/grey_80"
+                android:textSize="18sp"
+                android:nextFocusUp="@id/homework_ed_txt"
+                android:nextFocusLeft="@id/homework_ed_txt"/>
+
+            <TextView
+                android:id="@+id/clear_paragraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clear Paragraph"
+                android:paddingLeft="@dimen/spacing_large"
+                android:paddingRight="@dimen/spacing_large"
+                android:background="@drawable/btn_rounded_green"
+                android:backgroundTint="@color/blue_600"
+                android:gravity="center"
+                android:layout_gravity="right"
+                android:layout_marginRight="6dp"
+                android:textColor="@color/quantum_white_100"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/upload_list"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/spacing_large"
+                android:paddingBottom="@dimen/spacing_large"
+                android:paddingRight="@dimen/spacing_large"
+                android:paddingLeft="@dimen/spacing_large"
+                android:visibility="gone">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <!--<TextView-->
+            <!--android:id="@+id/notification"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text=""-->
+            <!--android:layout_gravity="center"/>-->
+
+            <Button
+                android:id="@+id/post_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:padding="@dimen/spacing_small"
+                android:background="@drawable/btn_rounded_orange"
+                android:backgroundTint="@color/blue_600"
+                android:text="DONE"
+                android:textColor="@color/quantum_white_100"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <!--bottom sheet container-->
+        <FrameLayout
+            android:id="@+id/bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/bottom_sheet_behavior" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</LinearLayout>

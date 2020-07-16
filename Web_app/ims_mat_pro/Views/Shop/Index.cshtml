@@ -1,0 +1,1889 @@
+﻿@*  *@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Saaj Apparels</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="../../assetsClient/images/icons/favicon.png" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../assetsClient/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../assetsClient/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../assetsClient/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../assetsClient/fonts/linearicons-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../assetsClient/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../assetsClient/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../assetsClient/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../assetsClient/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../assetsClient/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../assetsClient/vendor/slick/slick.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../assetsClient/vendor/MagnificPopup/magnific-popup.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../assetsClient/vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../assetsClient/css/util.css">
+    <link rel="stylesheet" type="text/css" href="../../assetsClient/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../../assetsClient/css/loader.css">
+
+    <!--===============================================================================================-->
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+
+
+</head>
+<body class="animsition">
+
+
+    <div id="add-contact" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" sytle="margin-top:140px;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="margin-top:100px;">
+                    <h4 class="modal-title" id="myModalLabel">Achievement Report</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <form class="floating-labels m-t-40">
+                        <div class="form-group m-b-40 focused">
+                            <label for="txtName">From:</label>
+                            <input type="date" class="form-control" id="dtFrom">
+                            <span class="bar"></span>
+
+                        </div>
+
+                        <div class="form-group m-b-80">
+                            <label for="txtFatherName">To:</label>
+                            <input type="date" class="form-control" id="dtTo">
+                            <span class="bar"></span>
+
+                        </div>
+
+
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnReport" type="button" class="btn btn-info waves-effect" data-dismiss="modal">Show Report</button>
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
+
+    <div id="add-contact2" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" sytle="margin-top:140px;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="margin-top:100px;">
+                    <h4 class="modal-title" id="myModalLabel">Achievement Report - Supervisor</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <form class="floating-labels m-t-40">
+
+                        <div class="form-group m-b-40 focused">
+                            <label for="cmbReseller">Reseller:</label>
+                            @Html.DropDownList("cmbSuper", (IEnumerable<SelectListItem>)ViewBag.super, String.Empty, new { @class = "form-control p-0" })
+                            <span class="bar"></span>
+
+                        </div>
+
+
+                        <div class="form-group m-b-40 focused">
+                            <label for="txtName">From:</label>
+                            <input type="date" class="form-control" id="dtFrom">
+                            <span class="bar"></span>
+
+                        </div>
+
+                        <div class="form-group m-b-80">
+                            <label for="txtFatherName">To:</label>
+                            <input type="date" class="form-control" id="dtTo">
+                            <span class="bar"></span>
+
+                        </div>
+
+
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnReport2" type="button" class="btn btn-info waves-effect" data-dismiss="modal">Show Report</button>
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+
+    </div>
+
+    <!-- Header -->
+    <header class="header-v4">
+        <!-- Header desktop -->
+        <div class="container-menu-desktop">
+            <!-- Topbar -->
+            <div class="top-bar">
+                <div class="content-topbar flex-sb-m h-full container">
+                    <div class="left-top-bar">
+                        @{
+                            try
+                            {
+                                @Session["uName"];
+                            }
+                            catch (Exception x)
+                            {
+                                //"Welcome user!";
+                            }
+                        }
+                    </div>
+
+                    <div class="right-top-bar flex-w h-full">
+
+                        @if ((Session["uType"] != null) && (Convert.ToInt32(Session["uType"]) == 1))
+                        {
+                            <a href="../Home" class="flex-c-m trans-04 p-lr-25">
+                                Landing Page
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="../Shop" class="flex-c-m trans-04 p-lr-25">
+                                Home
+                            </a>
+                        }
+
+
+                        @if ((Session["uType"] != null) && (Convert.ToInt32(Session["uType"]) == 2))
+                        {
+                            <a id="btnShare" href="../Reseller" class="flex-c-m trans-04 p-lr-25">
+                                Portal
+                            </a>
+                        }
+                        else
+                        {
+                            <a id="btnShare" href="#" data-toggle="modal" data-target="#add-contact" class="flex-c-m trans-04 p-lr-25">
+                                Achievements
+                            </a>
+                        }
+
+                        <a href="../Checkout/track" class="flex-c-m trans-04 p-lr-25">
+                            Order History
+                        </a>
+                        <a href="../Home/Logout" class="flex-c-m trans-04 p-lr-25">
+                            Logout
+                        </a>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="wrap-menu-desktop how-shadow1">
+                <nav class="limiter-menu-desktop container">
+
+                    <!-- Logo desktop -->
+                    <a href="javascript:void(0)" class="logo">
+                        <img src="../../assets/images/saajLogo_bk.png" style="height: 95%;
+                             alt="IMG-LOGO">
+                    </a>
+
+                    <!-- Menu desktop -->
+                    <div class="menu-desktop">
+
+                    </div>
+
+                    <!-- Icon header -->
+                    <div class="wrap-icon-header flex-w flex-r-m">
+                        <!-- Search -->
+                        @*<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+                                <i class="zmdi zmdi-search"></i>
+                            </div>*@
+
+                        <div id="lblCount" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart pull-right" data-notify="0">
+                            <i class="zmdi zmdi-shopping-cart"></i>
+                        </div>
+
+
+
+
+                        @*<a href="javascript:void(0)" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+                                <i class="zmdi zmdi-favorite-outline"></i>
+                            </a>*@
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Header Mobile -->
+        <div class="wrap-header-mobile">
+            <!-- Logo moblie -->
+            <div class="logo-mobile">
+                <a href="../../assetsClient/index.html"><img src="../../assets/images/saajLogo.png" alt="IMG-LOGO"></a>
+            </div>
+
+            <!-- Icon header -->
+            <div class="wrap-icon-header flex-w flex-r-m m-r-15">
+                <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
+                    <i class="zmdi zmdi-search"></i>
+                </div>
+
+                <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" id="cartCount" data-notify="0">
+                    <i class="zmdi zmdi-shopping-cart"></i>
+                </div>
+
+            </div>
+
+            <!-- Button show menu -->
+            <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </div>
+        </div>
+
+
+        <!-- Menu Mobile -->
+        <div hidden class="menu-mobile">
+            <ul class="main-menu-m">
+                <li>
+                    <a href="../Shop">Home</a>
+                </li>
+
+                <li>
+                    <a href="../cart.html">Orders History</a>
+                </li>
+
+                <li>
+                    <a href="blog.html">Achievement</a>
+                </li>
+
+                <li>
+                    <a href="javascript:void(0)">Settings</a>
+                    <ul class="sub-menu">
+                        <li><a href="index.html">Profile</a></li>
+                        <li><a href="home-02.html">Change Password</a></li>
+                        @{
+                            try
+                            {
+                                if ((Session["uType"] != null) && (Convert.ToInt32(Session["uType"]) == 1))
+                                {
+                                    <li>
+                                        <a href="../Home">Landing Page</a>
+                                    </li>
+                                }
+                            }
+                            catch (Exception x)
+                            { }
+
+                        }
+                        <li><a href="../Home/Logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Modal Search -->
+        <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+            <button class="flex-c-m btn-hide-modal-search trans-04">
+                <i class="zmdi zmdi-close"></i>
+            </button>
+
+            <form class="container-search-header">
+                <div class="wrap-search-header">
+                    <input class="plh0" type="text" name="search" placeholder="Search...">
+
+                    <button class="flex-c-m trans-04">
+                        <i class="zmdi zmdi-search"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </header>
+
+    <!-- Cart -->
+    <div class="wrap-header-cart js-panel-cart" id="myCart">
+        <div class="s-full js-hide-cart"></div>
+
+        <div class="header-cart flex-col-l p-l-65 p-r-25">
+            <div class="header-cart-title flex-w flex-sb-m p-b-8">
+                <span class="mtext-103 cl2">
+                    Your Cart
+                </span>
+
+                <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+                    <i class="zmdi zmdi-close"></i>
+                </div>
+            </div>
+
+            <div class="header-cart-content flex-w js-pscroll">
+                <ul class="header-cart-wrapitem w-full" id="cartItems" style="overflow-y:scroll; height:500px;"></ul>
+
+                <div class="w-full">
+                    <div class="header-cart-total w-full p-tb-40" id="txtTotal">
+                        Total: Rs.0
+                    </div>
+
+                    <div class="header-cart-buttons flex-w w-full">
+                        <a href="javascript:void(0)" onclick="ClearCart()" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+                            Clear Cart
+                        </a>
+
+                        <a href="../Checkout" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+                            Check Out
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Banner -->
+    <div class="sec-banner bg0 p-t-80 p-b-50">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
+                    <!-- Block1 -->
+                    <div class="block1 wrap-pic-w">
+                        <img src="~/assets/images/banner-02.jpg" alt="IMG-BANNER">
+
+                        <a href="javascript:void(0)" onclick="LoadCollection(1)" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+                            <div class="block1-txt-child1 flex-col-l">
+                                <span class="block1-name ltext-102 trans-04 p-b-8">
+                                    Men
+                                </span>
+
+                                <span class="block1-info stext-102 trans-04">
+                                    Men collection
+                                </span>
+                            </div>
+
+                            <div class="block1-txt-child2 p-b-4 trans-05">
+                                <div class="block1-link stext-101 cl0 trans-09">
+                                    Shop Now
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
+                    <!-- Block1 -->
+                    <div class="block1 wrap-pic-w">
+                        <img src="~/assets/images/banner-01.jpg" alt="IMG-BANNER">
+
+                        <a href="javascript:void(0)" onclick="LoadCollection(2)" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+                            <div class="block1-txt-child1 flex-col-l">
+                                <span class="block1-name ltext-102 trans-04 p-b-8">
+                                    Women
+                                </span>
+
+                                <span class="block1-info stext-102 trans-04">
+                                    Women collection
+                                </span>
+                            </div>
+
+                            <div class="block1-txt-child2 p-b-4 trans-05">
+                                <div class="block1-link stext-101 cl0 trans-09">
+                                    Shop Now
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
+                    <!-- Block1 -->
+                    <div class="block1 wrap-pic-w">
+                        <img src="~/assets/images/banner-03.jpg" alt="IMG-BANNER">
+
+                        <a href="javascript:void(0)" onclick="LoadCollection(3)" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+                            <div class="block1-txt-child1 flex-col-l">
+                                <span class="block1-name ltext-102 trans-04 p-b-8">
+                                    Kids
+                                </span>
+
+                                <span class="block1-info stext-102 trans-04">
+                                    Kids Collection
+                                </span>
+                            </div>
+
+                            <div class="block1-txt-child2 p-b-4 trans-05">
+                                <div class="block1-link stext-101 cl0 trans-09">
+                                    Shop Now
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product -->
+    <section class="bg0 p-t-23 p-b-130">
+        <div class="container">
+
+            <div class="p-b-10">
+                <h3 class="ltext-103 cl5">
+                    @Session["catTitle"]
+                </h3>
+            </div>
+
+            @*<div class="p-b-10">
+                    <h3 class="ltext-103 cl5">
+                        Product Overview
+                    </h3>
+                </div>*@
+
+            <div class="flex-w flex-sb-m p-b-52">
+                <div id="cat-All" class="flex-w flex-l-m filter-tope-group m-tb-10">
+                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 catItem" id="cat-0" onclick="BrowseByCat(0)" @*data-filter="*"*@>
+                        All Products
+                    </button>
+
+                    <!-- Categories-->
+
+                    @{
+                        foreach (var item in ViewBag.cat)
+                        {
+                            <button id="cat-@item.id" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 catItem" onclick='BrowseByCat(@item.id)' @*data-filter=".ca-@item.id"*@>
+                                @item.name
+                            </button>
+                        }
+                    }
+
+
+                </div>
+
+                <div class="flex-w flex-c-m m-tb-10">
+                    <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter" hidden>
+                        <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
+                        <i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+                        Filter
+                    </div>
+
+                    <div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
+                        <i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
+                        <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+                        Search
+                    </div>
+                </div>
+
+                <!-- Search product -->
+                <div class="dis-none panel-search w-full p-t-10 p-b-15">
+                    <div class="bor8 dis-flex p-l-15">
+                        <button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+
+                        <input id="txtSearch" class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
+                    </div>
+                </div>
+
+                <!-- Filter -->
+                <div class="dis-none panel-filter w-full p-t-10">
+                    <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
+                        <div class="filter-col1 p-r-15 p-b-27">
+                            <div class="mtext-102 cl2 p-b-15">
+                                Sort By
+                            </div>
+
+                            <ul>
+                                <li class="p-b-6">
+                                    <a href="#" class="filter-link stext-106 trans-04">
+                                        Default
+                                    </a>
+                                </li>
+
+                                <li class="p-b-6">
+                                    <a href="#" class="filter-link stext-106 trans-04">
+                                        Popularity
+                                    </a>
+                                </li>
+
+                                <li class="p-b-6">
+                                    <a href="#" class="filter-link stext-106 trans-04">
+                                        Average rating
+                                    </a>
+                                </li>
+
+                                <li class="p-b-6">
+                                    <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
+                                        Newness
+                                    </a>
+                                </li>
+
+                                <li class="p-b-6">
+                                    <a href="#" class="filter-link stext-106 trans-04">
+                                        Price: Low to High
+                                    </a>
+                                </li>
+
+                                <li class="p-b-6">
+                                    <a href="#" class="filter-link stext-106 trans-04">
+                                        Price: High to Low
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="filter-col2 p-r-15 p-b-27">
+                            <div class="mtext-102 cl2 p-b-15">
+                                Price
+                            </div>
+
+                            <ul>
+                                <li class="p-b-6">
+                                    <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
+                                        All
+                                    </a>
+                                </li>
+
+                                <li class="p-b-6">
+                                    <a href="#" class="filter-link stext-106 trans-04">
+                                        $0.00 - $50.00
+                                    </a>
+                                </li>
+
+                                <li class="p-b-6">
+                                    <a href="#" class="filter-link stext-106 trans-04">
+                                        $50.00 - $100.00
+                                    </a>
+                                </li>
+
+                                <li class="p-b-6">
+                                    <a href="#" class="filter-link stext-106 trans-04">
+                                        $100.00 - $150.00
+                                    </a>
+                                </li>
+
+                                <li class="p-b-6">
+                                    <a href="#" class="filter-link stext-106 trans-04">
+                                        $150.00 - $200.00
+                                    </a>
+                                </li>
+
+                                <li class="p-b-6">
+                                    <a href="#" class="filter-link stext-106 trans-04">
+                                        $200.00+
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="filter-col3 p-r-15 p-b-27">
+                            <div class="mtext-102 cl2 p-b-15">
+                                Color
+                            </div>
+
+                            <ul>
+                                <li class="p-b-6">
+                                    <span class="fs-15 lh-12 m-r-6" style="color: #222;">
+                                        <i class="zmdi zmdi-circle"></i>
+                                    </span>
+
+                                    <a href="#" class="filter-link stext-106 trans-04">
+                                        Black
+                                    </a>
+                                </li>
+
+                                <li class="p-b-6">
+                                    <span class="fs-15 lh-12 m-r-6" style="color: #4272d7;">
+                                        <i class="zmdi zmdi-circle"></i>
+                                    </span>
+
+                                    <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
+                                        Blue
+                                    </a>
+                                </li>
+
+                                <li class="p-b-6">
+                                    <span class="fs-15 lh-12 m-r-6" style="color: #b3b3b3;">
+                                        <i class="zmdi zmdi-circle"></i>
+                                    </span>
+
+                                    <a href="#" class="filter-link stext-106 trans-04">
+                                        Grey
+                                    </a>
+                                </li>
+
+                                <li class="p-b-6">
+                                    <span class="fs-15 lh-12 m-r-6" style="color: #00ad5f;">
+                                        <i class="zmdi zmdi-circle"></i>
+                                    </span>
+
+                                    <a href="#" class="filter-link stext-106 trans-04">
+                                        Green
+                                    </a>
+                                </li>
+
+                                <li class="p-b-6">
+                                    <span class="fs-15 lh-12 m-r-6" style="color: #fa4251;">
+                                        <i class="zmdi zmdi-circle"></i>
+                                    </span>
+
+                                    <a href="#" class="filter-link stext-106 trans-04">
+                                        Red
+                                    </a>
+                                </li>
+
+                                <li class="p-b-6">
+                                    <span class="fs-15 lh-12 m-r-6" style="color: #aaa;">
+                                        <i class="zmdi zmdi-circle-o"></i>
+                                    </span>
+
+                                    <a href="#" class="filter-link stext-106 trans-04">
+                                        White
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="filter-col4 p-b-27">
+                            <div class="mtext-102 cl2 p-b-15">
+                                Tags
+                            </div>
+
+                            <div class="flex-w p-t-4 m-r--5">
+                                <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                    Fashion
+                                </a>
+
+                                <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                    Lifestyle
+                                </a>
+
+                                <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                    Denim
+                                </a>
+
+                                <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                    Streetstyle
+                                </a>
+
+                                <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                    Crafts
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="loader">Loading...</div>
+
+            <!-- Products -->
+            <div class="row isotope-grid" id="productsGrid">
+
+                @Html.Raw(ViewBag.Grid)
+
+            </div>
+
+            <!-- Pagination -->
+            <div id="divPagination" class="flex-c-m flex-w w-full p-t-38">
+
+                @{
+                    for (int q = 1; q <= ViewBag.pages; q++)
+                    {
+                        <a href="javascript:void(0)" class="flex-c-m how-pagination1 trans-04 m-all-7 page" id="page-@q">
+                            @q
+                        </a>
+                    }
+                }
+
+
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg3 p-t-75 p-b-32">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">
+                        Categories
+                    </h4>
+
+                    <ul>
+
+                        @{
+                            foreach (var item in ViewBag.cat)
+                            {
+                                <li class="p-b-10">
+                                    <a href="javascript:void(0)" onclick='BrowseByCat(@item.id)' class="stext-107 cl7 hov-cl1 trans-04">
+                                        @item.name
+                                    </a>
+                                </li>
+                            }
+                        }
+
+                    </ul>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30"></h4>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 p-b-50">
+
+                </div>
+
+                <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">
+                        GET IN TOUCH
+                    </h4>
+
+                    <p class="stext-107 cl7 size-201">
+                        WS-13 Block 7 FB Area Near Muka Chowk <br />
+                        Phone # 0213-6334442
+                    </p>
+
+                    <div class="p-t-27">
+                        <a href="https://www.facebook.com/saaj.apparels" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+
+                        <a href="https://www.instagram.com/brandzcollectionz/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+
+                        <a href="https://wa.me/92452642005" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div hidden class="p-t-40">
+                <div class="flex-c-m flex-w p-b-18">
+                    <a href="javascript:void(0)" class="m-all-1">
+                        <img src="../../assetsClient/images/icons/icon-pay-01.png" alt="ICON-PAY">
+                    </a>
+
+                    <a href="javascript:void(0)" class="m-all-1">
+                        <img src="../../assetsClient/images/icons/icon-pay-02.png" alt="ICON-PAY">
+                    </a>
+
+                    <a href="javascript:void(0)" class="m-all-1">
+                        <img src="../../assetsClient/images/icons/icon-pay-03.png" alt="ICON-PAY">
+                    </a>
+
+                    <a href="javascript:void(0)" class="m-all-1">
+                        <img src="../../assetsClient/images/icons/icon-pay-04.png" alt="ICON-PAY">
+                    </a>
+
+                    <a href="javascript:void(0)" class="m-all-1">
+                        <img src="../../assetsClient/images/icons/icon-pay-05.png" alt="ICON-PAY">
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Back to top -->
+    <div class="btn-back-to-top" id="myBtn">
+        <span class="symbol-btn-back-to-top">
+            <i class="zmdi zmdi-chevron-up"></i>
+        </span>
+    </div>
+
+    <!-- Modal1 -->
+    <div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
+        <div class="overlay-modal1 js-hide-modal1"></div>
+
+        <div class="container">
+            <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+                <button class="how-pos3 hov3 trans-04 js-hide-modal1">
+                    <img src="../../assetsClient/images/icons/icon-close.png" alt="CLOSE">
+                </button>
+
+                <div class="row">
+                    <div class="col-md-6 col-lg-7 p-b-30">
+                        <div class="p-l-25 p-r-30 p-lr-0-lg">
+                            <div class="wrap-slick3 flex-sb flex-w">
+                                <div class="wrap-slick3-dots"></div>
+                                <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+                                <div class="slick3 gallery-lb">
+                                    <div class="item-slick3" data-thumb="images/product-detail-01.jpg">
+                                        <div class="wrap-pic-w pos-relative">
+                                            <img src="../../assetsClient/images/product-detail-01.jpg" alt="IMG-PRODUCT">
+
+                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="../../assetsClient/images/product-detail-01.jpg">
+                                                <i class="fa fa-expand"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="item-slick3" data-thumb="images/product-detail-02.jpg">
+                                        <div class="wrap-pic-w pos-relative">
+                                            <img src="../../assetsClient/images/product-detail-02.jpg" alt="IMG-PRODUCT">
+
+                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="../../assetsClient/images/product-detail-02.jpg">
+                                                <i class="fa fa-expand"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="item-slick3" data-thumb="images/product-detail-03.jpg">
+                                        <div class="wrap-pic-w pos-relative">
+                                            <img src="../../assetsClient/images/product-detail-03.jpg" alt="IMG-PRODUCT">
+
+                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="../../assetsClient/images/product-detail-03.jpg">
+                                                <i class="fa fa-expand"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-5 p-b-30">
+                        <div class="p-r-50 p-t-5 p-lr-0-lg">
+                            <h4 class="mtext-105 cl2 js-name-detail p-b-14">
+                                Lightweight Jacket
+                            </h4>
+
+                            <span class="mtext-106 cl2">
+                                $58.79
+                            </span>
+
+                            <p class="stext-102 cl3 p-t-23">
+                                Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
+                            </p>
+
+                            <!--  -->
+                            <div class="p-t-33">
+                                <div class="flex-w flex-r-m p-b-10">
+                                    <div class="size-203 flex-c-m respon6">
+                                        Size
+                                    </div>
+
+                                    <div class="size-204 respon6-next">
+                                        <div class="rs1-select2 bor8 bg0">
+                                            <select class="js-select2" name="time">
+                                                <option>Choose an option</option>
+                                                <option>Size S</option>
+                                                <option>Size M</option>
+                                                <option>Size L</option>
+                                                <option>Size XL</option>
+                                            </select>
+                                            <div class="dropDownSelect2"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex-w flex-r-m p-b-10">
+                                    <div class="size-203 flex-c-m respon6">
+                                        Color
+                                    </div>
+
+                                    <div class="size-204 respon6-next">
+                                        <div class="rs1-select2 bor8 bg0">
+                                            <select class="js-select2" name="time">
+                                                <option>Choose an option</option>
+                                                <option>Red</option>
+                                                <option>Blue</option>
+                                                <option>White</option>
+                                                <option>Grey</option>
+                                            </select>
+                                            <div class="dropDownSelect2"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex-w flex-r-m p-b-10">
+                                    <div class="size-204 flex-w flex-m respon6-next">
+                                        <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+                                            <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                                <i class="fs-16 zmdi zmdi-minus"></i>
+                                            </div>
+
+                                            <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+
+                                            <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                                <i class="fs-16 zmdi zmdi-plus"></i>
+                                            </div>
+                                        </div>
+
+                                        <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                            Add to cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--  -->
+                            <div class="flex-w flex-m p-l-100 p-t-40 respon7">
+
+                                <a href="javascript:void(0)" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
+                                    <i class="fas fa-facebook"></i>
+                                </a>
+
+                                <a href="javascript:void(0)" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
+                                    <i class="fas fa-twitter"></i>
+                                </a>
+
+                                <a href="javascript:void(0)" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
+                                    <i class="fas fa-google-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--===============================================================================================-->
+    <script src="../../assetsClient/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../assetsClient/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../assetsClient/vendor/bootstrap/js/popper.js"></script>
+    <script src="../../assetsClient/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../assetsClient/vendor/select2/select2.min.js"></script>
+    <script>
+            $(".js-select2").each(function () {
+                $(this).select2({
+                    minimumResultsForSearch: 20,
+                    dropdownParent: $(this).next('.dropDownSelect2')
+                });
+            })
+    </script>
+    <!--===============================================================================================-->
+    <script src="../../assetsClient/vendor/daterangepicker/moment.min.js"></script>
+    <script src="../../assetsClient/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../assetsClient/vendor/slick/slick.min.js"></script>
+    <script src="../../assetsClient/js/slick-custom.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../assetsClient/vendor/parallax100/parallax100.js"></script>
+    <script>
+            $('.parallax100').parallax100();
+    </script>
+    <!--===============================================================================================-->
+    <script src="../../assetsClient/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+    <script>
+            $('.gallery-lb').each(function () { // the containers for all your galleries
+                $(this).magnificPopup({
+                    delegate: 'a', // the selector for gallery item
+                    type: 'image',
+                    gallery: {
+                        enabled: true
+                    },
+                    mainClass: 'mfp-fade'
+                });
+            });
+    </script>
+    <!--===============================================================================================-->
+    <script src="../../assetsClient/vendor/isotope/isotope.pkgd.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../assetsClient/vendor/sweetalert/sweetalert.min.js"></script>
+    <script>
+            $('.js-addwish-b2, .js-addwish-detail').on('click', function (e) {
+                e.preventDefault();
+            });
+
+            $('.js-addwish-b2').each(function () {
+                var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+                $(this).on('click', function () {
+                    swal(nameProduct, "is added to wishlist !", "success");
+
+                    $(this).addClass('js-addedwish-b2');
+                    $(this).off('click');
+                });
+            });
+
+            $('.js-addwish-detail').each(function () {
+                var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+
+                $(this).on('click', function () {
+                    swal(nameProduct, "is added to wishlist !", "success");
+
+                    $(this).addClass('js-addedwish-detail');
+                    $(this).off('click');
+                });
+            });
+
+            /*---------------------------------------------*/
+
+            $('.js-addcart-detail').each(function () {
+                var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+                $(this).on('click', function () {
+                    swal(nameProduct, "is added to cart !", "success");
+                });
+            });
+
+    </script>
+    <!--===============================================================================================-->
+    <script src="../../assetsClient/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script>
+            $('.js-pscroll').each(function () {
+                $(this).css('position', 'relative');
+                $(this).css('overflow', 'hidden');
+                var ps = new PerfectScrollbar(this, {
+                    wheelSpeed: 1,
+                    scrollingThreshold: 1000,
+                    wheelPropagation: false,
+                });
+
+                $(window).on('resize', function () {
+                    ps.update();
+                })
+            });
+    </script>
+    <!--===============================================================================================-->
+    <script src="../../assetsClient/js/main.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js" defer=”defer”></script>*@
+
+    <script type="text/javascript" src="~/assetsClient/zoom/jquery.zoom.min.js" defer=”defer”></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+
+            var filterID = 'cat-All';
+            var pageLoad = 0;
+            var lastPageID = "";
+            var lastSearchQuery = "";
+
+
+            $(document).on("mouseenter", ".cart", function () {
+                $(this).css("color", "gray");
+                $(this).css("cursor", "pointer");
+            });
+
+            $(document).on("mouseleave", ".cart", function () {
+                $(this).css("color", "#666666");
+            });
+
+
+            $(document).ready(function () {
+
+               
+                $('.loader').hide();
+                $('#btnReport').on('click', function () {
+
+                    var dtFrom = $('#dtFrom').val();
+                    //alert(dtFrom);
+                    var dtTo = $('#dtTo').val();
+                    link = "Shop/ShowReport?dtFrom=" + dtFrom + "&dtTo=" + dtTo;
+                    window.open(link, '_blank');
+                });
+
+                $('#btnReport2').on('click', function () {
+
+                    var dtFrom = $('#dtFrom').val();
+                    //alert(dtFrom);
+                    var dtTo = $('#dtTo').val();
+                    var res = $('#cmbSuper').val();
+                    link = "Shop/ShowReportSup?dtFrom=" + dtFrom + "&dtTo=" + dtTo + "&res=" + res;
+                    window.open(link, '_blank');
+                });
+
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": true,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": true,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+
+
+                var type = "";
+                type = '@Session["uType"]';
+                if (type === "") {
+                    window.location = '../Login';
+                }
+                else if (type == 100) { //Viewer Rights
+                    $('.fa-shopping-cart').attr("hidden", true);
+                    $('.zmdi-shopping-cart').attr("hidden", true);
+                    $('.icon-header-noti').attr("hidden", true);
+
+                }
+
+                var browseID = "0";
+                browseID = '@Session["catID"]';
+                if (browseID === "") {
+                    browseID = 0;
+                }
+                console.log('brID: ' + browseID);
+                $('#cat-' + browseID).addClass('how-active1');
+
+
+                $('#navMain').addClass('fix-menu-desktop');
+                $('#page-1').addClass('active-pagination1');
+
+
+                $('.image-zoom')
+                  .wrap('<span style="display:inline-block"></span>')
+                  .css('display', 'block')
+                  .parent()
+                  .zoom({
+                      url: $(this).find('img').attr('data-zoom')
+                  });
+
+
+
+
+                $('#txtSearch').keyup(function (e) {
+                    if (e.keyCode == 13) {
+
+                        $('#productsGrid').empty();
+                        $('.loader').show();
+
+                        var code = $('#txtSearch').val();
+                        if (code.length === 0) {
+                            console.log('refresh');
+                            $('#divPagination').empty();
+                            $('.loader').show();
+                            location.reload(true);
+                        }
+                        else
+                        {
+                            return $.ajax({
+                                type: "POST",
+                                url: '/Shop/SearchProduct',
+                                contentType: "application/json",
+                                traditional: true,
+                                data: JSON.stringify({ name: code }),
+                                dataType: "json",
+                                success: function (recData) {
+                                    if (recData.status === "success") {
+                                        $('.loader').hide();
+                                        $('#productsGrid').empty();
+                                        $("#productsGrid").isotope('insert', $(recData.Data));
+                                        $("#productsGrid").imagesLoaded().progress(function () {
+                                            $("#productsGrid").isotope('layout');
+                                        });
+
+                                       if (type == 100) { //Viewer Rights
+                                           $('.fa-shopping-cart').attr("hidden", true);
+                                        }
+
+                                    }
+                                    else {
+                                        swal({
+                                            title: "Opps!",
+                                            text: recData.Data,
+                                            icon: "error",
+                                        });
+                                    }
+                                },
+                                error: function () {
+                                    swal({
+                                        title: "Opps!",
+                                        text: "Server error on getting products",
+                                        icon: "error",
+                                    });
+                                }
+                            });
+                        }
+
+
+
+                    }
+                });
+
+                //Navigate
+                $('.page').click(function (e) {
+                    var id = e.target.id;
+                    $('.page').removeClass('active-pagination1');
+                    $('#' + id).addClass('active-pagination1');
+
+                    $('#productsGrid').empty();
+                    $('.loader').show();
+                    var arr = id.split('-');
+                    var page = arr[1];
+
+                    //Ajax Request
+                    return $.ajax({
+                        type: "POST",
+                        url: '/Shop/GetMoreProducts',
+                        contentType: "application/json",
+                        traditional: true,
+                        data: JSON.stringify({ page: page }),
+                        dataType: "json",
+                        success: function (recData) {
+                            if (recData.status === "success") {
+                                $('.loader').hide();
+                                $('#productsGrid').empty();
+                                $("#productsGrid").isotope('insert', $(recData.Data));
+
+                                $("#productsGrid").imagesLoaded().progress(function () {
+                                    $("#productsGrid").isotope('layout');
+                                });
+
+                                lastPageID = id;
+                                window.scrollTo(0, 550);
+                                //window.location = "#productsGrid";
+                                //$('.animsition').animate({ scrollTop: $('#productsGrid').offset().top - 10 }, 1000);
+
+                            }
+                            else {
+                                swal({
+                                    title: "Opps!",
+                                    text: recData.Data,
+                                    icon: "error",
+                                });
+                            }
+                        },
+                        error: function () {
+                            swal({
+                                title: "Opps!",
+                                text: "Server error on getting products",
+                                icon: "error",
+                            });
+                        }
+                    });
+
+                });
+
+                PopulateCart();
+
+            });
+
+            function ShowQuickView(id) {
+
+                $('#modalQVMain').addClass('show-modal1');
+
+                ////Ajax Request
+                //return $.ajax({
+                //    type: "POST",
+                //    url: '/Shop/GetSelectedProductImages',
+                //    contentType: "application/json",
+                //    traditional: true,
+                //    data: JSON.stringify({ id: id }),
+                //    dataType: "json",
+                //    success: function (recData) {
+                //        if (recData.status === "success") {
+
+                //            //$('#modalGallery').empty();
+                //            //$('#modalGallery').append(recData.Data);
+                //            $('#modalQVMain').addClass('show-modal1');
+
+
+                //            //$('#modalQV').empty();
+                //            //$('#modalQV').append(recData.Data);
+
+
+                //        }
+                //        else {
+                //            swal({
+                //                title: "Opps!",
+                //                text: recData.Data,
+                //                icon: "error",
+                //            });
+                //        }
+                //    },
+                //    error: function () {
+                //        swal({
+                //            title: "Opps!",
+                //            text: "Server error on quick view.",
+                //            icon: "error",
+                //        });
+                //    }
+                //});
+
+            }
+
+            function LoadCollection(mCatID)
+            {
+                $('#productsGrid').empty();
+                $('#divPagination').empty();
+                $('.loader').show();
+
+                //Update Session
+                $.ajax({
+                    type: "POST",
+                    url: '../Home/UpdateSession',
+                    contentType: "application/json",
+                    traditional: true,
+                    data: JSON.stringify({ key: "mCat", value: mCatID }),
+                    dataType: "json",
+                    success: function (recData) {
+                        if (recData.Data == "done") { //Load products
+                            location.reload(true);
+                        }
+                        else {
+                            swal({
+                                title: "Opps!",
+                                text: "Session expired.",
+                                icon: "error",
+                            });
+                        }
+
+                    },
+                    error: function () {
+                        swal({
+
+                            title: "Opps!",
+                            text: "Server error.",
+                            icon: "error",
+                        });
+                    }
+                });
+            }
+
+            function UpdateSession(key, value) {
+                //Update Session
+                $.ajax({
+                    type: "POST",
+                    url: '../Home/UpdateSession',
+                    contentType: "application/json",
+                    traditional: true,
+                    data: JSON.stringify({ key: key, value: value }),
+                    dataType: "json",
+                    success: function (recData) {
+                        if (recData.Data == "done") {
+                        }
+                        else {
+                            swal({
+                                title: "Opps!",
+                                text: "Session expired.",
+                                icon: "error",
+                            });
+                        }
+
+                    },
+                    error: function () {
+                        swal({
+
+                            title: "Opps!",
+                            text: "Server error.",
+                            icon: "error",
+                        });
+                    }
+                });
+            }
+
+            function PopulateCart() {
+
+                var user = 0;
+                user = '@Session["uID"]';
+                if (user === 0 || user === "") {
+                    window.location = '../Login';
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Shop/PopulateCart',
+                    contentType: "application/json",
+                    traditional: true,
+                    success: function (recData) {
+                        if (recData.Data != "") {
+
+                            $.each(recData.Data, function (index, val) {
+                                //console.log('Cart Item: ', val);
+                                var sz = SizeToInt(val.size);
+                                var element = "<li class='header-cart-item flex-w flex-t m-b-12' id='item-" + val.cartID + "'><div class='header-cart-item-img' onClick='RemoveFromCart(" + val.cartID + ")' style='margin-top:8px;'><i onClick='RemoveFromCart(" + val.cartID + ")'> <img onClick='RemoveFromCart(" + val.cartID + ")' src='.../../Uploads/Products/" + val.pic + "' alt='IMG'></i> </div> <div class='header-cart-item-txt p-t-8'> <a id='txtTitle' href='javascript:void(0)' class='header-cart-item-name m-b-18 hov-cl1 trans-04'>" + val.itemName + " </a> <span id='txtQty' class='header-cart-item-info' style='margin-top: -15px;'>" + val.itemQty + " - " + val.size + " x Rs." + val.pr + "</span><div class='wrap-num-product flex-w m-r-20 m-tb-10' style='height: 32px;margin-top: 1px;'>                                <div class='btn-num-product-down cl6 hov-btn3 trans-04 flex-c-m' onClick='AddToCartt(cartIDHere, -1, btnSub_cartIDHere.id," + sz + ")'>                                    <i id='btnSub_cartIDHere' class='fs-16 zmdi zmdi-minus'></i>                                </div>                                <input class='mtext-104 cl2 txt-center num-product' type='number' name='num-product' value='1' readonly>                                <div class='btn-num-product-up cl6 hov-btn3 trans-04 flex-c-m' onClick='AddToCartt(cartIDHere, 1, btnAdd_cartIDHere.id," + sz + ")'>                                    <i id='btnAdd_cartIDHere' class='fs-16 zmdi zmdi-plus'></i>                                </div>                             </div></div></li>";
+                                //var element2 = '<li class="header-cart-item flex-w flex-t m-b-12" id="item-"' + val.cartID + '""><div class="header-cart-item-img" onClick="RemoveFromCart("' + val.cartID + '")" style="margin-top:8px;"><i onClick="RemoveFromCart("' + val.cartID + '")"> <img onClick="RemoveFromCart("' + val.cartID + '")" src=".../../Uploads/Products/"' + val.pic + '"" alt="IMG"></i> </div> <div class="header-cart-item-txt p-t-8"> <a id="txtTitle" href="javascript:void(0)" class="header-cart-item-name m-b-18 hov-cl1 trans-04">"' + val.itemName + '" </a> <span id="txtQty" class="header-cart-item-info" style="margin-top: -15px;">"' + val.itemQty + '" - "' + val.size + '" x Rs."' + val.pr + '"</span><div class="wrap-num-product flex-w m-r-20 m-tb-10" style="height: 32px;margin-top: 1px;">                                <div class="btn-num-product-down cl6 hov-btn3 trans-04 flex-c-m" onClick="AddToCartt(cartIDHere, -1, btnSub_cartIDHere.id, ' + val.size + ')">                                    <i id="btnSub_cartIDHere" class="fs-16 zmdi zmdi-minus"></i>                                </div>                                <input class="mtext-104 cl2 txt-center num-product" type="number" name="num-product" value="1" readonly>                                <div class="btn-num-product-up cl6 hov-btn3 trans-04 flex-c-m" onClick="AddToCartt(cartIDHere, 1, btnAdd_cartIDHere.id, ' + val.size + ')">                                    <i id="btnAdd_cartIDHere" class="fs-16 zmdi zmdi-plus"></i>                                </div>                             </div></div></li>';
+                                element = element.replace(/idHere/g, val.id);
+                                element = element.replace(/cartIDHere/g, val.cartID);
+                                $('#cartItems').append(element);
+                            });
+
+                            //Total
+                            $.ajax({
+                                type: "POST",
+                                url: '/Shop/GetTotal',
+                                contentType: "application/json",
+                                traditional: true,
+                                dataType: "json",
+                                success: function (recData) {
+                                    if (recData.status == "success") {
+                                        var ar = recData.Data.split('-');
+                                        $('#txtTotal').html("Total Rs." + ar[1]);
+                                        $('#lblCount').attr('data-notify', ar[0].split(' ')[0]);
+                                    }
+
+                                },
+                                error: function () { }
+                            });
+
+                        }
+
+                    },
+                    error: function () {
+                        swal({
+
+                            title: "Opps!",
+                            text: "Server error on populating cart",
+                            icon: "error",
+                        });
+                    }
+                });
+            }
+
+            function SizeToInt(param) {
+                if (param === 'S') {
+                    return 1;
+                }
+                else if (param === 'M') {
+                    return 2;
+                }
+                else if (param === 'L') {
+                    return 3;
+                }
+                else if (param === 'XL') {
+                    return 4;
+                }
+            }
+
+            function SizeToString(param) {
+                if (param === 1) {
+                    return 'S';
+                }
+                else if (param === 2) {
+                    return 'M'
+                }
+                else if (param === 3) {
+                    return 'L';
+                }
+                else if (param === 4) {
+                    return 'XL';
+                }
+            }
+
+            function ClearCart() {
+                var user = 0;
+                user = '@Session["uID"]';
+                if (user == 0 || user == "") {
+                    window.location = '../Login';
+                }
+                else {
+                    $.ajax({
+                        type: "POST",
+                        url: '/Shop/ClearCart',
+                        contentType: "application/json",
+                        traditional: true,
+                        dataType: "json",
+                        success: function (recData) {
+                            if (recData.status == "success") {
+
+                                $('#cartItems').empty();
+                                var cart = $('#myCart').html();
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: '/Shop/GetTotal',
+                                    contentType: "application/json",
+                                    traditional: true,
+                                    dataType: "json",
+                                    success: function (recData) {
+                                        if (recData.status == "success") {
+                                            var ar = recData.Data.split('-');
+                                            $('#txtTotal').html("Total Rs." + ar[1]);
+                                            $('#lblCount').attr('data-notify', ar[0].split(' ')[0]);
+                                            swal({
+
+                                                title: "Done!",
+                                                text: "Cart is cleared.",
+                                                icon: "success",
+                                            });
+                                        }
+
+
+                                    },
+                                    error: function () { }
+                                });
+
+
+
+                            }
+
+                        },
+                        error: function () { }
+                    });
+                }
+            }
+
+
+            function AddToCart(id) {
+                var user = 0;
+                var qty = 1;
+                user = '@Session["uID"]';
+                if (user == 0 || user == "") {
+                    window.location = '../Login';
+                }
+                else {
+
+                    var name = "#cmbSize" + id;
+                    var size = $(name).val();
+                    var sz = SizeToInt(size);
+                    var cartID = 0;
+                    //alert(size);
+
+                    //Get Cart ID
+                    $.ajax({
+                        type: "POST",
+                        url: '/Shop/GetCartID',
+                        contentType: "application/json",
+                        traditional: true,
+                        data: JSON.stringify({ id: id, size: size }),
+                        dataType: "json",
+                        success: function (recData) {
+                            if (recData.status === "success")
+                                console.log(recData);
+                            try {
+                                cartID = recData.Data;
+                            } catch (e) { cartID = 0; }
+
+                            console.log('CartID:' + cartID);
+
+
+                            //Add to Cart
+                            $.ajax({
+                                type: "POST",
+                                url: '/Shop/AddToCart',
+                                contentType: "application/json",
+                                traditional: true,
+                                data: JSON.stringify({ id: id, qty: qty, size: size }),
+                                dataType: "json",
+                                success: function (recData) {
+                                    if (recData.status === "success") {
+                                        var cart = $('#myCart').html();
+                                        //console.log("Cart: ", cart);
+                                        var search = "item-" + id;
+                                        if (cartID > 0) {
+                                            search = "item-" + cartID;
+                                        }
+                                        //console.log("Searching: ", search);
+                                        if ((cart.indexOf(search)) > -1) { //Update Cart
+                                            //console.log("Updating cart...");
+                                            $('#item-' + recData.Data[0].cartID).empty();
+                                            var subElement = "<div class='header-cart-item-img' onClick='RemoveFromCart(" + recData.Data[0].cartID + ")'><i onClick='RemoveFromCart(" + recData.Data[0].cartID + ")'><img src='.../../Uploads/Products/" + recData.Data[0].pic + "' alt='IMG'></i> </div> <div class='header-cart-item-txt p-t-8'> <a id='txtTitle' href='javascript:void(0)' class='header-cart-item-name m-b-18 hov-cl1 trans-04'>" + recData.Data[0].itemName + " </a> <span id='txtQty' class='header-cart-item-info' style='margin-top: -15px;'>" + recData.Data[0].itemQty + " - " + recData.Data[0].size + " x Rs." + recData.Data[0].pr + "</span><div class='wrap-num-product flex-w m-r-20 m-tb-10' style='height: 32px;margin-top: 1px;'>                                <div class='btn-num-product-down cl6 hov-btn3 trans-04 flex-c-m' onClick='AddToCartt(cartIDHere, -1, btnSub_cartIDHere.id," + sz + ")'>                                    <i id='btnSub_cartIDHere' class='fs-16 zmdi zmdi-minus'></i>                                </div>                                <input class='mtext-104 cl2 txt-center num-product' type='number' name='num-product' value='1' readonly>                                <div class='btn-num-product-up cl6 hov-btn3 trans-04 flex-c-m' onClick='AddToCartt(cartIDHere, 1, btnAdd_cartIDHere.id," + sz + ")'>                                    <i id='btnAdd_cartIDHere' class='fs-16 zmdi zmdi-plus'></i>                                </div>                             </div></div>";
+                                            subElement = subElement.replace(/idHere/g, recData.Data[0].id);
+                                            subElement = subElement.replace(/cartIDHere/g, recData.Data[0].cartID);
+                                            $('#item-' + recData.Data[0].cartID).append(subElement);
+                                            console.log("Updating cart");
+                                        }
+                                        else { //Add Cart
+                                            //console.log("Adding to cart...");
+                                            //var element = "<li class='header-cart-item flex-w flex-t m-b-12' id='item-" + id + "'><div class='header-cart-item-img' onClick='RemoveFromCart(" + id + ")' style='margin-top:8px;'><i onClick='RemoveFromCart(" + id + ")'> <img onClick='RemoveFromCart(" + id + ")' src='.../../Uploads/Products/" + recData.Data[0].pic + "' alt='IMG'></i> </div> <div class='header-cart-item-txt p-t-8'> <a id='txtTitle' href='javascript:void(0)' class='header-cart-item-name m-b-18 hov-cl1 trans-04'>" + recData.Data[0].itemName + " </a> <span id='txtQty' class='header-cart-item-info' style='margin-top: -15px;'>" + recData.Data[0].itemQty + " x Rs." + recData.Data[0].pr + "</span><div class='wrap-num-product flex-w m-r-20 m-tb-10' style='height: 32px;margin-top: 1px;'>                                <div class='btn-num-product-down cl6 hov-btn3 trans-04 flex-c-m' onClick='AddToCartt(idHere, -1, btnSub_idHere.id)'>                                    <i id='btnSub_idHere' class='fs-16 zmdi zmdi-minus'></i>                                </div>                                <input class='mtext-104 cl2 txt-center num-product' type='number' name='num-product' value='1' readonly>                                <div class='btn-num-product-up cl6 hov-btn3 trans-04 flex-c-m' onClick='AddToCartt(idHere, 1, btnAdd_idHere.id)'>                                    <i id='btnAdd_idHere' class='fs-16 zmdi zmdi-plus'></i>                                </div>                             </div></div></li>";
+                                            //element = element.replace(/idHere/g, id);
+                                            //$('#cartItems').append(element);
+
+                                            var element = "<li class='header-cart-item flex-w flex-t m-b-12' id='item-" + recData.Data[0].cartID + "'><div class='header-cart-item-img' onClick='RemoveFromCart(" + recData.Data[0].cartID + ")' style='margin-top:8px;'><i onClick='RemoveFromCart(" + recData.Data[0].cartID + ")'> <img onClick='RemoveFromCart(" + recData.Data[0].cartID + ")' src='.../../Uploads/Products/" + recData.Data[0].pic + "' alt='IMG'></i> </div> <div class='header-cart-item-txt p-t-8'> <a id='txtTitle' href='javascript:void(0)' class='header-cart-item-name m-b-18 hov-cl1 trans-04'>" + recData.Data[0].itemName + " </a> <span id='txtQty' class='header-cart-item-info' style='margin-top: -15px;'>" + recData.Data[0].itemQty + " - " + recData.Data[0].size + " x Rs." + recData.Data[0].pr + "</span><div class='wrap-num-product flex-w m-r-20 m-tb-10' style='height: 32px;margin-top: 1px;'>                                <div class='btn-num-product-down cl6 hov-btn3 trans-04 flex-c-m' onClick='AddToCartt(cartIDHere, -1, btnSub_cartIDHere.id," + sz + ")'>                                    <i id='btnSub_cartIDHere' class='fs-16 zmdi zmdi-minus'></i>                                </div>                                <input class='mtext-104 cl2 txt-center num-product' type='number' name='num-product' value='1' readonly>                                <div class='btn-num-product-up cl6 hov-btn3 trans-04 flex-c-m' onClick='AddToCartt(cartIDHere, 1, btnAdd_cartIDHere.id," + sz + ")'>                                    <i id='btnAdd_cartIDHere' class='fs-16 zmdi zmdi-plus'></i>                                </div>                             </div></div></li>";
+                                            element = element.replace(/idHere/g, recData.Data[0].id);
+                                            element = element.replace(/cartIDHere/g, recData.Data[0].cartID);
+                                            $('#cartItems').append(element)
+                                            console.log("Adding cart");
+
+                                        }
+
+                                        toastr["success"]("Done!", "Item added to cart.")
+                                        //Total
+                                        $.ajax({
+                                            type: "POST",
+                                            url: '/Shop/GetTotal',
+                                            contentType: "application/json",
+                                            traditional: true,
+                                            dataType: "json",
+                                            success: function (recData) {
+                                                if (recData.status == "success") {
+                                                    var ar = recData.Data.split('-');
+                                                    //console.log(ar[0], ar[1]);
+                                                    //$('#cart-total').html(ar[0]);
+                                                    $('#txtTotal').html("Total Rs." + ar[1]);
+                                                    $('#lblCount').attr('data-notify', ar[0].split(' ')[0]);
+
+                                                    //$('#cartCount').notify({
+                                                    //    message: ar[0],
+                                                    //    type: 'danger'
+                                                    //});
+                                                }
+
+                                            },
+                                            error: function () { }
+                                        });
+
+                                    }
+                                    else {
+                                        swal({
+                                            title: "Opps!",
+                                            text: recData.Data,
+                                            icon: "error",
+                                        });
+                                    }
+
+                                },
+                                error: function () {
+                                    swal({
+
+                                        title: "Opps!",
+                                        text: "Something went wrong",
+                                        icon: "error",
+                                    });
+                                }
+                            });
+                        }
+                    });
+
+                }
+            }
+
+            function BrowseByCat(id)
+            {
+                $('#productsGrid').empty();
+                $('#divPagination').empty();
+                $('.loader').show();
+
+                $.ajax({
+                    type: "POST",
+                    url: '../Home/UpdateSession',
+                    contentType: "application/json",
+                    traditional: true,
+                    data: JSON.stringify({ key: 'catID', value: id }),
+                    dataType: "json",
+                    success: function (recData) {
+                        if (recData.Data == "done") {
+                            location.reload(true);
+                        }
+                        else {
+                            swal({
+                                title: "Opps!",
+                                text: "Session expired.",
+                                icon: "error",
+                            });
+                        }
+
+                    },
+                    error: function () {
+                        swal({
+
+                            title: "Opps!",
+                            text: "Server error.",
+                            icon: "error",
+                        });
+                    }
+                });
+            }
+
+
+            function ShowInv(idHere) {
+                //alert(idHere);
+                //Total
+                $.ajax({
+                    type: "POST",
+                    url: '/Shop/ShowInv',
+                    contentType: "application/json",
+                    traditional: true,
+                    dataType: "json",
+                    data: JSON.stringify({ itemID: idHere }),
+                    success: function (recData) {
+                        //alert(recData.Data);
+                        if (recData.status == "success") {
+                            var tagID = "#inv-" + idHere;
+                            //alert(tagID);
+                            $(tagID).text(recData.Data);
+                        }
+
+                    },
+                    error: function () { }
+                });
+
+            }
+
+            function AddToCartt(id, qty, elemID, _size) {
+
+                var sz = SizeToString(_size);
+                var user = 0;
+                user = '@Session["uID"]';
+                if (user == 0 || user == "") {
+                    window.location = '../Login';
+                }
+                else {
+                    console.log('Quick Add');
+
+                    //var size = $('cmbSize' + id).val();
+                    //alert(size);
+
+
+                    //Add to Cart
+                    $.ajax({
+                        type: "POST",
+                        url: '/Shop/UpdateCart',
+                        contentType: "application/json",
+                        traditional: true,
+                        data: JSON.stringify({ cID: id, qty: qty, size: sz }),
+                        dataType: "json",
+                        success: function (recData) {
+                            if (recData.status === "success") {
+                                $('#' + elemID).css("display", "block");
+                                var cart = $('#myCart').html();
+                                //console.log("Cart: ", cart);
+                                var search = "item-" + id;
+                                //console.log("Searching: ", search);
+                                if ((cart.indexOf(search)) > -1) { //Update Cart
+                                    //console.log("Updating cart...");
+                                    $('#item-' + recData.Data[0].cartID).empty();
+                                    var subElement = "<div class='header-cart-item-img' onClick='RemoveFromCart(" + recData.Data[0].cartID + ")' style='margin-top:8px;'><i onClick='RemoveFromCart(" + recData.Data[0].cartID + ")'> <img onClick='RemoveFromCart(" + recData.Data[0].cartID + ")' src='.../../Uploads/Products/" + recData.Data[0].pic + "' alt='IMG'></i> </div> <div class='header-cart-item-txt p-t-8'> <a id='txtTitle' href='javascript:void(0)' class='header-cart-item-name m-b-18 hov-cl1 trans-04'>" + recData.Data[0].itemName + " </a> <span id='txtQty' class='header-cart-item-info' style='margin-top: -15px;'>" + recData.Data[0].itemQty + " - " + recData.Data[0].size + "  x Rs." + recData.Data[0].pr + "</span><div class='wrap-num-product flex-w m-r-20 m-tb-10' style='height: 32px;margin-top: 1px;'>                                <div class='btn-num-product-down cl6 hov-btn3 trans-04 flex-c-m' onClick='AddToCartt(cartIDHere, -1, btnSub_cartIDHere.id," + _size + ")'>                                    <i id='btnSub_cartIDHere' class='fs-16 zmdi zmdi-minus'></i>                                </div>                                <input class='mtext-104 cl2 txt-center num-product' type='number' name='num-product' value='1' readonly>                                <div class='btn-num-product-up cl6 hov-btn3 trans-04 flex-c-m' onClick='AddToCartt(cartIDHere, 1, btnAdd_cartIDHere.id, " + _size + ")'>                                    <i id='btnAdd_cartIDHere' class='fs-16 zmdi zmdi-plus'></i>                                </div>                             </div></div>";
+                                    subElement = subElement.replace(/idHere/g, id);
+                                    subElement = subElement.replace(/cartIDHere/g, recData.Data[0].cartID);
+                                    $('#item-' + recData.Data[0].cartID).append(subElement);
+                                }
+                                else { //Add Cart
+                                    //console.log("Adding to cart...");
+                                    //var element = "<li class='header-cart-item flex-w flex-t m-b-12' id='item-" + recData.Data[0].id + "'><div class='header-cart-item-img' onClick='RemoveFromCart(" + recData.Data[0].id + ")' style='margin-top:8px;'><i onClick='RemoveFromCart(" + recData.Data[0].id + ")'> <img onClick='RemoveFromCart(" + recData.Data[0].id + ")' src='.../../Uploads/Products/" + recData.Data[0].pic + "' alt='IMG'></i> </div> <div class='header-cart-item-txt p-t-8'> <a id='txtTitle' href='javascript:void(0)' class='header-cart-item-name m-b-18 hov-cl1 trans-04'>" + recData.Data[0].itemName + " </a> <span id='txtQty' class='header-cart-item-info' style='margin-top: -15px;'>" + recData.Data[0].itemQty + " x Rs." + recData.Data[0].pr + "</span><div class='wrap-num-product flex-w m-r-20 m-tb-10' style='height: 32px;margin-top: 1px;'>                                <div class='btn-num-product-down cl6 hov-btn3 trans-04 flex-c-m' onClick='AddToCartt(idHere, -1, btnSub_idHere.id)'>                                    <i id='btnSub_idHere' class='fs-16 zmdi zmdi-minus'></i>                                </div>                                <input class='mtext-104 cl2 txt-center num-product' type='number' name='num-product' value='1' readonly>                                <div class='btn-num-product-up cl6 hov-btn3 trans-04 flex-c-m' onClick='AddToCartt(idHere, 1, btnAdd_idHere.id)'>                                    <i id='btnAdd_idHere' class='fs-16 zmdi zmdi-plus'></i>                                </div>                             </div></div></li>";
+                                    //element = element.replace(/idHere/g, id);
+                                    //$('#cartItems').append(element);
+
+                                    var element = "<li class='header-cart-item flex-w flex-t m-b-12' id='item-" + recData.Data[0].cartID + "'><div class='header-cart-item-img' onClick='RemoveFromCart(" + recData.Data[0].cartID + ")' style='margin-top:8px;'><i onClick='RemoveFromCart(" + recData.Data[0].cartID + ")'> <img onClick='RemoveFromCart(" + recData.Data[0].cartID + ")' src='.../../Uploads/Products/" + recData.Data[0].pic + "' alt='IMG'></i> </div> <div class='header-cart-item-txt p-t-8'> <a id='txtTitle' href='javascript:void(0)' class='header-cart-item-name m-b-18 hov-cl1 trans-04'>" + recData.Data[0].itemName + " </a> <span id='txtQty' class='header-cart-item-info' style='margin-top: -15px;'>" + recData.Data[0].itemQty + " - " + recData.Data[0].size + " x Rs." + recData.Data[0].pr + "</span><div class='wrap-num-product flex-w m-r-20 m-tb-10' style='height: 32px;margin-top: 1px;'>                                <div class='btn-num-product-down cl6 hov-btn3 trans-04 flex-c-m' onClick='AddToCartt(cartIDHere, -1, btnSub_cartIDHere.id,'" + recData.Data[0].size + "')'>                                    <i id='btnSub_cartIDHere' class='fs-16 zmdi zmdi-minus'></i>                                </div>                                <input class='mtext-104 cl2 txt-center num-product' type='number' name='num-product' value='1' readonly>                                <div class='btn-num-product-up cl6 hov-btn3 trans-04 flex-c-m' onClick='AddToCartt(cartIDHere, 1, btnAdd_cartIDHere.id,'" + recData.Data[0].size + "')'>                                    <i id='btnAdd_cartIDHere' class='fs-16 zmdi zmdi-plus'></i>                                </div>                             </div></div></li>";
+                                    element = element.replace(/idHere/g, recData.Data[0].id);
+                                    element = element.replace(/cartIDHere/g, recData.Data[0].cartID);
+                                    $('#cartItems').append(element)
+
+                                }
+
+                                //toastr["success"]("Done!", "Item added to cart.")
+                                //Total
+                                $.ajax({
+                                    type: "POST",
+                                    url: '/Shop/GetTotal',
+                                    contentType: "application/json",
+                                    traditional: true,
+                                    dataType: "json",
+                                    success: function (recData) {
+                                        if (recData.status == "success") {
+                                            var ar = recData.Data.split('-');
+                                            //console.log(ar[0], ar[1]);
+                                            //$('#cart-total').html(ar[0]);
+                                            $('#txtTotal').html("Total Rs." + ar[1]);
+                                            $('#lblCount').attr('data-notify', ar[0].split(' ')[0]);
+                                            //$('#cartCount').notify({
+                                            //    message: ar[0],
+                                            //    type: 'danger'
+                                            //});
+                                        }
+
+                                    },
+                                    error: function () { }
+                                });
+
+                            }
+                            else {
+                                swal({
+                                    title: "Opps!",
+                                    text: recData.Data,
+                                    icon: "error",
+                                });
+                            }
+
+                        },
+                        error: function () {
+                            swal({
+
+                                title: "Opps!",
+                                text: "Something went wrong",
+                                icon: "error",
+                            });
+                        }
+                    });
+                }
+            }
+
+            function RemoveFromCart(id) {
+
+                var user = 0;
+                user = '@Session["uID"]';
+                if (user == 0 || user == "") {
+                    window.location = '../Login';
+                }
+                else {
+                    //Remove from cart
+                    $.ajax({
+                        type: "POST",
+                        url: '/Shop/RemoveFromCart',
+                        contentType: "application/json",
+                        traditional: true,
+                        data: JSON.stringify({ id: id }),
+                        dataType: "json",
+                        success: function (recData) {
+                            if (recData.status == "success") {
+                                $('#item-' + id).remove();
+                                toastr["error"]("Done!", "Item removed from cart.")
+                                //Total
+                                $.ajax({
+                                    type: "POST",
+                                    url: '/Shop/GetTotal',
+                                    contentType: "application/json",
+                                    traditional: true,
+                                    dataType: "json",
+                                    success: function (recData) {
+                                        if (recData.status == "success") {
+                                            var ar = recData.Data.split('-');
+                                            $('#txtTotal').html("Total Rs." + ar[1]);
+                                            $('#lblCount').attr('data-notify', ar[0].split(' ')[0]);
+                                        }
+
+                                    },
+                                    error: function () { }
+                                });
+
+
+                            }
+                            else {
+                                swal({
+                                    title: "Opps!",
+                                    text: "Cannot remove from cart, please try again.",
+                                    icon: "error",
+                                });
+                            }
+
+                        },
+                        error: function () {
+                            swal({
+
+                                title: "Opps!",
+                                text: "Something went wrong",
+                                icon: "error",
+                            });
+                        }
+                    });
+                }
+            }
+
+
+    </script>
+
+</body>
+</html>

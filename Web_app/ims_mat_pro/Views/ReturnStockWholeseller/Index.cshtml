@@ -1,0 +1,400 @@
+﻿
+@{
+    ViewBag.Title = "return stock from wholeseller";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section ControlsSection{
+
+<div class="card">
+    <div class="card-body">
+        <button id="btnAddstock" type="button" class="btn waves-effect waves-light btn-block btn-info col-lg-2" >Submit New Return</button>
+
+        <div class="table-responsive m-t-40">
+            <table id="myTable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        
+                        <th>Retailer</th>
+                        <th>category</th>
+                        <th>A</th>
+                        <th>b</th>
+                        <th>S</th>
+                        <th>M</th>
+                        <th>L</th>
+                        <th>xL</th>
+                        <th>Date</th>
+                        <th>saveToInven</th>
+                        <th>Manage</th>
+                        <th>Options</th>
+
+
+                    </tr>
+                </thead>
+            </table>
+        </div>
+</div>
+</div>
+    }
+<script type="text/jscript">
+    var table;
+    var issuid = 0;
+    var editID = 0;
+
+    //table script
+    $(document).ready(function () {
+
+        type = '@Session["uType"]';
+        if (type === "") {
+            window.location = '../Login';
+        }
+
+
+        table = $('#myTable').DataTable({
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "bLengthChange": false,
+            buttons: [
+              'copyHtml5',
+              'excelHtml5',
+              'csvHtml5',
+              'pdfHtml5'
+            ],
+            "ajax": {
+                "url": "/ReturnStockWholeseller/LoadData",
+                "type": "POST",
+                "datatype": "json",
+                error: function (xhr, error, thrown) {
+                    console.log(xhr);
+                    console.log(error);
+                }
+            },
+            "columnDefs":
+               [{
+                   "targets": [10],
+                   "visible": true,
+                   "searchable": false
+               }],
+            "columns": [
+                    { "data": "Retailer", "name": "Retailer", "autoWidth": true },
+                    { "data": "Category", "name": "catId", "autoWidth": true },
+                    { "data": "pacA", "name": "pacA", "autoWidth": true },
+                    { "data": "pacB", "name": "pacB", "autoWidth": true },
+                    { "data": "small", "name": "small", "autoWidth": true },
+                     { "data": "med", "name": "med", "autoWidth": true },
+                      { "data": "large", "name": "large", "autoWidth": true },
+                       { "data": "xlarge", "name": "xlarge", "autoWidth": true },
+                     { "data": "date", "name": "date", "autoWidth": true },
+                      { "data": "save_to_main_inventory", "save_to_main_inventory": "isFromReturn", "autoWidth": true },
+
+
+                         {
+                             "render": function (data, type, full, meta)
+                             { return '<button  id="btnUpdateissue"onclick=UpdateStock(' + full.id + ');  type="button" class="btn waves-effect waves-light btn-block btn-info">Manage Issue</button>'; }
+
+                         },
+                    {
+                        "render": function (data, type, full, meta)
+                        { return '<a href="javascript:void(myFunction())" onclick=Populate(' + full.id + '); data-toggle="modal" data-target="#add-contact"><i class="fas fa-edit"></i></a><span> | </span> <a href="javascript:void(myFunction())" onclick=DeleteData(' + full.id + ');> <i class="fas fa-trash-alt" style="color:#d9534f;"></i>'; }
+
+                    },
+            ]
+        });
+    });
+
+    //End Table script
+    function UpdateStock(_issueId) {
+
+        //assign session id post request
+        $.ajax({
+            type: "POST",
+            url: '/issues/updateSession',
+            contentType: "application/json",
+            traditional: true,
+            data: JSON.stringify({ id:_issueId }),
+            dataType: "json",
+            success: function (recData) {
+                if (recData.Data !=0) {
+
+
+                    console.log(_issueId);
+                    //window.location = "/subInventoryView/index/"+id+""
+                    var win = window.open('/subInventoryView/index/', '_blank', 'width=5000,height=5000', 'fullscreen=yes', 'toolbar=no, menubar=no, resizable=yes');
+                    if (win) {
+                        //Browser has allowed it to be opened
+                        win.focus();
+                    } else {
+                        //Browser has blocked it
+                        alert('Please allow popups for this website');
+                    }
+
+
+                }
+                else {
+                    swal({
+                        title: "please provide valid!",
+                        text: recData.Data,
+                        icon: "error",
+                    });
+                }
+
+            },
+            error: function () {
+                swal({
+
+                    title: "Opps!",
+                    text: "Something went wrong",
+                    icon: "error",
+                });
+            }
+        });
+
+        //end session issue  id addidion
+
+
+    }
+
+    $('#btnUpdateissue').click(function () {
+       // window.location = "/subInventoryView/index";
+
+    });
+    //start manipulation
+
+    $('#btnAddstock').click(function (e) {
+        editID = 0;
+        //$('.modal-title').text('Add issue');
+        //$('#btnUpdateStock').text('Add issue');
+
+        //$('#cmbCat').val(1);
+        //$('#local').val('');
+        //$('#cmbLot').val(0);
+        //$('#issueD').val(0);
+        //$('#txtPacA').val(0);
+        //$('#txtPacB').val(0);
+        //$('#txtSmall').val(0);
+        //$('#txtMedium').val(0);
+        //$('#issueD').val(0);
+
+        //$('#txtLarge').val(0);
+        //$('#txtxLarge').val(0);
+        //$('#isFromReturn').val(0);
+
+
+
+        var win = window.open('/ReturnStockWholeseller/add/', '_blank', 'width=5000,height=5000', 'fullscreen=yes', 'toolbar=no, menubar=no, resizable=yes');
+        if (win) {
+            //Browser has allowed it to be opened
+            win.focus();
+        } else {
+            //Browser has blocked it
+            alert('Please allow popups for this website');
+        }
+
+
+
+    });
+    //add script and update
+    $('#btnUpdateStock').click(function (e) {
+
+        e.preventDefault();
+        var cat = $('#cmbCat').val();
+        var local = $('#local').val();
+        var lot = $('#cmbLot').val();
+        var date = $('#issueD').val();
+        var pacA = $('#txtPacA').val();
+        var pacB = $('#txtPacB').val();
+
+        var small = $('#txtSmall').val();
+
+        var med = $('#txtMedium').val();
+
+        var large = $('#txtLarge').val();
+
+        var xLarge = $('#txtLarge').val();
+        var localname = $('#local').find('option:selected').text();
+
+        var isFromReturn = $('#isFromReturn').val();
+
+        console.log(cat, local, lot, date, pacA,pacB,small,med,large,xLarge,isFromReturn,localname);
+            if (editID > 0)//Edit
+            {
+                $.ajax({
+                    type: "POST",
+                    url: '/issues/Edit',
+                    contentType: "application/json",
+                    traditional: true,
+                    data: JSON.stringify({ id_: editID, cat: cat,local: local, lot: lot,localname:localname, pacA: pacA, pacB: pacB, small: small, med: med, large: large, xLarge: xLarge,date:date,isFromReturn: isFromReturn }),
+                    dataType: "json",
+                    success: function (recData) {
+                        console.log(recData.Data);
+                        if (recData.Data === "Success") {
+                            table.ajax.reload(null, false); // user paging is not reset on reload
+                            swal({
+                                title: "Done!",
+                                text: "Saved successfully.",
+                                icon: "success",
+                            });
+
+
+
+                        }
+                        else {
+                            swal({
+                                title: "please provide valid!",
+                                text: recData.Data,
+                                icon: "error",
+                            });
+                        }
+
+                    },
+                    error: function () {
+                        swal({
+
+                            title: "Opps!",
+                            text: "Something went wrong",
+                            icon: "error",
+                        });
+                    }
+                });
+            }
+            else { //ADD
+                $.ajax({
+                    type: "POST",
+                    url: '/issues/add',
+                    contentType: "application/json",
+                    traditional: true,
+                    data: JSON.stringify({ retailID: cat, local: local, lot: lot,localname:localname, pacA: pacA, pacB: pacB, small: small, med: med, large: large, xLarge: xLarge, date: date, isFromReturn: isFromReturn }),
+                    dataType: "json",
+                    success: function (recData) {
+                        console.log(cat,local,lot);
+                        if (recData.Data != 0) {
+                            console.log(recData.Data);
+
+                            table.ajax.reload(null, false); // user paging is not reset on reload
+                            swal({
+                                title: "Done!",
+                                text: "Issued  successfully.",
+                                icon: "success",
+                            });
+
+
+                        }
+                        else {
+                            swal({
+                                title: "Please provide Valid!",
+                                text: recData.Data,
+                                icon: "error",
+                            });
+                        }
+
+                    },
+                    error: function () {
+                        swal({
+
+                            title: "Opps!",
+                            text: "Something went Wrong",
+                            icon: "error",
+                        });
+                    }
+                });
+            }
+
+        });
+
+
+
+    //populate script
+    function Populate(RetailsID) {
+        editID = RetailsID;
+
+        $('.modal-title').text('Edit issue ');
+        $('#btnUpdateStock').text('Edit issue');
+        $.ajax({
+            type: "POST",
+            url: '/issues/Populate',
+            contentType: "application/json",
+            traditional: true,
+            data: JSON.stringify({ id: editID }),
+            dataType: "json",
+            success: function (recData) {
+                $('#cmbCat').val(recData.Data.typeId);
+                $('#cmbLot').val(recData.Data.lotId);
+                $('#txtPacA').val(recData.Data.packetA);
+                $('#txtPacB').val(recData.Data.packetB);
+                $('#txtSmall').val(recData.Data.small);
+                $('#txtMedium').val(recData.Data.medium);
+                $('#txtLarge').val(recData.Data.large);
+                $('#txtxLarge').val(recData.Data.xLarge);
+
+                $('.form-group').addClass('focused');
+            },
+            error: function () {
+                swal({
+
+                    title: "Opps!",
+                    text: "Something went wrong",
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+    //Delete script
+
+    function DeleteData(RetailsID) {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+      .then((willDelete) => {
+          if (willDelete) {
+
+              $.ajax({
+                  type: "POST",
+                  url: '/issue/Delete',
+                  contentType: "application/json",
+                  traditional: true,
+                  data: JSON.stringify({ id: RetailsID }),
+                  dataType: "json",
+                  success: function (recData) {
+                      if (recData.status == "success") {
+                          table.ajax.reload(null, false); // user paging is not reset on reload
+                          swal("Lot has been removed!", {
+                              icon: "success",
+                          });
+                      }
+                      else {
+                          swal({
+                              title: "Opps!",
+                              text: recData.Data,
+                              icon: "error",
+                          });
+                      }
+
+                  },
+                  error: function () {
+                      swal({
+
+                          title: "Opps!",
+                          text: "Something went wrong",
+                          icon: "error",
+                      });
+                  }
+              });
+
+          }
+      });
+    }
+
+    //End mannipulation
+
+
+//dropdown value change
+
+
+</script>

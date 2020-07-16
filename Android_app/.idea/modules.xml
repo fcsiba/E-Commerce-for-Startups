@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dev-saaj-app.iml" filepath="$PROJECT_DIR$/.idea/modules/dev-saaj-app.iml" group="saaj-app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/dev-saaj-app-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/dev-saaj-app-app.iml" group="saaj-app/app" />
+      <module fileurl="file://$PROJECT_DIR$/parents_portal.iml" filepath="$PROJECT_DIR$/parents_portal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/saaj-app.iml" filepath="$PROJECT_DIR$/saaj-app.iml" group="saaj-app" />
+      <module fileurl="file://$PROJECT_DIR$/app/saaj-app-app.iml" filepath="$PROJECT_DIR$/app/saaj-app-app.iml" group="saaj-app/app" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,30 @@
+<li class='header-cart-item flex-w flex-t m-b-12' id='item-idHere'>
+                       
+			<div class='header-cart-item-img'>
+                            <i  onClick='RemoveFromCart(idHere)'><img src='../../Uploads/Products/srcHere' alt='IMG'></i>
+                        </div>
+
+                        <div class='header-cart-item-txt p-t-8'>
+                            <a id='txtTitle' href='javascript:void(0)' class='header-cart-item-name m-b-18 hov-cl1 trans-04'>
+                                Title
+                            </a>
+
+                            <span id='txtQty' class='header-cart-item-info'>
+                                1 x Rs.0
+                            </span>			
+
+                        </div>
+
+                         <div class='wrap-num-product flex-w m-r-20 m-tb-10' style='height: 32px;margin-top: 1px;'>
+                                <div class='btn-num-product-down cl6 hov-btn3 trans-04 flex-c-m'>
+                                    <i class='fs-16 zmdi zmdi-minus' onClick="AddToCartt(idHere, -1)"></i>
+                                </div>
+
+                                <input class='mtext-104 cl2 txt-center num-product' type='number' name='num-product' value='1' readonly>
+
+                                <div class='btn-num-product-up cl6 hov-btn3 trans-04 flex-c-m'>
+                                    <i class='fs-16 zmdi zmdi-plus'  onClick="AddToCartt(idHere, 1)"></i>
+                                </div>
+                            </div>
+
+                    </li>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/btnMail"
+        android:icon="@drawable/ic_mail_outline"
+        android:orderInCategory="100"
+        android:title="Messages"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/btnNotifications"
+        android:icon="@drawable/ic_notifications"
+        android:orderInCategory="100"
+        android:title="Messages"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_notifications_settings"
+        android:icon="@drawable/ic_settings"
+        android:orderInCategory="100"
+        android:title="Settings"
+        app:showAsAction="never" />
+
+    <!--app:actionLayout="@layout/menu_notification"-->
+
+</menu>

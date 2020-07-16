@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lyt_parent_admin_notification"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?selectableItemBackgroundBorderless">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/spacing_small"
+        android:paddingBottom="@dimen/spacing_small"
+        android:gravity="center"
+        android:background="@drawable/round_bg_outline_custom"
+        android:backgroundTint="@color/quantum_white_100">
+
+        <TextView
+            android:id="@+id/text_content_admin_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Message content"
+            android:textColor="@color/quantum_white_100"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"/>
+
+        <ImageView
+            android:id="@+id/cancel_btn_admin_notification"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:paddingLeft="@dimen/spacing_small"
+            android:paddingRight="@dimen/spacing_small"
+            android:background="?selectableItemBackgroundBorderless"
+            android:tint="@color/quantum_white_100"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_delete" />
+
+    </LinearLayout>
+</LinearLayout>

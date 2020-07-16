@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/spacing_large"
+    android:paddingBottom="@dimen/spacing_large"
+    android:background="@drawable/btn_rounded_indigo_outline"
+    android:backgroundTint="@color/quantum_white_100"
+    android:fitsSystemWindows="true"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingLeft="@dimen/spacing_small"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="@dimen/spacing_small">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/dialog_class_btn"
+                    style="@style/Button.Primary.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_xxlarge"
+                    android:background="@drawable/btn_rounded_grey_outline"
+                    android:text="CLASS"
+                    android:backgroundTint="@color/blue_600"
+                    android:textColor="@color/quantum_white_100" />
+
+                <ProgressBar
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progressBar"
+                    android:visibility="gone"
+                    android:background="@xml/custom_progress_white"
+                    android:layout_marginRight="@dimen/spacing_large"
+                    android:layout_alignTop="@+id/dialog_class_btn"
+                    android:layout_alignRight="@+id/dialog_class_btn"
+                    android:layout_alignEnd="@+id/dialog_class_btn" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/dialog_section_btn"
+                    style="@style/Button.Primary.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_xxlarge"
+                    android:background="@drawable/btn_rounded_grey_outline"
+                    android:text="SECTION"
+                    android:backgroundTint="@color/blue_600"
+                    android:textColor="@color/quantum_white_100" />
+
+                <ProgressBar
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progressBar2"
+                    android:visibility="gone"
+                    android:background="@xml/custom_progress_white"
+                    android:layout_marginRight="@dimen/spacing_large"
+                    android:layout_alignTop="@+id/dialog_section_btn"
+                    android:layout_alignRight="@+id/dialog_section_btn"
+                    android:layout_alignEnd="@+id/dialog_section_btn" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/dialog_faculty_btn"
+                    style="@style/Button.Primary.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_xxlarge"
+                    android:background="@drawable/btn_rounded_grey_outline"
+                    android:text="FACULTY"
+                    android:backgroundTint="@color/blue_600"
+                    android:textColor="@color/quantum_white_100" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar3"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/dialog_faculty_btn"
+                    android:layout_alignEnd="@+id/dialog_faculty_btn"
+                    android:layout_alignRight="@+id/dialog_faculty_btn"
+                    android:layout_marginRight="@dimen/spacing_large"
+                    android:background="@xml/custom_progress_white"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/dialog_subject_btn"
+                    style="@style/Button.Primary.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_xxlarge"
+                    android:background="@drawable/btn_rounded_grey_outline"
+                    android:text="SUBJECT"
+                    android:backgroundTint="@color/blue_600"
+                    android:textColor="@color/quantum_white_100" />
+
+                <ProgressBar
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progressBar4"
+                    android:visibility="gone"
+                    android:background="@xml/custom_progress_white"
+                    android:layout_marginRight="@dimen/spacing_large"
+                    android:layout_alignTop="@+id/dialog_subject_btn"
+                    android:layout_alignRight="@+id/dialog_subject_btn"
+                    android:layout_alignEnd="@+id/dialog_subject_btn" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/dialog_term_btn"
+                    style="@style/Button.Primary.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_xxlarge"
+                    android:background="@drawable/btn_rounded_grey_outline"
+                    android:text="TERM"
+                    android:backgroundTint="@color/blue_600"
+                    android:textColor="@color/quantum_white_100" />
+
+                <ProgressBar
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progressBar5"
+                    android:visibility="gone"
+                    android:background="@xml/custom_progress_white"
+                    android:layout_marginRight="@dimen/spacing_large"
+                    android:layout_alignTop="@+id/dialog_term_btn"
+                    android:layout_alignRight="@+id/dialog_term_btn"
+                    android:layout_alignEnd="@+id/dialog_term_btn" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/dialog_session_btn"
+                    style="@style/Button.Primary.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_xxlarge"
+                    android:background="@drawable/btn_rounded_grey_outline"
+                    android:text="SESSION"
+                    android:backgroundTint="@color/blue_600"
+                    android:textColor="@color/quantum_white_100" />
+
+                <ProgressBar
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progressBar6"
+                    android:visibility="gone"
+                    android:background="@xml/custom_progress_white"
+                    android:layout_marginRight="@dimen/spacing_large"
+                    android:layout_alignTop="@+id/dialog_session_btn"
+                    android:layout_alignRight="@+id/dialog_session_btn"
+                    android:layout_alignEnd="@+id/dialog_session_btn" />
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/dialog_date_btn"
+                style="@style/Button.Primary.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_xxlarge"
+                android:background="@drawable/btn_rounded_grey_outline"
+                android:backgroundTint="@color/blue_600"
+                android:text="DATE"
+                android:textColor="@color/quantum_white_100" />
+
+            <EditText
+                android:id="@+id/dialog_total_text"
+                android:layout_width="match_parent"
+                style="@style/Button.Primary.Borderless"
+                android:layout_height="@dimen/spacing_xxlarge"
+                android:background="@drawable/btn_rounded_grey_outline"
+                android:hint="TOTAL MARKS"
+                android:maxLength="3"
+                android:inputType="number"
+                android:textColorHint="@color/white_transparency"
+                android:textAlignment="center"
+                android:textColor="@color/quantum_white_100" />
+
+
+            <Button
+                android:id="@+id/dialog_done_btn"
+                style="@style/Button.Primary.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_xxlarge"
+                android:background="@drawable/btn_rounded_grey_outline"
+                android:text="DONE"
+                android:textColor="@color/quantum_white_100" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

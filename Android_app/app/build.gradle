@@ -1,0 +1,123 @@
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+
+
+android {
+    compileSdkVersion 27
+
+    defaultConfig {
+        manifestPlaceholders = [
+                onesignal_app_id               : '562f586d-5efa-4dcb-8cb0-0552f8cb2187',
+                // Project number pulled from dashboard, local value is ignored.
+                onesignal_google_project_number: 'REMOTE'
+        ]
+        applicationId "fusionerp.pk"
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 230
+        versionName "2.4"
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+}
+
+/* IMPORTANT :
+ * Be careful when update dependencies, different version library may caused error */
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // google support library ---------------------------------------------------------------------
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:support-v13:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.android.support:support-vector-drawable:27.1.1'
+    implementation 'com.android.support:animated-vector-drawable:27.1.1'
+    implementation 'com.android.support:customtabs:27.1.1'
+
+
+    // google maps library ------------------------------------------------------------------------
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation('com.google.android.libraries.places:places:1.0.0') {
+        exclude module: 'glide'
+    }
+
+    // google gson --------------------------------------------------------------------------------
+    implementation 'com.google.code.gson:gson:2.8.4'
+
+    // third party dependencies -------------------------------------------------------------------
+    implementation 'com.balysv:material-ripple:1.0.2'                  // ripple effect
+    implementation 'com.github.bumptech.glide:glide:3.7.0'             // image loader
+    implementation 'com.wdullaer:materialdatetimepicker:3.2.0'         // date & time picker
+    implementation 'com.mikhaellopez:circularimageview:3.2.0'          // circle image view
+    implementation 'com.github.pchmn:MaterialChipsInput:1.0.5'         // material chip
+    implementation 'com.hootsuite.android:nachos:1.1.1'                // material chips
+    implementation 'com.google.android:flexbox:0.3.2'                  // google flexible box
+    implementation 'com.crystal:crystalrangeseekbar:1.1.3'             // range seek bar
+
+    // Search dialog
+    implementation 'com.github.mirrajabi:search-dialog:1.1'
+
+    // firebase library
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation('com.google.firebase:firebase-ads:17.2.0') {
+        exclude module: 'play-services-measurement-base'
+    }
+
+    // rest API
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+
+    // Pushy
+    implementation 'com.android.volley:volley:1.1.1'
+    implementation 'me.pushy:sdk:1.0.45'
+
+    // database
+    implementation 'android.arch.persistence.room:runtime:1.1.1'
+    implementation 'com.google.firebase:firebase-auth:17.0.0'
+    implementation 'com.google.firebase:firebase-storage:17.0.0'
+    implementation 'com.google.firebase:firebase-database:17.0.0'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
+
+    // graphs
+    implementation 'com.jjoe64:graphview:4.2.2'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.1'
+
+    // files
+    implementation 'com.nbsp:library:1.8'
+
+    // others
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    //shimmer shiny text
+    implementation 'com.romainpiel.shimmer:library:1.4.0@aar'
+    implementation 'com.facebook.shimmer:shimmer:0.4.0'
+
+    //Gif
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.1.17'
+
+    //Check view
+    implementation 'com.github.cdflynn:checkview:v1.1'
+
+    //GSON
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    //One Signal
+    //implementation 'com.onesignal:OneSignal:[3.11.2, 3.99.99]'
+
+
+
+}

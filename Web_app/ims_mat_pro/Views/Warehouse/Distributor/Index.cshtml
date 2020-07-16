@@ -1,0 +1,164 @@
+﻿
+
+
+@{
+    ViewBag.Title = "Manage Distributor";
+}
+
+
+@section ControlsSection{
+
+    <div class="card">
+        <div class="card-body">
+            <a id="btnAdd" href="/Distributor/Add" class="btn waves-effect waves-light btn-block btn-info col-lg-2">Add Distributor</a>
+
+            <div class="table-responsive m-t-40">
+                <table id="myTable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Name</th>
+                            <th>City</th>
+                            <th>Address</th>
+                            <th>NIC</th>
+                            <th>NTN</th>
+                            <th>Mobile</th>
+                            <th>ContactNo</th>
+                            <th>ReferredBy</th>
+                            <th>Options</th>
+
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<script>
+
+    var table;
+    var editID = 0;
+    $(document).ready(function () {
+
+         table =  $('#myTable').DataTable({
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "bLengthChange": false,
+                buttons: [
+                  'copyHtml5',
+                  'excelHtml5',
+                  'csvHtml5',
+                  'pdfHtml5'
+                ],
+                "ajax": {
+                    "url": "/Distributor/LoadData",
+                    "type": "POST",
+                    "datatype": "json",
+                    error: function (xhr, error, thrown) {
+                        console.log(xhr);
+                        console.log(error);
+                    }
+                },
+                "columnDefs":
+                   [{
+                       "targets": [0],
+                       "visible": false,
+                       "searchable": false
+                   },
+                   {
+                      "targets": [9],
+                      "searchable": false,
+                      "orderable": false
+                  }
+                   ],
+                "columns": [
+                        { "data": "id", "name": "id", "autoWidth": true },
+                        { "data": "Name", "name": "Name", "autoWidth": true },
+                        { "data": "City", "name": "City", "autoWidth": true },
+
+
+                        { "data": "Address", "name": "Address", "autoWidth": true },
+                        { "data": "NIC", "name": "NIC", "autoWidth": true },
+                        { "data": "NTN", "name": "NTN", "autoWidth": true },
+                        { "data": "Moblie", "name": "MOblie", "autoWidth": true },
+                            { "data": "ContactNo", "name": "ContactNo", "autoWidth": true },
+                        { "data": "ReferredBy", "name": "ReferredBy", "autoWidth": true },
+
+                   {
+                            "render": function (data, type, full, meta)
+                            { return '<a href="javascript:void(myFunction())" onclick=Populate(' + full.id + '); ><i class="fas fa-edit"></i></a><span> | </span> <a href="javascript:void(myFunction())" onclick=DeleteData(' + full.id + ');> <i class="fas fa-trash-alt" style="color:#d9534f;"></i>'; }
+
+                        },
+                ]
+         });
+
+         $('#btnAddDistributor').click(function (e) {
+             editID = 0;
+             $('.modal-title').text('Add Distributor');
+             $('#btnAddDistributor').text('Add Distributor');
+         });
+
+
+    });
+
+    function Populate(id)
+    {
+        window.location = "/Distributor/Edit/" + id;
+    }
+
+
+
+    function DeleteData(DistributorID) {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+      .then((willDelete) => {
+          if (willDelete) {
+
+              $.ajax({
+                  type: "POST",
+                  url: '/Distributor/Delete',
+                  contentType: "application/json",
+                  traditional: true,
+                  data: JSON.stringify({ id: DistributorID }),
+                  dataType: "json",
+                  success: function (recData) {
+                      if (recData.status == "success") {
+                          table.ajax.reload(null, false); // user paging is not reset on reload
+                          swal("Distributor has been removed!", {
+                              icon: "success",
+                          });
+                      }
+                      else {
+                          swal({
+                              title: "Opps!",
+                              text: recData.Data,
+                              icon: "error",
+                          });
+                      }
+
+                  },
+                  error: function () {
+                      swal({
+
+                          title: "Opps!",
+                          text: "Something went wrong",
+                          icon: "error",
+                      });
+                  }
+              });
+
+          }
+      });
+    }
+</script>
+
